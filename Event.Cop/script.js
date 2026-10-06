@@ -1,41 +1,58 @@
-let etapaAtual = 1;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector(".form-wizard");
+  if (!form) return;
 
-// Seleção dos elementos do DOM
-const etapas = document.querySelectorAll('.etapa');
-const passoTexto = document.getElementById('passo-texto');
-const progressoBarra = document.getElementById('progresso');
+  const steps = Array.from(form.querySelectorAll(".cadastro_evento"));
+  const btnAvancarList = form.querySelectorAll(".btn_avancar");
+  const btnVoltarList = form.querySelectorAll(".btn_voltar");
 
-function atualizarFormulario(novaEtapa) {
-    // 1. Esconde todas as etapas
-    etapas.forEach(etapa => etapa.classList.add('escondido'));
+  let currentStep = 0;
 
-    // 2. Mostra a etapa desejada (índice do array começa em 0)
-    etapas[novaEtapa - 1].classList.remove('escondido');
-
-    // 3. Atualiza o texto do passo
-    passoTexto.textContent = `Passo ${novaEtapa} de 3`;
-
-    // 4. Atualiza a largura da barra de progresso (33.3%, 66.6%, 100%)
-    const porcentagem = (novaEtapa / 3) * 100;
-    progressoBarra.style.width = `${porcentagem}%`;
-
-    etapaAtual = novaEtapa;
-}
-
-// Escuta os cliques nos botões "Avançar"
-document.querySelectorAll('.btn-proximo').forEach(botao => {
-    botao.addEventListener('click', () => {
-        if (etapaAtual < 3) {
-            atualizarFormulario(etapaAtual + 1);
-        }
+  const updateSteps = () => {
+    steps.forEach((step, index) => {
+      if (index === currentStep) {
+        step.removeAttribute("hidden");
+        step.classList.add("active");
+      } else {
+        step.setAttribute("hidden", "");
+        step.classList.remove("active");
+      }
     });
-});
+  };
 
-// Escuta os cliques nos botões "Voltar"
-document.querySelectorAll('.btn-anterior').forEach(botao => {
-    botao.addEventListener('click', () => {
-        if (etapaAtual > 1) {
-            atualizarFormulario(etapaAtual - 1);
+  const validateCurrentStep = () => {
+    const currentFields = steps[currentStep].querySelectorAll("input, select, textarea");
+    for (const field of currentFields) {
+      if (!field.checkValidity()) {
+        field.reportValidity(); 
+        return false;
+      }
+    }
+    return true;
+  };
+
+  btnAvancarList.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (validateCurrentStep()) {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          updateSteps();
         }
+      }
     });
+  });
+
+
+  btnVoltarList.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (currentStep > 0) {
+        currentStep--;
+        updateSteps();
+      }
+    });
+  });
+
+  updateSteps();
 });

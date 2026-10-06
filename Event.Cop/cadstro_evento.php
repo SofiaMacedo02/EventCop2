@@ -11,7 +11,7 @@
 
 <header class="header">
     <a href="index.php">
-        <img src="../imgs/logobege2.jpg" alt="EventCop" class="logo-header">
+        <img src="imgs/logonv.jpeg" alt="EventCop" class="logo-header">
     </a>
     <nav class="menu">
         <ul>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="formularios_eventos">
-            <section class="cadastro-evento">
+            <section class="cadastro_evento">
                 <h1>Vamos Criar seu Evento!</h1>
                 <div class="barra">
                     <p class="barra_txt">Passo 1 de 3</p>
@@ -78,10 +78,12 @@
                     <div>
                         <label for="categoria">Categoria do Evento:</label>
                         <select id="categoria" name="categoria" required>
-                            <option value="1">Categoria 1</option>
-                            <option value="2">Categoria 2</option>
+                            <option value="1">Workshop</option>
+                            <option value="2">Corporativo</option>
+                            <option value="3">Network</option>
+                            <option value="4">Educaçional</option>
                         </select>
-                    </div>
+                    </div> 
                 </div>
                 <div class="checkboxes_selects">
                     <label>O seu evento será?</label>

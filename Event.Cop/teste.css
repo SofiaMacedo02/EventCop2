@@ -12,7 +12,7 @@
   --dark-color: #a71555;
   --step-color: #ced7e0;
   --step-size: 32px;
-  --steps: 4;
+  --steps: 3;
   --progress-width: calc((var(--steps) - 1) / var(--steps) * 100%);
 }
 

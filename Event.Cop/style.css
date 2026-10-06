@@ -10,9 +10,11 @@
     --text-dark: #7d1a1a;
     --input-bg: #faf5ee;
     --progress-bg: #e6d8ca;
+    --nav-bg: #5a0505;
 
     --radius-input: 8px;
     --radius-btn: 20px;
+    --steps: 4;
 }
 
 [hidden] {
@@ -43,7 +45,7 @@ body {
    ========================================================================== */
 
 .header {
-    background-color: var(--bg-dark-red);
+    background-color: var(--nav-bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -51,11 +53,15 @@ body {
     width: 100%;
 }
 
+/* Imagem da Logo */
 .logo-header {
-    height: 32px;
-    object-fit: contain;
+    height: 60px;           
+    width: auto;           
+    max-height: 60px;       
+    object-fit: contain;    
+    display: block;
 }
-
+ 
 .menu ul {
     display: flex;
     list-style: none;
@@ -73,7 +79,6 @@ body {
 /* ==========================================================================
    LAYOUT PRINCIPAL (PROPORÇÃO 40% BANNER / 60% FORMULÁRIO)
    ========================================================================== */
-
 main {
     display: grid;
     grid-template-columns: 40% 60%;
@@ -142,6 +147,15 @@ main {
     flex-direction: column;
     gap: 10px;
     width: 100%;
+}
+
+.cadastro_evento {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cadastro_evento.active {
+  opacity: 1;
 }
 
 .cadastro-evento h1,
