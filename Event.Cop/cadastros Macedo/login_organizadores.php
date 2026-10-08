@@ -11,7 +11,7 @@
 
 <header class="header">
     <a href="index.php">
-        <img src="imgs/logonv.jpeg" alt="EventCop" class="logo-header">
+        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
     </a>
     <nav class="menu">
         <ul>

@@ -1,0 +1,709 @@
+/* ==========================================================================
+   EVENTCOP — ESTILOS GERAIS E ESTRUTURA
+   ========================================================================== */
+
+:root {
+    --bg-dark-red: #7d1a1a;
+    --bg-cream: #f4ebe1;
+    --accent-orange: #ee8f66;
+    --border-input: #7d1a1a;
+    --text-dark: #7d1a1a;
+    --input-bg: #faf5ee;
+    --progress-bg: #e6d8ca;
+    --nav-bg: #5a0505;
+
+    --radius-input: 8px;
+    --radius-btn: 20px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+/* Base Universal do Corpo */
+body {
+    min-height: 100vh;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER SUPERIOR
+   ========================================================================== */
+
+.header {
+    background-color: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    width: 100%;
+}
+
+.logo-header {
+    height: 50px;          
+    width: auto;          
+    max-height: 60px;      
+    object-fit: contain;    
+    display: block;
+}
+ 
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 22px;
+    align-items: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+/* ==========================================================================
+   FOOTER INFERIOR E ESTRUTURA
+   ========================================================================== */
+.footer {
+    width: 100%;
+    padding: 50px 4% 25px;
+    background: #5A0505;
+    color: #FFF8F2;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1.1fr 1.15fr;
+    column-gap: 40px;
+}
+
+.footer-coluna {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-coluna:not(:first-child) {
+    border-left: 1px solid rgba(255, 248, 242, 0.2);
+    padding-left: 35px;
+}
+
+.logo-footer {
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+}
+
+.descricao-footer {
+    max-width: 310px;
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.traco {
+    width: 48px;
+    height: 4px;
+    margin-top: 7px;
+    background: #FFF8F2;
+    border-radius: 10px;
+}
+
+.footer-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-info img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-info p {
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.footer-titulo {
+    min-height: 85px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-titulo > img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-titulo h3 {
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.footer-coluna > a {
+    color: #FFF8F2;
+    font-size: 16px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-coluna > a:hover {
+    opacity: 0.75;
+}
+
+.ajuda {
+    margin-top: 8px;
+    width: 100%;
+    max-width: 300px;
+    padding: 18px 20px;
+    background: #7D1A1A;
+    border-radius: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.fone-ajuda {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.ajuda h3 {
+    margin: 2px 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ajuda p {
+    margin: 0 0 14px;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.btn-fale {
+    width: 160px;
+    min-width: 0;
+    padding: 10px 15px;
+    background: #FFF8F2;
+    color: #5A0505;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-fale:hover {
+    transform: translateY(-2px);
+}
+
+.btn-fale span {
+    font-size: 17px;
+}
+
+/* ==========================================================================
+   BARRA INFERIOR (DIREITOS E POLÍTICAS)
+   ========================================================================== */
+.footer-baixo {
+    grid-column: 1 / -1;
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 248, 242, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.redes {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.redes strong {
+    font-size: 15px;
+}
+
+.redes img {
+    width: 180px;
+    height: auto;
+}
+
+.footer-baixo > p {
+    font-size: 14px;
+}
+
+.footer-politicas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-politicas a {
+    color: #FFF8F2;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.footer-politicas a:hover {
+    text-decoration: underline;
+}
+
+.footer-politicas span {
+    color: #FFF8F2;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL UNIVERSAL (PROPORÇÃO 40% BANNER / 60% FORMULÁRIO)
+   ========================================================================== */
+
+main {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    flex: 1;
+    width: 100%;
+    min-height: calc(100vh - 84px);
+}
+
+/* ==========================================================================
+   COLUNA ESQUERDA — BANNER
+   ========================================================================== */
+
+.banner {
+    grid-column: 1;
+    background-color: var(--bg-dark-red);  
+    color: #ffffff;
+    padding: 40px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-texto {
+    width: 100%;
+    max-width: 340px;
+}
+
+.banner-texto h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.banner-texto p {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: #ffffff;
+    opacity: 0.92;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD
+   ========================================================================== */
+
+.form-wizard {
+    grid-column: 2;
+    background-color: var(--bg-cream);
+    padding: 25px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Formulários Suportados: Usuário, Organizador e Evento */
+.cadastro_user,
+.cadastro_organizador,
+.cadastro_evento,
+.formularios_eventos {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Transições de opacidade para etapas */
+.cadastro_evento {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cadastro_user.active,
+.cadastro_organizador.active,
+.cadastro_evento.active {
+    opacity: 1;
+}
+
+.cadastro_user h1,
+.cadastro_organizador h1,
+.cadastro_evento h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+/* ==========================================================================
+   BARRA DE PROGRESSO (USADA EM MULTI-ETAPAS)
+   ========================================================================== */
+
+.barra {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.barra_txt {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.barra_progresso {
+    width: 100%;
+    height: 6px;
+    background-color: var(--progress-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progresso {
+    height: 100%;
+    background-color: var(--accent-orange);
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   CAMPOS DO FORMULÁRIO UNIVERSAIS
+   ========================================================================== */
+
+.cadastro_user label,
+.cadastro_organizador label,
+.cadastro_evento label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.form-wizard input[type="text"],
+.form-wizard input[type="email"],
+.form-wizard input[type="tel"],
+.form-wizard input[type="password"],
+.form-wizard select {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+}
+
+.form-wizard textarea {
+    width: 100%;
+    height: 65px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+    resize: vertical;
+}
+
+.form-wizard input:focus,
+.form-wizard select:focus,
+.form-wizard textarea:focus {
+    border-color: #5f1214;
+    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
+}
+
+/* Layouts utilitários de campos */
+.div_cep {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.div_cep > div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   BOTÕES DE AÇÃO UNIVERSAIS
+   ========================================================================== */
+
+.botoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.btn_avancar,
+.btn_cadastrar {
+    height: 34px;
+    padding: 0 26px;
+    border: none;
+    border-radius: var(--radius-btn);
+    background-color: var(--bg-dark-red);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn_avancar:hover,
+.btn_cadastrar:hover {
+    background-color: #5f1214;
+}
+
+.btn_voltar {
+    background: transparent;
+    border: none;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.btn_voltar:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   RECURSOS / CHECKBOXES (PASSO DE CRIAÇÃO DE EVENTO)
+   ========================================================================== */
+
+.checkboxs_eventos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.checkbox_evento {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-input);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    cursor: pointer;
+}
+
+.checkbox_evento h4 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.checkbox_evento p {
+    font-size: 0.78rem;
+    color: var(--text-dark);
+    opacity: 0.85;
+}
+
+.checkbox_evento input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-orange);
+}
+
+.checkbox_evento:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+}
+
+.checkbox_evento:has(input:checked) h4,
+.checkbox_evento:has(input:checked) p {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+    INDEX
+========================================================================== */
+/* 
+SEÇÃO HERO (BANNER PRINCIPAL)
+*/
+main.main_index {
+    display: block; /* Anula o grid de 40%/60% na página inicial */
+    width: 100%;
+}
+
+.hero {
+    background-color: var(--nav-bg);
+    color: var(--bg-cream);
+    width: 100%;
+    /* ALTERADO: Reduzido de calc(100vh - 84px) para uma altura menor (ex: 380px ou 50vh) */
+    min-height: 380px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* ALTERADO: Reduzido o padding vertical de 60px para 35px */
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.hero_texto {
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero_texto h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.hero_texto p {
+    font-size: 1.15rem;
+    color: var(--bg-cream);
+    line-height: 1.5;
+    max-width: 680px;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+/* Botão em formato de Pílula */
+.btn_hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-cream);
+    color: var(--nav-bg);
+    padding: 10px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn_hero::after {
+    content: "›";
+    margin-left: 8px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.btn_hero:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Secção Principal */
+.vantagens {
+  background-color: #ffC7a3; 
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.vantagens h2 {
+  color: #6b0c16; /* Vermelho escuro/bordô */
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+/* Grelha de Cartões (3 colunas) */
+.vantagens_cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Estrutura de cada Cartão */
+.card {
+  background-color: #fff6f0; /* Fundo creme claro da caixa de texto */
+  border-radius: 24px;
+  padding: 0 15px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(120, 30, 20, 0.06);
+  margin-top: 70px; /* Cria espaço para a imagem flutuar no topo */
+  position: relative;
+}
+
+/* Ícone 3D em Destaque */
+.card img {
+  width: 180px;
+  height: 150px;
+  object-fit: contain;
+  margin-top: -75px; /* Eleva a imagem para fora do cartão */
+  margin-bottom: 15px;
+  filter: drop-shadow(0 8px 15px rgba(100, 30, 20, 0.12));
+}
+
+/* Título em Formato de Crachá/Pill */
+.card h4 {
+  background-color: #6b0c16; /* Vermelho escuro do crachá */
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 50px;
+  width: 90%;
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+  box-shadow: 0 4px 10px rgba(107, 12, 22, 0.25);
+}
+
+/* Texto Descritivo */
+.card p {
+  color: #4a1d1e; /* Texto num tom castanho/bordô escuro */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 10px;
+}
+
