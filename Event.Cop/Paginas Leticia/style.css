@@ -1,43 +1,231 @@
 /* ==========================================================================
-   ÍNDICE
-   1. Reset e base
-   2. Botões reutilizáveis
-   3. Header
-   4. Hero
-   5. Vantagens e organizadores
-   6. Preços
-   7. Dashboard
-   8. Atendimento (formulário)
-   9. Funcionalidades
-   10. Footer
-   11. Responsivo
-   ========================================================================== */
-
-/* ==========================================================================
    1. RESET E BASE
    ========================================================================== */
+
+:root {
+    --bg-dark-red: #7d1a1a;
+    --bg-cream: #f4ebe1;
+    --accent-orange: #ee8f66;
+    --border-input: #7d1a1a;
+    --text-dark: #7d1a1a;
+    --input-bg: #faf5ee;
+    --progress-bg: #e6d8ca;
+    --nav-bg: #5a0505;
+
+    --radius-input: 8px;
+    --radius-btn: 20px;
+}
+
+[hidden] {
+    display: none !important;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
+/* Base Universal do Corpo */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #5A0505;
-    background: #FFF8F2;
+    min-height: 100vh;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
 }
 
-a {
+/* ==========================================================================
+   HEADER SUPERIOR
+   ========================================================================== */
+
+.header {
+    background-color: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    width: 100%;
+}
+
+.logo-header {
+    height: 50px;          
+    width: auto;          
+    max-height: 60px;      
+    object-fit: contain;    
+    display: block;
+}
+ 
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 22px;
+    align-items: center;
+}
+
+.menu a {
     text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
+.btn-header {
+    padding: 8px 17px;
+    border: 1px solid #FFF8F2;
+    border-radius: 25px;
+}
+/* ==========================================================================
+   FOOTER INFERIOR E ESTRUTURA
+   ========================================================================== */
+.footer {
+    width: 100%;
+    padding: 50px 4% 25px;
+    background: #5A0505;
+    color: #FFF8F2;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1.1fr 1.15fr;
+    column-gap: 40px;
+}
 
+.footer-coluna {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-coluna:not(:first-child) {
+    border-left: 1px solid rgba(255, 248, 242, 0.2);
+    padding-left: 35px;
+}
+
+.logo-footer {
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+}
+
+.descricao-footer {
+    max-width: 310px;
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.traco {
+    width: 48px;
+    height: 4px;
+    margin-top: 7px;
+    background: #FFF8F2;
+    border-radius: 10px;
+}
+
+.footer-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-info img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-info p {
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.footer-titulo {
+    min-height: 85px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-titulo > img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-titulo h3 {
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.footer-coluna > a {
+    color: #FFF8F2;
+    font-size: 16px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-coluna > a:hover {
+    opacity: 0.75;
+}
+
+.ajuda {
+    margin-top: 8px;
+    width: 100%;
+    max-width: 300px;
+    padding: 18px 20px;
+    background: #7D1A1A;
+    border-radius: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.fone-ajuda {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.ajuda h3 {
+    margin: 2px 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ajuda p {
+    margin: 0 0 14px;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.btn-fale {
+    width: 160px;
+    min-width: 0;
+    padding: 10px 15px;
+    background: #FFF8F2;
+    color: #5A0505;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-fale:hover {
+    transform: translateY(-2px);
+}
+
+.btn-fale span {
+    font-size: 17px;
+}
 /* ==========================================================================
    2. BOTÕES REUTILIZÁVEIS
    ========================================================================== */
@@ -73,66 +261,6 @@ a {
 .btn-vinho:hover {
     background: #5A0505;
 }
-
-
-/* ==========================================================================
-   3. HEADER
-   ========================================================================== */
-
-.header {
-    width: 100%;
-    height: 120px;
-    padding: 20px 50px 0;
-    background: #5A0505;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-/* Atenção: top/left negativos foram usados para encaixar o logo como no Figma.
-   É frágil em telas diferentes; vale revisar depois. */
-.logo-header {
-    display: block;
-    position: relative;
-    top: -130px;
-    left: -100px;
-    width: 360px;
-    height: auto;
-    max-height: 60px;
-    object-fit: contain;
-}
-
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    margin-top: 10px;
-}
-
-.menu ul {
-    display: flex;
-    list-style: none;
-    gap: 22px;
-    align-items: center;
-}
-
-.menu a {
-    color: #FFF8F2;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.menu a:hover {
-    opacity: 0.8;
-}
-
-.btn-header {
-    padding: 8px 17px;
-    border: 1px solid #FFF8F2;
-    border-radius: 25px;
-}
-
-
 /* ==========================================================================
    4. HERO
    ========================================================================== */
@@ -625,7 +753,7 @@ a {
 }
 
 .logo-footer {
-    width: 100px;
+    width: 200px;
     max-width: 100%;
     height: auto;
 }

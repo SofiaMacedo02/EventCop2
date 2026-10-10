@@ -99,41 +99,24 @@
 
     <section class="dashboard">
         <div class="dashboard-imagem">
-            <img
-                src="../imgs/WhatsApp Image 2026-10-08 at 11.27.35.jpeg"
-                alt="Dashboard EventCop">
-
+            <img src="../imgs/WhatsApp Image 2026-10-08 at 11.27.35.jpeg" alt="Dashboard EventCop">
         </div>
         <div class="dashboard-texto">
-            <h2>
-                Planeje e organize seu Workshop<br>
-                2x mais rápido
-            </h2>
+            <h2>Planeje e organize seu Workshop<br>2x mais rápido</h2>
             <p>
                 Inicie seus cursos e oficinas práticas agora mesmo.
                 Conte com a EventCop e não perca tempo organizando
                 as inscrições online, distribuição de certificados
                 e muito mais.
             </p>
-            <a href="criar-workshop.php" class="btn-claro">
-                Crie seu Workshop →
-            </a>
+            <a href="criar-workshop.php" class="btn-claro"> Crie seu Workshop → </a>
         </div>
     </section>
-
     <section class="funcionalidades">
-            <h2>
-                Explore mais funcionalidades para o seu Workshop
-            </h2>
-
-            <div class="funcionalidades-conteudo">
-
-                <div class="container-imagem-funcionalidades">
-            <img
-                src="../imgs/imagem funcionalidades3.png"
-                alt="Funcionalidades EventCop"
-                class="imagem-funcionalidades">
-
+        <h2>Explore mais funcionalidades para o seu Workshop</h2>
+        <div class="funcionalidades-conteudo">
+            <div class="container-imagem-funcionalidades">
+        <img src="../imgs/imagem funcionalidades3.png" alt="Funcionalidades EventCop" class="imagem-funcionalidades">
             <div class="botoes-funcionalidades">
                 <a href="divulgacao.php" class="btn-funcionalidade">Saiba mais</a>
                 <a href="inscricoes.php" class="btn-funcionalidade">Saiba mais</a>
@@ -141,20 +124,13 @@
                 <a href="relatorios.php" class="btn-funcionalidade">Saiba mais</a>
                 <a href="participantes.php" class="btn-funcionalidade">Saiba mais</a>
                 <a href="consultores.php" class="btn-funcionalidade">Saiba mais</a>
-
             </div>
-
         </div>
     </section>
-
 </main>
 <footer class="footer">
     <div class="footer-coluna footer-empresa">
-        <img
-            src="../imgs/logo_footer.jpeg"
-            alt="EventCop"
-            class="logo-footer">
-
+        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-footer">
         <p class="descricao-footer">
             A plataforma completa para planejar,
             organizar e executar eventos
@@ -162,10 +138,7 @@
         </p>
         <div class="traco"></div>
         <div class="footer-info">
-            <img
-                src="../imgs/imagem localizacao footer.png"
-                alt="Localização">
-
+            <img src="../imgs/imagem localizacao footer.png" alt="Localização">
             <p>
                 Avenida das Nações, nº 850<br>
                 São José dos Campos - SP<br>
@@ -173,146 +146,75 @@
             </p>
         </div>
         <div class="footer-info">
-
-            <img
-                src="../imgs/imagem CNPJ footer.png"
-                alt="Documento">
-
-            <p>
-                CNPJ: 48.729.315/0001-62
-            </p>
-
+            <img src="../imgs/imagem CNPJ footer.png" alt="Documento">
+            <p>CNPJ: 48.729.315/0001-62</p>
         </div>
         <div class="footer-info">
-            <img
-                src="../imgs/imagem e-mail footer.png"
-                alt="E-mail">
-
-            <p>
-                contato@eventcop.com.br
-            </p>
+            <img src="../imgs/imagem e-mail footer.png" alt="E-mail">
+            <p> contato@eventcop.com.br </p>
         </div>
         <div class="footer-info">
-            <img
-                src="../imgs/imagem telefone footer.png"
-                alt="Telefone">
-
-            <p>
-                (12) 3456-7890
-            </p>
+            <img src="../imgs/imagem telefone footer.png" alt="Telefone">
+            <p> (12) 3456-7890</p>
         </div>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
-                <img
-                src="../imgs/imagem calendario footer.png"
-                alt="Calendário">
-
+            <img src="../imgs/imagem calendario footer.png" alt="Calendário">
             <div>
                 <h3>Tipos de Eventos</h3>
-
                 <div class="traco"></div>
-
             </div>
         </div>
         <a href="">› Corporativos</a>
-        <a href="">
-            › Workshops e Palestras
-        </a>
-        <a href="">
-            › Treinamentos
-        </a>
-        <a href="">
-            › Feiras e Exposições
-        </a>
+        <a href="">› Workshops e Palestras</a>
+        <a href="">› Treinamentos</a>
+        <a href="">› Feiras e Exposições</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
-            <img
-                src="../imgs/imagem recursos plataforma footer.png"
-                alt="Recursos">
+            <img src="../imgs/imagem recursos plataforma footer.png" alt="Recursos">
             <div>
-                <h3>
-                    Recursos da<br>
-                    Plataforma
-                </h3>
+                <h3>Recursos da<br>Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">
-            › Gestão de Eventos
-        </a>
-        <a href="">
-            › Inscrições e Convites
-        </a>
-        <a href="">
-            › Relatórios e Métricas
-        </a>
-        <a href="">
-            › Agendamento com Consultores
-        </a>
+        <a href="">› Gestão de Eventos</a>
+        <a href="">› Inscrições e Convites</a>
+        <a href="">› Relatórios e Métricas</a>
+        <a href="">› Agendamento com Consultores</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
-            <img
-                src="../imgs/imagem comece na plataforma footer.png"
-                alt="Comece na plataforma">
+            <img src="../imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
             <div>
-                <h3>
-                    Comece na<br>
-                    Plataforma
-                </h3>
+                <h3></h3>Comece na<br>Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">
-            › Criar minha conta
-        </a>
-        <a href="">
-            › Quero organizar um evento
-        </a>
+        <a href="">› Criar minha conta</a>
+        <a href="">› Quero organizar um evento</a>
         <div class="ajuda">
-            <img
-                src="../imgs/imagem precisa de ajuda footer.png"
-                alt="Atendimento"
-                class="fone-ajuda">
+            <img src="../imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
             <div>
                 <h3>Precisa de ajuda?</h3>
-                <p>
-                    Nossa equipe está pronta<br>
-                    para te atender!
-                </p>
-                <a
-                    href=""
-                    class="btn-fale">
-                    Fale conosco
-                    <span>→</span>
-                </a>
+                <p>Nossa equipe está pronta<br>para te atender!</p>
+                <a href="" class="btn-fale"> Fale conosco <span>→</span> </a>
             </div>
         </div>
     </div>
     <div class="footer-baixo">
         <div class="redes">
             <strong>Siga-nos</strong>
-            <img
-                src="../imgs/imagem redes sociais footer.png"
-                alt="Instagram, LinkedIn e YouTube">
+            <img src="../imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
         </div>
-        <p>
-            ©️ 2026 EventCop. Todos os direitos reservados.
-        </p>
+        <p> ©️ 2026 EventCop. Todos os direitos reservados.</p>
         <div class="footer-politicas">
-            <a href="">
-                Política de Privacidade
-            </a>
+            <a href=""> Política de Privacidade</a>
             <span>|</span>
-            <a href="">
-                Termos de Uso
-            </a>
+            <a href="">Termos de Uso</a>
         </div>
     </div>
 </footer>
-
 </body>
-
 </html>
