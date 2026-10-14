@@ -33,7 +33,7 @@
         <div class="consultores-grid">
             <button class="consultor-card ativo" data-consultor="juliana">
                 <div class="foto-consultor">
-                    <img src="img/imagem juliana.png" alt="Juliana Campos">
+                    <img src="../imgs/imagem juliana.png" alt="Juliana Campos">
                 </div>
                 <div class="consultor-info">
                     <strong>Juliana Campos</strong>
@@ -44,7 +44,7 @@
             <button class="consultor-card"
                     data-consultor="marina">
                 <div class="foto-consultor">
-                    <img src="img/imagem marina.png"alt="Marina Oliveira">
+                    <img src="../imgs/imagem marina.png"alt="Marina Oliveira">
                 </div>
                 <div class="consultor-info">
                     <strong>Marina Oliveira</strong>
@@ -54,7 +54,7 @@
             </button>
             <button class="consultor-card" data-consultor="rafael">
                 <div class="foto-consultor">
-                    <img src="img/imagem rafael.png" alt="Rafael Santos">
+                    <img src="../imgs/imagem rafael.png" alt="Rafael Santos">
                 </div>
                 <div class="consultor-info">
                     <strong>Rafael Santos</strong>
@@ -64,7 +64,7 @@
             </button>
             <button class="consultor-card" data-consultor="isabela">
                 <div class="foto-consultor">
-                    <img src="img/imagem isabela.png" alt="Isabela Ferreira">
+                    <img src="../imgs/imagem isabela.png" alt="Isabela Ferreira">
                 </div>
                 <div class="consultor-info">
                     <strong>Isabela Ferreira</strong>
@@ -74,7 +74,7 @@
             </button>
             <button class="consultor-card" data-consultor="lucas">
                 <div class="foto-consultor">
-                    <img src="img/imagem lucas.png" alt="Lucas Mendes">
+                    <img src="../imgs/imagem lucas.png" alt="Lucas Mendes">
                 </div>
                 <div class="consultor-info">
                     <strong>Lucas Mendes</strong>
@@ -85,7 +85,7 @@
             <button class="consultor-card"
                     data-consultor="pedro">
                 <div class="foto-consultor">
-                    <img src="img/imagem pedro.png" alt="Pedro Almeida">
+                    <img src="../imgs/imagem pedro.png" alt="Pedro Almeida">
                 </div>
                 <div class="consultor-info">
                     <strong>Pedro Almeida</strong>

@@ -225,6 +225,62 @@ body {
 .btn-fale span {
     font-size: 17px;
 }
+
+/* ==========================================================================
+   BARRA INFERIOR (DIREITOS E POLÍTICAS)
+   ========================================================================== */
+.footer-baixo {
+    grid-column: 1 / -1;
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 248, 242, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.redes {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.redes strong {
+    font-size: 15px;
+}
+
+.redes img {
+    width: 250px;
+    height: auto;
+}
+
+.footer-baixo > p {
+    font-size: 14px;
+}
+
+.footer-politicas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-politicas a {
+    color: #FFF8F2;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.footer-politicas a:hover {
+    text-decoration: underline;
+}
+
+.footer-politicas span {
+    color: #FFF8F2;
+    font-size: 14px;
+}
+
 /* ==========================================================================
    2. BOTÕES REUTILIZÁVEIS
    ========================================================================== */
@@ -283,12 +339,6 @@ body {
     font-size: 16px;
     line-height: 1.4;
 }
-
-
-/* ==========================================================================
-   5. VANTAGENS E ORGANIZADORES
-   ========================================================================== */
-
 .vantagens {
     padding: 35px 5% 45px;
     background: #FFC7A3;
@@ -346,11 +396,6 @@ body {
     width: 540px;
     max-width: 100%;
 }
-
-
-/* ==========================================================================
-   6. PREÇOS
-   ========================================================================== */
 
 .precos {
     padding: 40px 20px;
@@ -423,11 +468,6 @@ body {
     font-weight: normal;
 }
 
-
-/* ==========================================================================
-   7. DASHBOARD
-   ========================================================================== */
-
 .dashboard {
     padding: 60px 4%;
     background: #7D1A1A;
@@ -483,11 +523,6 @@ body {
     font-size: 15px;
     font-weight: 600;
 }
-
-
-/* ==========================================================================
-   8. ATENDIMENTO (FORMULÁRIO)
-   ========================================================================== */
 
 .atendimento {
     padding: 35px 20px 50px;
@@ -979,36 +1014,26 @@ body {
 
 .pergunta {
     max-width: 700px;
-
     margin: 0 auto;
-
     border-bottom: 1px solid rgba(90, 5, 5, 0.45);
 }
 
 .pergunta summary {
     padding: 13px 0;
-
     list-style: none;
-
     cursor: pointer;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     font-size: 17px;
-
     color: #7D1A1A;
 }
-
 .pergunta summary::-webkit-details-marker {
     display: none;
 }
-
 .pergunta summary span {
     font-size: 20px;
     font-weight: 300;
-
     transition: 0.3s;
 }
 
@@ -1018,10 +1043,8 @@ body {
 
 .pergunta p {
     padding: 5px 0 15px;
-
     font-size: 15px;
     line-height: 1.5;
-
     color: #7D1A1A;
 }
 
@@ -1029,39 +1052,31 @@ body {
     width: 82%;
     height: 1px;
     margin: 0 auto;
-
     background: rgba(90, 5, 5, 0.55);
 }
 
 .outras-solucoes {
     padding: 45px 5% 70px;
-
     background: #FFC7A3;
 }
 
 .outras-solucoes h2 {
     margin-bottom: 45px;
-
     text-align: center;
-
     font-size: 36px;
-
     color: #7D1A1A;
 }
 
 .imagem-solucoes-container {
     width: 100%;
     max-width: 1250px;
-
     margin: 0 auto;
-
     position: relative;
 }
 
 .imagem-solucoes {
     width: 100%;
     height: auto;
-
     display: block;
 }
 
@@ -1521,4 +1536,305 @@ body {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.pagina-agenda {
+    width: 100%;
+    max-width: 1300px;
+    min-height: 730px;
+    margin: 0 auto;
+    padding: 55px 65px 80px;
+    display: grid;
+    grid-template-columns: 440px 1fr;
+    gap: 70px;
+}
+.area-consultores h1 {
+    margin-bottom: 35px;
+    color: #F29C66;
+    font-size: 36px;
+    line-height: 1.05;
+    white-space: nowrap;
+    font-weight: 900;
+}
+.consultores-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px 20px;
+}
+.consultor-card {
+    height: 240px;
+    padding: 0;
+    overflow: hidden;
+    background: #FFF8F2;
+    border: 2px solid #9A2727;
+    border-radius: 13px;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+}
+.consultor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(90, 5, 5, 0.15);
+}
+.consultor-card.ativo {
+    border: 3px solid #5A0505;
+    box-shadow: 0 4px 12px rgba(90, 5, 5, 0.25);
+}
+.foto-consultor {
+    width: 100%;
+    height: 175px;
+    overflow: hidden;
+    background: #F2E6DA;
+}
+.foto-consultor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+.consultor-info {
+    padding: 7px 10px;
+}
+.consultor-info strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #5A0505;
+    font-size: 14px;
+}
+.consultor-info span {
+    display: block;
+    margin-bottom: 4px;
+    color: #444;
+    font-size: 10px;
+}
+.consultor-info small {
+    color: #555;
+    font-size: 9px;
+}
+.area-agenda {
+    width: 100%;
+}
+.area-agenda > h2 {
+    margin: 20px 0 50px;
+    color: #F29C66;
+    font-size: 38px;
+    text-align: center;
+    transform: translateY(-20px);
+    font-weight: 900;
+}
+.calendario {
+    width: 100%;
+    padding: 15px 18px 12px;
+    background: #FFF8F2;
+    border: 2px solid #9A2727;
+    border-radius: 14px;
+}
+.calendario-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.calendario-topo strong {
+    font-size: 16px;
+}
+.btn-mes {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    color: #5A0505;
+    border: 1px solid #9A2727;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 1;
+}
+.btn-mes:hover {
+    background: #F2E6DA;
+}
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding-bottom: 8px;
+    border-bottom: 1px solid #E6D7CD;
+}
+.dias-semana span {
+    text-align: center;
+    color: #555;
+    font-size: 10px;
+}
+.dias-calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 9px;
+    padding: 12px 0;
+}
+.dia {
+    width: 38px;
+    height: 38px;
+    margin: auto;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.dia.disponivel {
+    background: #D3EFC8;
+    color: #263A20;
+}
+.dia.disponivel:hover {
+    transform: scale(1.08);
+    background: #BFE5B3;
+}
+.dia.limitado {
+    background: #FFFFFF;
+    color: #5A0505;
+    border: 1px solid #D8D8D8;
+}
+.dia.limitado:hover {
+    transform: scale(1.08);
+    background: #F8F8F8;
+}
+.dia.indisponivel {
+    background: #D3D3D3;
+    color: #888888;
+    border: none;
+    cursor: not-allowed;
+    opacity: 1;
+}
+.dia.selecionado,
+.dia.disponivel.selecionado,
+.dia.limitado.selecionado {
+    background: #8B1118;
+    color: #FFFFFF;
+    border: none;
+    transform: scale(1.05);
+}
+.legenda {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding-top: 5px;
+}
+.legenda span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    color: #555;
+}
+.bolinha {
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    border-radius: 50%;
+}
+.bolinha.disponivel {
+    background: #D3EFC8;
+}
+.bolinha.limitado {
+    background: #FFFFFF;
+    border: 1px solid #D8D8D8;
+}
+.bolinha.indisponivel {
+    background: #D3D3D3;
+}
+.seta-agenda {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8B1118;
+    font-size: 30px;
+    font-weight: bold;
+    transform: translateY(-8px);
+}
+.horarios-box {
+    padding: 14px 16px;
+    background: #FFF8F2;
+    border: 2px solid #9A2727;
+    border-radius: 14px;
+}
+.horarios-cabecalho {
+    padding-bottom: 9px;
+    border-bottom: 1px solid #E4CEC2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.horarios-cabecalho h3 {
+    margin-bottom: 3px;
+    font-size: 18px;
+}
+.horarios-cabecalho p {
+    color: #555;
+    font-size: 10px;
+}
+.horarios-cabecalho > span {
+    margin-top: 6px;
+    font-size: 9px;
+}
+.horarios {
+    margin: 12px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.horario {
+    height: 32px;
+    background: white;
+    color: #222;
+    border: 1px solid #9A2727;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.horario:hover {
+    background: #F8E8DE;
+}
+.horario.selecionado {
+    background: #8B1118;
+    color: white;
+}
+.horario.indisponivel {
+    background: #E5E5E5;
+    color: #999;
+    border-color: #CCC;
+    cursor: default;
+}
+.aviso {
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #FFE9DD;
+    border: 1px solid #F4B99B;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 9px;
+}
+.btn-confirmar {
+    width: 100%;
+    height: 42px;
+    background: #8B1118;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+.btn-confirmar:hover {
+    background: #5A0505;
+}
+.btn-confirmar:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
 }
