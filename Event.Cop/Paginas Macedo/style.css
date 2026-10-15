@@ -713,3 +713,37 @@ main.main_index {
   padding: 0 10px;
 }
 
+/* Container das pílulas */
+.como_sera_select {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* Oculta a bolinha padrão do radio */
+.como_sera_select input[type="radio"] {
+    display: none;
+}
+
+.como_sera_select label span {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; /* Cantos arredondados */
+    background-color: #ffffff;
+    color: #333333;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+/* Estado quando o botão passa o rato por cima (Hover) */
+.como_sera_select label span:hover {
+    border-color: var(--bg-dark-red, #7d0a0a); /* Usa a tua variável ou a cor padrão */
+}
+
+.como_sera_select input[type="radio"]:checked + span {
+    background-color: var(--bg-dark-red, #7d0a0a); /* Cor de fundo vermelho escuro */
+    color: #ffffff; /* Texto branco */
+    border-color: var(--bg-dark-red, #7d0a0a);
+}

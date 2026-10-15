@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -34,7 +35,7 @@
         <div class="filtros"></div>
         <div class="evento"></div>
     </section>
-      <form class="form-wizard" action="cadastro_evento.php" method="POST">
+    <form class="form-wizard2" action="cadastro_evento.php" method="POST">
         <div class="completed" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -42,7 +43,7 @@
             <h3>Cadastro Realizado com Sucesso!</h3>
             <p>O seu evento foi criado.</p>
         </div>
-
+ 
         <div class="formularios_eventos">
             <h1>Criar Evento</h1>
             <section class="cadastro_evento">
@@ -51,13 +52,6 @@
                 <label for="descricao">Descrição do Evento:</label>
                 <textarea id="descricao" name="descricao" required></textarea>
                 <div class="div_selects">
-                    <div>
-                        <label for="tipo">Tipo do Evento:</label>
-                        <select id="tipo" name="tipo" required>
-                            <option value="1">Evento Público</option>
-                            <option value="2">Evento Privado</option>
-                        </select>
-                    </div>
                     <div>
                         <label for="categoria">Categoria do Evento:</label>
                         <select id="categoria" name="categoria" required>
@@ -73,17 +67,35 @@
             </section>
 
             <section class="cadastro_evento" hidden>
-                <h3>Data e Hora</h3>
-                
-                <label for="nome">Seu Nome:</label>
-                <input type="text" id="nome" name="nome" required>
-                <label for="email">Seu e-mail:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="telefone">Seu telefone:</label>
-                <input type="tel" id="telefone" name="telefone" required>
-                <label for="senha">Crie uma senha de acesso:</label>
-                <input type="password" id="senha" name="senha" required>  
+                <section class="cadastro_evento" hidden>
+                    <h3>Data e Hora</h3>
+                    <label for="data_inicio">Data e Hora de Início:</label>
+                    <input type="datetime-local" id="data_inicio" name="data_inicio" required>
 
+                    <label for="data_inicio">Data e Hora de Termino:</label>
+                    <input type="datetime-local" id="data_inicio" name="data_inicio" required>
+                </section>
+                <section class="local">
+                    <h3>Local do evento</h3>
+                    <label for="nome_evento">Nome do Local:</label>
+                    <input type="text" id="nome_local" name="nome_local" required>
+                    <label for="nome_evento">Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" required>
+                    <div class="como_sera_select">
+                        <label>
+                            <input type="radio" name="formato" value="presencial" required checked>
+                            <span>Presencial</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="formato" value="online">
+                            <span>Online</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="formato" value="hibrido">
+                            <span>Híbrido</span>
+                        </label>
+                    </div>
+                </section>
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="button" class="btn_avancar">Avançar</button>
@@ -91,51 +103,120 @@
             </section>
 
             <section class="cadastro_evento" hidden>
-                <h1>Do que o seu evento precisa?</h1>
-                <div class="barra">
-                    <p class="barra_txt">Passo 3 de 3</p>
-                    <div class="barra_progresso" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progresso" style="width: 100%;"></div>
+                <section class="atividades">
+                    <div class="como_sera_select">
+                        <label class="btn-radio">
+                            <input type="radio" name="tipo_atividade" value="palestra" required checked> 
+                            <span>Palestra</span>
+                        </label>
+
+                        <label class="btn-radio">
+                            <input type="radio" name="tipo_atividade" value="oficina"> 
+                            <span>Oficina</span>
+                        </label>
+                        
+                        <label class="btn-radio">
+                            <input type="radio" name="tipo_atividade" value="painel"> 
+                            <span>Painel</span>
+                        </label>
+
+                        <label class="btn-radio">
+                            <input type="radio" name="tipo_atividade" value="networking"> 
+                            <span>Networking</span>
+                        </label>
                     </div>
-                </div>
+                    <label for="titulo_atividade">Título da atividade</label>
+                    <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
+                    <label for="responsavel">Palestrante / Responsável</label>
+                    <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
+                    <label for="descricao_curta">Descrição curta (opcional)</label>
+                    <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
+                </section>
+                <section class="cronograma">
+                    <h3>Cronograma do evento</h3>
+                    <div class="cronograma-topo">
+                        <span class="cronograma-data">15 de setembro de 2026</span>
+                        <button type="button" class="btn-adicionar-atividade">
+                            <span>+</span> Adicionar atividade
+                        </button>
+                    </div>
 
-                <div class="checkboxs_eventos">
-                    <label class="checkbox_evento" for="inscricoes">
-                        <h4>Inscrições</h4>
-                        <p>Criar inscrições personalizadas e permitir que participantes se inscrevam de forma simples e rápida</p>
-                        <input type="checkbox" id="inscricoes" name="recursos[]" value="inscricoes">
-                    </label>
-                    <label class="checkbox_evento" for="certificados">
-                        <h4>Certificados</h4>
-                        <p>Gere e disponibilize certificados para os participantes</p>
-                        <input type="checkbox" id="certificados" name="recursos[]" value="certificados">
-                    </label>
-                    <label class="checkbox_evento" for="programacao">
-                        <h4>Programação</h4>
-                        <p>Organize horários, palestras, workshops e atividades do seu evento</p>
-                        <input type="checkbox" id="programacao" name="recursos[]" value="programacao">
-                    </label>
-                    <label class="checkbox_evento" for="credenciais">
-                        <h4>Credenciais</h4>
-                        <p>Facilite a entrada dos participantes e acompanhe os inscritos</p>
-                        <input type="checkbox" id="credenciais" name="recursos[]" value="credenciais">
-                    </label>
-                    <label class="checkbox_evento" for="submissoes">
-                        <h4>Submissões de Trabalhos</h4>
-                        <p>Receba e gerencie submissões de trabalhos, projetos e apresentações</p>
-                        <input type="checkbox" id="submissoes" name="recursos[]" value="submissoes">
-                    </label>
-                    <label class="checkbox_evento" for="gestao_eventos">
-                        <h4>Gestão de eventos</h4>
-                        <p>Acompanhe e gerencie inscrições e informações para manter o controle do seu evento</p>
-                        <input type="checkbox" id="gestao_eventos" name="recursos[]" value="gestao_eventos">
-                    </label>
-                </div>
+                    <div class="cronograma-timeline">
+                        <div class="cronograma-item">
+                            <div class="timeline-ponto"></div>
+                            <div class="item-horario">09:00 - 10:00</div>
+                            <div class="item-conteudo">
+                                <h4>Credenciamento</h4>
+                                <p>Recepção dos participantes</p>
+                            </div>
+                            <div class="item-acoes">
+                                <button type="button" class="btn-acao" title="Editar"></button>
+                                <button type="button" class="btn-acao" title="Excluir"></button>
+                            </div>
+                        </div>
+                        <div class="cronograma-item">
+                            <div class="timeline-ponto"></div>
+                            <div class="item-horario">10:00 - 11:30</div>
+                            <div class="item-conteudo">
+                                <h4>Palestra de Abertura</h4>
+                                <p>Marina Oliveira</p>
+                            </div>
+                            <div class="item-acoes">
+                                <button type="button" class="btn-acao" title="Editar">✏️</button>
+                                <button type="button" class="btn-acao" title="Excluir">🗑️</button>
+                            </div>
+                        </div>
 
+                        <div class="cronograma-item">
+                            <div class="timeline-ponto"></div>
+                            <div class="item-horario">13:30 - 15:00</div>
+                            <div class="item-conteudo">
+                                <h4>Inovação na Prática</h4>
+                                <p>Rafael Mendes</p>
+                            </div>
+                            <div class="item-acoes">
+                                <button type="button" class="btn-acao" title="Editar">✏️</button>
+                                <button type="button" class="btn-acao" title="Excluir">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="submit" class="btn_cadastrar">Cadastrar Evento</button>
                 </div>
+            </section>
+
+            <section class="cadastro_evento" hidden>
+                <section class="inscricoes">
+                    <div class="tipo-inscricao-container">
+                        <h3>Tipo de inscrição</h3>
+                        <label class="card-opcao">
+                            <input type="radio" name="tipo_inscricao" value="gratuito" checked>
+                            <div class="card-conteudo">
+                                <div class="radio-circle"></div>
+                                <div class="texto-opcao">
+                                    <strong>Gratuito</strong>
+                                    <p>Inscrição sem custo.</p>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="card-opcao">
+                            <input type="radio" name="tipo_inscricao" value="pago">
+                            <div class="card-conteudo">
+                                <div class="radio-circle"></div>
+                                <div class="texto-opcao">
+                                    <strong>Pago</strong>
+                                    <p>Com valor de inscrição.</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    
+                </section>
             </section>
         </div>
     </form>
