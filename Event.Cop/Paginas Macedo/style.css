@@ -3,18 +3,30 @@
    ========================================================================== */
 
 :root {
+    /* Cores principais e tons de vinho/bordô */
+    --primary-color: #7d1a1a;      /* Tom principal ajustado */
+    --primary-hover: #5a0505;      /* Baseado no seu --nav-bg para hover */
     --bg-dark-red: #7d1a1a;
-    --bg-cream: #f4ebe1;
-    --accent-orange: #ee8f66;
-    --border-input: #7d1a1a;
-    --text-dark: #7d1a1a;
-    --input-bg: #faf5ee;
-    --progress-bg: #e6d8ca;
     --nav-bg: #5a0505;
-
+    --text-dark: #7d1a1a;
+    /* Fundos e superfícies */
+    --bg-cream: #f4ebe1;           /* Tom de creme escolhido */
+    --card-bg: #ffffff;            /* Fundo dos cartões/blocos */
+    --input-bg: #faf5ee;           /* Fundo suave para inputs */
+    --progress-bg: #e6d8ca;        /* Fundo para barras de progresso */
+    /* Acentos, textos e bordas */
+    --accent-orange: #ee8f66;
+    --text-main: #2d2d2d;
+    --text-muted: #7b7b7b;
+    --border-color: #e2ded8;
+    --border-input: #7d1a1a;
+    /* Arredondamentos (Raio) */
+    --radius-lg: 16px;
+    --radius-sm: 8px;
     --radius-input: 8px;
-    --radius-btn: 20px;
+    --radius-btn: 20px;            /* Botões em formato pílula */
 }
+
 
 [hidden] {
     display: none !important;
@@ -76,6 +88,7 @@ body {
     border: 1px solid #FFF8F2;
     border-radius: 25px;
 }
+
 /* ==========================================================================
    FOOTER INFERIOR E ESTRUTURA
    ========================================================================== */
@@ -227,9 +240,6 @@ body {
     font-size: 17px;
 }
 
-/* ==========================================================================
-   BARRA INFERIOR (DIREITOS E POLÍTICAS)
-   ========================================================================== */
 .footer-baixo {
     grid-column: 1 / -1;
     margin-top: 40px;
@@ -391,17 +401,44 @@ main {
     margin-bottom: 4px;
 }
 
+/* Ajusta o container principal da barra para acomodar a bolinha em cima */
 .barra_progresso {
     width: 100%;
+    background-color: transparent;
+    height: auto;
+    overflow: visible !important; /* Evita que a bolinha seja cortada */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+/* Transforma o span em uma bolinha perfeita com o número no meio */
+.barra_progresso span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background-color: var(--bg-dark-red);
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* O trilho real da barra de progresso */
+.barra_progresso .progresso {
+    width: 100%;
     height: 6px;
-    background-color: var(--progress-bg);
+    background-color:  var(--bg-dark-red);
     border-radius: 10px;
     overflow: hidden;
 }
-
 .progresso {
     height: 100%;
-    background-color: var(--accent-orange);
+    background-color:  var(--bg-dark-red);
     border-radius: 10px;
 }
 
@@ -423,6 +460,8 @@ main {
 .form-wizard input[type="email"],
 .form-wizard input[type="tel"],
 .form-wizard input[type="password"],
+.form-wizard input[type="number"],
+.form-wizard input[type="datetime-local"],
 .form-wizard select {
     width: 100%;
     height: 34px;
@@ -565,185 +604,781 @@ main {
 }
 
 /* ==========================================================================
-    INDEX
-========================================================================== */
-/* 
-SEÇÃO HERO (BANNER PRINCIPAL)
-*/
-main.main_index {
-    display: block; /* Anula o grid de 40%/60% na página inicial */
-    width: 100%;
-}
+   CRIAR EVENTO — ESTILOS COMPLEMENTARES DAS ETAPAS DO WIZARD
+   ========================================================================== */
 
-.hero {
-    background-color: var(--nav-bg);
-    color: var(--bg-cream);
-    width: 100%;
-    /* ALTERADO: Reduzido de calc(100vh - 84px) para uma altura menor (ex: 380px ou 50vh) */
-    min-height: 380px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* ALTERADO: Reduzido o padding vertical de 60px para 35px */
-    padding: 35px 20px;
-    text-align: center;
-}
-
-.hero_texto {
-    max-width: 780px;
+/* Tela de Conclusão / Sucesso (.completed) */
+.completed {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 30px 20px;
 }
 
-.hero_texto h1 {
-    font-size: 2.8rem;
+.completed svg {
+    width: 56px;
+    height: 56px;
+    color: var(--accent-orange);
+}
+
+.completed h3 {
+    font-size: 1.3rem;
     font-weight: 800;
-    color: #ffffff;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
+    color: var(--text-dark);
 }
 
-.hero_texto p {
-    font-size: 1.15rem;
-    color: var(--bg-cream);
-    line-height: 1.5;
-    max-width: 680px;
-    margin-bottom: 40px;
-    opacity: 0.95;
-    font-weight: 400;
+.completed p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
-/* Botão em formato de Pílula */
-.btn_hero {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-cream);
-    color: var(--nav-bg);
-    padding: 10px 28px;
-    border-radius: 30px;
-    text-decoration: none;
+/* Cabeçalhos de Seções dentro das Etapas */
+.cadastro_evento h3 {
+    font-size: 1rem;
     font-weight: 700;
-    font-size: 0.95rem;
-    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    color: var(--text-dark);
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
-.btn_hero::after {
-    content: "›";
-    margin-left: 8px;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 1;
+.data_hora, 
+.local, 
+.atividades, 
+.cronograma, 
+.inscricoes, 
+.limite_publico, 
+.informacoes_extras {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
 }
 
-.btn_hero:hover {
-    background-color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-/* Secção Principal */
-.vantagens {
-  background-color: #ffC7a3; 
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.vantagens h2 {
-  color: #6b0c16; /* Vermelho escuro/bordô */
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-}
-
-/* Grelha de Cartões (3 colunas) */
-.vantagens_cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Estrutura de cada Cartão */
-.card {
-  background-color: #fff6f0; /* Fundo creme claro da caixa de texto */
-  border-radius: 24px;
-  padding: 0 15px 20px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 10px 20px rgba(120, 30, 20, 0.06);
-  margin-top: 70px; /* Cria espaço para a imagem flutuar no topo */
-  position: relative;
-}
-
-/* Ícone 3D em Destaque */
-.card img {
-  width: 180px;
-  height: 150px;
-  object-fit: contain;
-  margin-top: -75px; /* Eleva a imagem para fora do cartão */
-  margin-bottom: 15px;
-  filter: drop-shadow(0 8px 15px rgba(100, 30, 20, 0.12));
-}
-
-/* Título em Formato de Crachá/Pill */
-.card h4 {
-  background-color: #6b0c16; /* Vermelho escuro do crachá */
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 12px 20px;
-  border-radius: 50px;
-  width: 90%;
-  margin: 0 0 15px 0;
-  line-height: 1.3;
-  box-shadow: 0 4px 10px rgba(107, 12, 22, 0.25);
-}
-
-/* Texto Descritivo */
-.card p {
-  color: #4a1d1e; /* Texto num tom castanho/bordô escuro */
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0 10px;
-}
-
-/* Container das pílulas */
+/* Seletor de Formato (Presencial, Online, Híbrido) e Tipos de Atividade */
 .como_sera_select {
     display: flex;
-    gap: 12px;
-    margin-top: 10px;
+    gap: 8px;
+    width: 100%;
+    margin: 2px 0;
 }
 
-/* Oculta a bolinha padrão do radio */
+.como_sera_select label,
+.como_sera_select .btn-radio {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
 .como_sera_select input[type="radio"] {
+    accent-color: var(--accent-orange);
+}
+
+.como_sera_select label:has(input:checked),
+.como_sera_select .btn-radio:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+    color: #ffffff;
+}
+
+.como_sera_select label:has(input:checked) span,
+.como_sera_select .btn-radio:has(input:checked) span {
+    color: #ffffff;
+}
+
+/* Cronograma Topo e Botão Adicionar */
+.cronograma-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+}
+
+.cronograma-data {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.btn-adicionar-atividade {
+    background: transparent;
+    border: 1px dashed var(--bg-dark-red);
+    color: var(--bg-dark-red);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.15s ease;
+}
+
+.btn-adicionar-atividade:hover {
+    background-color: rgba(125, 26, 26, 0.08);
+}
+
+/* Tipo de Inscrição (Cards Gratuito / Pago) */
+.tipo-inscricao-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.card-opcao {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-opcao input[type="radio"] {
     display: none;
 }
 
-.como_sera_select label span {
-    display: inline-block;
-    padding: 10px 24px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px; /* Cantos arredondados */
-    background-color: #ffffff;
-    color: #333333;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-align: center;
-}
-/* Estado quando o botão passa o rato por cima (Hover) */
-.como_sera_select label span:hover {
-    border-color: var(--bg-dark-red, #7d0a0a); /* Usa a tua variável ou a cor padrão */
+.card-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
 }
 
-.como_sera_select input[type="radio"]:checked + span {
-    background-color: var(--bg-dark-red, #7d0a0a); /* Cor de fundo vermelho escuro */
-    color: #ffffff; /* Texto branco */
-    border-color: var(--bg-dark-red, #7d0a0a);
+.radio-circle {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-orange);
+    border-radius: 50%;
+}
+
+.card-opcao:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+}
+
+.card-opcao:has(input:checked) .radio-circle {
+    border-color: #ffffff;
+}
+
+.card-opcao:has(input:checked) .texto-opcao strong,
+.card-opcao:has(input:checked) .texto-opcao p {
+    color: #ffffff;
+}
+
+.texto-opcao strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: block;
+}
+
+.texto-opcao p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Limites e Público (Vagas e Lista de Espera) */
+.linha-vagas-espera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.campo-grupo.toggle-inline {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    padding: 0 10px;
+    border-radius: var(--radius-input);
+    height: 34px;
+    margin-top: 18px;
+}
+
+.toggle-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* Informações Extras & Alternadores (Toggles) */
+.informacoes_extras {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    padding: 7px 12px;
+    border-radius: var(--radius-input);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.toggle-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background-color: var(--progress-bg);
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider {
+    background-color: var(--accent-orange);
+}
+
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
+    transform: translateX(16px);
+}
+
+/* ==========================================================================
+   COLUNA ESQUERDA — TEXTO CENTRALIZADO ("Hora da Ação")
+   ========================================================================== */
+
+.topo {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 10%;
+    height: 100%;
+}
+
+.testos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 380px;
+}
+
+.testos h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.testos p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: var(--text-dark);
+    opacity: 0.9;
+}
+
+.eventos {
+    display: none;
+}
+
+/* ==========================================================================
+   COLUNA DIREITA — FORMULÁRIO CENTRALIZADO NO MEIO
+   ========================================================================== */
+
+.form-wizard {
+    grid-column: 2;
+    background-color: var(--bg-cream);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.formularios_eventos {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 auto;
+}
+
+.formularios_eventos > h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.formularios_eventos > p {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    opacity: 0.85;
+    margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   BARRA DE PROGRESSO E BOLINHA DA ETAPA
+   ========================================================================== */
+
+.barra_progresso {
+    width: 100%;
+    background-color: transparent;
+    height: auto;
+    overflow: visible !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.barra_progresso span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background-color: var(--bg-dark-red);
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.barra_progresso .progresso {
+    width: 100%;
+    height: 6px;
+    background-color: var(--accent-orange);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   CAMPOS DO FORMULÁRIO UNIVERSAIS
+   ========================================================================== */
+
+.cadastro_user label,
+.cadastro_organizador label,
+.cadastro_evento label,
+.formularios_eventos label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+}
+
+.form-wizard input[type="text"],
+.form-wizard input[type="email"],
+.form-wizard input[type="tel"],
+.form-wizard input[type="password"],
+.form-wizard input[type="number"],
+.form-wizard input[type="datetime-local"],
+.form-wizard select {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+}
+
+.form-wizard textarea {
+    width: 100%;
+    height: 70px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+    resize: vertical;
+}
+
+.form-wizard input:focus,
+.form-wizard select:focus,
+.form-wizard textarea:focus {
+    border-color: #5f1214;
+    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
+}
+
+.div_cep {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.div_cep > div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   BOTÕES DE AÇÃO UNIVERSAIS
+   ========================================================================== */
+
+.botoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn_avancar,
+.btn_cadastrar {
+    height: 36px;
+    padding: 0 28px;
+    border: none;
+    border-radius: var(--radius-btn);
+    background-color: var(--bg-dark-red);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn_avancar:hover,
+.btn_cadastrar:hover {
+    background-color: #5f1214;
+}
+
+.btn_voltar {
+    background: transparent;
+    border: none;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.btn_voltar:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   TOGGLES E COMPONENTES DE ETAPAS
+   ========================================================================== */
+
+.cadastro_evento h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+
+.data_hora, 
+.local, 
+.atividades, 
+.cronograma, 
+.inscricoes, 
+.limite_publico, 
+.informacoes_extras {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    padding: 8px 14px;
+    border-radius: var(--radius-input);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 20px;
+    background-color: #d1c4b8;
+    border-radius: 20px;
+    flex-shrink: 0;
+    transition: background-color 0.25s ease;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.25s ease;
+}
+
+.toggle-wrapper input[type="checkbox"]:checked + .slider,
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider {
+    background-color: var(--accent-orange);
+}
+
+.toggle-wrapper input[type="checkbox"]:checked + .slider::before,
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
+    transform: translateX(18px);
+}
+
+.linha-vagas-espera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.campo-grupo.toggle-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    padding: 0 12px;
+    border-radius: var(--radius-input);
+    height: 38px;
+}
+
+.campo-grupo.toggle-inline .toggle-wrapper {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.toggle-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.como_sera_select {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.como_sera_select label,
+.como_sera_select .btn-radio {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.como_sera_select input[type="radio"] {
+    accent-color: var(--accent-orange);
+}
+
+.como_sera_select label:has(input:checked),
+.como_sera_select .btn-radio:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+    color: #ffffff;
+}
+
+.tipo-inscricao-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.card-opcao {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-opcao input[type="radio"] {
+    display: none;
+}
+
+.card-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.radio-circle {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle {
+    border-color: #ffffff;
+}
+
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+.card-opcao:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+}
+
+.card-opcao:has(input:checked) .texto-opcao strong,
+.card-opcao:has(input:checked) .texto-opcao p {
+    color: #ffffff;
+}
+
+.texto-opcao strong {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: block;
+}
+
+.texto-opcao p {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.cronograma-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+}
+
+.cronograma-data {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.btn-adicionar-atividade {
+    background: transparent;
+    border: 1px dashed var(--bg-dark-red);
+    color: var(--bg-dark-red);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.completed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 30px 20px;
+}
+
+.completed svg {
+    width: 56px;
+    height: 56px;
+    color: var(--accent-orange);
 }

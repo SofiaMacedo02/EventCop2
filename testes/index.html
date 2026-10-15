@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form class="form-wizard2" action="cadastro_evento.php" method="POST">
+<main>
+    <section class="topo">
+        <div class="testos">
+            <h1>Hora da Ação</h1> <!-- php com o nome da pessoa -->
+            <p>Gerencie seus eventos, crie novos, veja seus participantes e gere certificações em apenas um só lugar.</p>
+        </div>
+    </section>
+
+    <section class="eventos">
+        <div class="filtros"></div>
+        <div class="evento"></div>
+    </section>
+
+    <form class="form-wizard" action="cadastro_evento.php" method="POST">
         <div class="completed" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -14,14 +29,18 @@
             <h3>Cadastro Realizado com Sucesso!</h3>
             <p>O seu evento foi criado.</p>
         </div>
- 
+
         <div class="formularios_eventos">
             <h1>Criar Evento</h1>
+
+            <!-- PASSO 1: Informações Básicas -->
             <section class="cadastro_evento">
                 <label for="nome_evento">Nome do Evento:</label>
                 <input type="text" id="nome_evento" name="nome_evento" required>
+
                 <label for="descricao">Descrição do Evento:</label>
                 <textarea id="descricao" name="descricao" required></textarea>
+
                 <div class="div_selects">
                     <div>
                         <label for="categoria">Categoria do Evento:</label>
@@ -29,36 +48,35 @@
                             <option value="1">Workshop</option>
                             <option value="2">Corporativo</option>
                             <option value="3">Network</option>
-                            <option value="4">Educaçional</option>
+                            <option value="4">Educacional</option>
                         </select>
                     </div> 
+                </div>
+
                 <div class="botoes">
                     <button type="button" class="btn_avancar">Avançar</button>
                 </div>
             </section>
 
+            <!-- PASSO 2: Data, Hora e Local -->
             <section class="cadastro_evento" >
-                <h3>Data e Hora</h3>
-                <section class="cadastro_evento" >
+                <div class="data-hora-container">
                     <h3>Data e Hora</h3>
-                    
                     <label for="data_inicio">Data e Hora de Início:</label>
                     <input type="datetime-local" id="data_inicio" name="data_inicio" required>
 
-                    <label for="data_inicio">Data e Hora de Termino:</label>
-                    <input type="datetime-local" id="data_inicio" name="data_inicio" required>
+                    <label for="data_fim">Data e Hora de Término:</label>
+                    <input type="datetime-local" id="data_fim" name="data_fim" required>
+                </div>
 
-                    <div class="botoes">
-                        <button type="button" class="btn_voltar">Voltar</button>
-                        <button type="button" class="btn_avancar">Avançar</button>
-                    </div>
-                </section>
                 <section class="local">
                     <h3>Local do evento</h3>
-                    <label for="nome_evento">Nome do Local:</label>
+                    <label for="nome_local">Nome do Local:</label>
                     <input type="text" id="nome_local" name="nome_local" required>
-                    <label for="nome_evento">Endereço:</label>
+
+                    <label for="endereco">Endereço:</label>
                     <input type="text" id="endereco" name="endereco" required>
+
                     <div class="como_sera_select">
                         <label>
                             <input type="radio" name="formato" value="presencial" required checked>
@@ -74,43 +92,45 @@
                         </label>
                     </div>
                 </section>
-                
+
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="button" class="btn_avancar">Avançar</button>
                 </div>
             </section>
 
-            <section class="cadastro_evento" >
+            <!-- PASSO 3: Atividades e Cronograma -->
+            <section class="cadastro_evento" hidden>
                 <section class="atividades">
                     <div class="como_sera_select">
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="palestra" required checked> 
                             <span>Palestra</span>
                         </label>
-
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="oficina"> 
                             <span>Oficina</span>
                         </label>
-                        
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="painel"> 
                             <span>Painel</span>
                         </label>
-
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="networking"> 
                             <span>Networking</span>
                         </label>
                     </div>
+
                     <label for="titulo_atividade">Título da atividade</label>
                     <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
+
                     <label for="responsavel">Palestrante / Responsável</label>
                     <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
+
                     <label for="descricao_curta">Descrição curta (opcional)</label>
                     <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
                 </section>
+
                 <section class="cronograma">
                     <h3>Cronograma do evento</h3>
                     <div class="cronograma-topo">
@@ -129,10 +149,11 @@
                                 <p>Recepção dos participantes</p>
                             </div>
                             <div class="item-acoes">
-                                <button type="button" class="btn-acao" title="Editar"></button>
-                                <button type="button" class="btn-acao" title="Excluir"></button>
+                                <button type="button" class="btn-acao" title="Editar">✏️</button>
+                                <button type="button" class="btn-acao" title="Excluir">🗑️</button>
                             </div>
                         </div>
+
                         <div class="cronograma-item">
                             <div class="timeline-ponto"></div>
                             <div class="item-horario">10:00 - 11:30</div>
@@ -160,7 +181,93 @@
                         </div>
                     </div>
                 </section>
-                
+
+                <div class="botoes">
+                    <button type="button" class="btn_voltar">Voltar</button>
+                    <button type="button" class="btn_avancar">Avançar</button>
+                </div>
+            </section>
+
+            <!-- PASSO 4: Inscrições, Limites e Informações Extras -->
+            <section class="cadastro_evento" >
+                <section class="inscricoes">
+                    <div class="tipo-inscricao-container">
+                        <h3>Tipo de inscrição</h3>
+                        <label class="card-opcao">
+                            <input type="radio" name="tipo_inscricao" value="gratuito" checked>
+                            <div class="card-conteudo">
+                                <div class="radio-circle"></div>
+                                <div class="texto-opcao">
+                                    <strong>Gratuito</strong>
+                                    <p>Inscrição sem custo.</p>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="card-opcao">
+                            <input type="radio" name="tipo_inscricao" value="pago">
+                            <div class="card-conteudo">
+                                <div class="radio-circle"></div>
+                                <div class="texto-opcao">
+                                    <strong>Pago</strong>
+                                    <p>Com valor de inscrição.</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <section class="limite_publico">
+                    <h3>Limites e público</h3>
+                    <div class="linha-vagas-espera">
+                        <div class="campo-grupo">
+                            <label for="vagas">Vagas disponíveis</label>
+                            <div class="input-com-icone">
+                                <span class="icone-esq">👥</span>
+                                <input type="number" id="vagas" name="vagas" value="300">
+                            </div>
+                        </div>
+
+                        <div class="campo-grupo toggle-inline">
+                            <span class="toggle-label">Lista de espera</span>
+                            <label class="toggle-wrapper">
+                                <input type="checkbox" name="lista_espera" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label for="publico">Público-alvo</label>
+                        <div class="input-com-icone">
+                            <select id="publico" name="publico" required>
+                                <option value="" disabled selected>Selecione o público</option>
+                                <option value="geral">Público Geral</option>
+                                <option value="estudantes">Estudantes</option>
+                                <option value="profissionais">Profissionais</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="informacoes_extras">
+                    <h3>Informações extras</h3>
+                    <label class="toggle-wrapper">
+                        <span>Exigir aprovação manual</span>
+                        <input type="checkbox" name="exigir_aprovacao">
+                        <span class="slider"></span>
+                    </label>
+                    <label class="toggle-wrapper">
+                        <span>Permitir cancelamento</span>
+                        <input type="checkbox" name="permitir_cancelamento" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <label class="toggle-wrapper">
+                        <span>Enviar e-mail de confirmação</span>
+                        <input type="checkbox" name="enviar_email_confirmacao" checked>
+                        <span class="slider"></span>
+                    </label>
+                </section>
+
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="submit" class="btn_cadastrar">Cadastrar Evento</button>

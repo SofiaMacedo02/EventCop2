@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-<body>
+<body class="body_criar_evento">
 <header class="header">
     <a href="index.php">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
@@ -23,10 +23,10 @@
         </ul>
     </nav>
 </header>
-<main>
+<main class="main_criar_evento">
     <section class="topo">
         <div class="testos">
-            <h1>Hora da Ação</h1> <!-- php com o neme da pessoa -->
+            <h1>Hora da Ação</h1>
             <p>Gerencie seus eventos, crie novos, veja seus participantes e gere certificações em apenas um só lugar.</p>
         </div>
     </section>
@@ -35,7 +35,8 @@
         <div class="filtros"></div>
         <div class="evento"></div>
     </section>
-    <form class="form-wizard2" action="cadastro_evento.php" method="POST">
+
+    <form class="form-wizard" action="cadastro_evento.php" method="POST">
         <div class="completed" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -46,41 +47,59 @@
  
         <div class="formularios_eventos">
             <h1>Criar Evento</h1>
+            <p>Siga as etapas para criar e publicar seu evento.</p>
+
             <section class="cadastro_evento">
+                <div class="barra_progresso" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div><span>1</span></div>
+                        <div class="progresso" style="width: 25%;"></div>
+                </div>
                 <label for="nome_evento">Nome do Evento:</label>
                 <input type="text" id="nome_evento" name="nome_evento" required>
+                
                 <label for="descricao">Descrição do Evento:</label>
                 <textarea id="descricao" name="descricao" required></textarea>
+                
                 <div class="div_selects">
                     <div>
                         <label for="categoria">Categoria do Evento:</label>
                         <select id="categoria" name="categoria" required>
+                            <option value="" disabled selected>Selecione a categoria</option>
                             <option value="1">Workshop</option>
                             <option value="2">Corporativo</option>
                             <option value="3">Network</option>
-                            <option value="4">Educaçional</option>
+                            <option value="4">Educacional</option>
                         </select>
                     </div> 
+                </div>
+
                 <div class="botoes">
                     <button type="button" class="btn_avancar">Avançar</button>
                 </div>
             </section>
 
             <section class="cadastro_evento" hidden>
-                <section class="cadastro_evento" hidden>
+                <div class="barra_progresso" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    <div><span>2</span></div>
+                    <div class="progresso" style="width: 50%;"></div>
+                </div>
+                <section class="data_hora">
                     <h3>Data e Hora</h3>
                     <label for="data_inicio">Data e Hora de Início:</label>
                     <input type="datetime-local" id="data_inicio" name="data_inicio" required>
 
-                    <label for="data_inicio">Data e Hora de Termino:</label>
-                    <input type="datetime-local" id="data_inicio" name="data_inicio" required>
+                    <label for="data_termino">Data e Hora de Término:</label>
+                    <input type="datetime-local" id="data_termino" name="data_termino" required>
                 </section>
+                
                 <section class="local">
                     <h3>Local do evento</h3>
-                    <label for="nome_evento">Nome do Local:</label>
+                    <label for="nome_local">Nome do Local:</label>
                     <input type="text" id="nome_local" name="nome_local" required>
-                    <label for="nome_evento">Endereço:</label>
+                    
+                    <label for="endereco">Endereço:</label>
                     <input type="text" id="endereco" name="endereco" required>
+                    
                     <div class="como_sera_select">
                         <label>
                             <input type="radio" name="formato" value="presencial" required checked>
@@ -96,6 +115,7 @@
                         </label>
                     </div>
                 </section>
+
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="button" class="btn_avancar">Avançar</button>
@@ -103,23 +123,25 @@
             </section>
 
             <section class="cadastro_evento" hidden>
+                <div class="barra_progresso" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div><span>3</span></div>
+                    <div class="progresso" style="width: 75%;"></div>
+                </div>
                 <section class="atividades">
+                    <h3>Atividades</h3>
                     <div class="como_sera_select">
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="palestra" required checked> 
                             <span>Palestra</span>
                         </label>
-
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="oficina"> 
                             <span>Oficina</span>
                         </label>
-                        
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="painel"> 
                             <span>Painel</span>
                         </label>
-
                         <label class="btn-radio">
                             <input type="radio" name="tipo_atividade" value="networking"> 
                             <span>Networking</span>
@@ -127,8 +149,10 @@
                     </div>
                     <label for="titulo_atividade">Título da atividade</label>
                     <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
+                    
                     <label for="responsavel">Palestrante / Responsável</label>
                     <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
+                    
                     <label for="descricao_curta">Descrição curta (opcional)</label>
                     <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
                 </section>
@@ -140,55 +164,18 @@
                             <span>+</span> Adicionar atividade
                         </button>
                     </div>
-
-                    <div class="cronograma-timeline">
-                        <div class="cronograma-item">
-                            <div class="timeline-ponto"></div>
-                            <div class="item-horario">09:00 - 10:00</div>
-                            <div class="item-conteudo">
-                                <h4>Credenciamento</h4>
-                                <p>Recepção dos participantes</p>
-                            </div>
-                            <div class="item-acoes">
-                                <button type="button" class="btn-acao" title="Editar"></button>
-                                <button type="button" class="btn-acao" title="Excluir"></button>
-                            </div>
-                        </div>
-                        <div class="cronograma-item">
-                            <div class="timeline-ponto"></div>
-                            <div class="item-horario">10:00 - 11:30</div>
-                            <div class="item-conteudo">
-                                <h4>Palestra de Abertura</h4>
-                                <p>Marina Oliveira</p>
-                            </div>
-                            <div class="item-acoes">
-                                <button type="button" class="btn-acao" title="Editar">✏️</button>
-                                <button type="button" class="btn-acao" title="Excluir">🗑️</button>
-                            </div>
-                        </div>
-
-                        <div class="cronograma-item">
-                            <div class="timeline-ponto"></div>
-                            <div class="item-horario">13:30 - 15:00</div>
-                            <div class="item-conteudo">
-                                <h4>Inovação na Prática</h4>
-                                <p>Rafael Mendes</p>
-                            </div>
-                            <div class="item-acoes">
-                                <button type="button" class="btn-acao" title="Editar">✏️</button>
-                                <button type="button" class="btn-acao" title="Excluir">🗑️</button>
-                            </div>
-                        </div>
-                    </div>
                 </section>
-                
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="submit" class="btn_cadastrar">Cadastrar Evento</button>
+                    <button type="button" class="btn_avancar">Avançar</button>
                 </div>
             </section>
 
             <section class="cadastro_evento" hidden>
+                <div class="barra_progresso" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    <div><span>4</span></div>
+                    <div class="progresso" style="width: 100%;"></div>
+                </div>
                 <section class="inscricoes">
                     <div class="tipo-inscricao-container">
                         <h3>Tipo de inscrição</h3>
@@ -214,9 +201,54 @@
                         </label>
                     </div>
                 </section>
-                <section>
-                    
+                
+                <section class="limite_publico">
+                    <h3>Limites e público</h3>
+                    <div class="linha-vagas-espera">
+                        <div class="campo-grupo">
+                            <label for="vagas">Vagas disponíveis</label>
+                            <input type="number" id="vagas" name="vagas" value="300" required>
+                        </div>
+                        <div class="campo-grupo toggle-inline">
+                            <span class="toggle-label">Lista de espera</span>
+                            <label class="toggle-wrapper">
+                                <input type="checkbox" name="lista_espera" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="publico">Público-alvo</label>
+                        <select id="publico" name="publico" required>
+                            <option value="" disabled selected>Selecione o público</option>
+                            <option value="geral">Público Geral</option>
+                            <option value="estudantes">Estudantes</option>
+                            <option value="profissionais">Profissionais</option>
+                        </select>
+                    </div>
                 </section>
+                <section class="informacoes_extras">
+                    <h3>Informações extras</h3>
+                    <label class="toggle-wrapper">
+                        <span>Exigir aprovação manual</span>
+                        <input type="checkbox" name="exigir_aprovacao">
+                        <span class="slider"></span>
+                    </label>
+                    <label class="toggle-wrapper">
+                        <span>Permitir cancelamento</span>
+                        <input type="checkbox" name="permitir_cancelamento" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <label class="toggle-wrapper">
+                        <span>Enviar e-mail de confirmação</span>
+                        <input type="checkbox" name="enviar_email_confirmacao" checked>
+                        <span class="slider"></span>
+                    </label>
+                </section>
+                <div class="botoes">
+                    <button type="button" class="btn_voltar">Voltar</button>
+                    <button type="submit" class="btn_cadastrar">Criar Evento</button>
+                </div>
             </section>
         </div>
     </form>
