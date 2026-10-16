@@ -15,10 +15,10 @@
     </a>
     <nav class="menu">
         <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="">EventCop Empresas</a></li>
-            <li><a href="">Cases</a></li>
-            <li><a href="">Planos e Preços</a></li>
+            <li><a href="../Paginas Leticia/index.php">Home</a></li>
+            <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
+            <li><a href="../Paginas Leticia/cases.php">Cases</a></li>
+            <li><a href="../Paginas Leticia/planos_preços">Planos e Preços</a></li>
             <li><a href="">Sou um organizador</a></li>
             <li><a href="" class="btn-header">Criar Evento</a></li>
         </ul>

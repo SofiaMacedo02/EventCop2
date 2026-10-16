@@ -1454,7 +1454,6 @@ main {
 
 .main_criar_evento{
     display: flex;
-    flex-direction: column;
 }
 
 .topo {

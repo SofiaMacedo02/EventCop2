@@ -15,10 +15,10 @@
     <nav class="menu">
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="">EventCop Empresas</a></li>
-            <li><a href="">Cases</a></li>
-            <li><a href="">Planos e Preços</a></li>
-            <li><a href="">Sou um organizador</a></li>
+            <li><a href="empresas.php">EventCop Empresas</a></li>
+            <li><a href="cases.php">Cases</a></li>
+            <li><a href="planos_preços.php">Planos e Preços</a></li>
+            <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
             <li><a href="" class="btn-header">Criar Evento</a></li>
         </ul>
     </nav>
