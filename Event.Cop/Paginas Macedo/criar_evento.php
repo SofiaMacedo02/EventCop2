@@ -23,7 +23,7 @@
         </ul>
     </nav>
 </header>
-<main class="main_criar_evento">
+<main class="main_criar_evento">>
     <section class="topo">
         <div class="testos">
             <h1>Hora da Ação</h1>
@@ -49,11 +49,18 @@
             <h1>Criar Evento</h1>
             <p>Siga as etapas para criar e publicar seu evento.</p>
 
+            <!-- 1 -->
             <section class="cadastro_evento">
-                <div class="barra_progresso" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                        <div><span>1</span></div>
-                        <div class="progresso" style="width: 25%;"></div>
-                </div>
+                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
+                    <div class="progress" style="transform: scaleX(0);"></div>
+                    <ol>
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ol>
+                 </div>
+
                 <label for="nome_evento">Nome do Evento:</label>
                 <input type="text" id="nome_evento" name="nome_evento" required>
                 
@@ -77,174 +84,196 @@
                     <button type="button" class="btn_avancar">Avançar</button>
                 </div>
             </section>
-
+            
+            <!-- 2 -->
             <section class="cadastro_evento" hidden>
-                <div class="barra_progresso" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                    <div><span>2</span></div>
-                    <div class="progresso" style="width: 50%;"></div>
+                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
+                    <div class="progress" style="transform: scaleX(0.33);"></div>
+                    <ol>
+                        <li class="active">1</li>
+                        <li class="active">2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ol>
                 </div>
-                <section class="data_hora">
-                    <h3>Data e Hora</h3>
-                    <label for="data_inicio">Data e Hora de Início:</label>
-                    <input type="datetime-local" id="data_inicio" name="data_inicio" required>
+                <div class="linha">
+                    <section class="data_hora">
+                        <h3>Data e Hora</h3>
+                        <label for="data_inicio">Data e Hora de Início:</label>
+                        <input type="datetime-local" id="data_inicio" name="data_inicio" required>
 
-                    <label for="data_termino">Data e Hora de Término:</label>
-                    <input type="datetime-local" id="data_termino" name="data_termino" required>
-                </section>
-                
-                <section class="local">
-                    <h3>Local do evento</h3>
-                    <label for="nome_local">Nome do Local:</label>
-                    <input type="text" id="nome_local" name="nome_local" required>
+                        <label for="data_termino">Data e Hora de Término:</label>
+                        <input type="datetime-local" id="data_termino" name="data_termino" required>
+                    </section>
                     
-                    <label for="endereco">Endereço:</label>
-                    <input type="text" id="endereco" name="endereco" required>
-                    
-                    <div class="como_sera_select">
-                        <label>
-                            <input type="radio" name="formato" value="presencial" required checked>
-                            <span>Presencial</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="formato" value="online">
-                            <span>Online</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="formato" value="hibrido">
-                            <span>Híbrido</span>
-                        </label>
-                    </div>
-                </section>
-
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-
-            <section class="cadastro_evento" hidden>
-                <div class="barra_progresso" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                    <div><span>3</span></div>
-                    <div class="progresso" style="width: 75%;"></div>
-                </div>
-                <section class="atividades">
-                    <h3>Atividades</h3>
-                    <div class="como_sera_select">
-                        <label class="btn-radio">
-                            <input type="radio" name="tipo_atividade" value="palestra" required checked> 
-                            <span>Palestra</span>
-                        </label>
-                        <label class="btn-radio">
-                            <input type="radio" name="tipo_atividade" value="oficina"> 
-                            <span>Oficina</span>
-                        </label>
-                        <label class="btn-radio">
-                            <input type="radio" name="tipo_atividade" value="painel"> 
-                            <span>Painel</span>
-                        </label>
-                        <label class="btn-radio">
-                            <input type="radio" name="tipo_atividade" value="networking"> 
-                            <span>Networking</span>
-                        </label>
-                    </div>
-                    <label for="titulo_atividade">Título da atividade</label>
-                    <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
-                    
-                    <label for="responsavel">Palestrante / Responsável</label>
-                    <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
-                    
-                    <label for="descricao_curta">Descrição curta (opcional)</label>
-                    <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
-                </section>
-                <section class="cronograma">
-                    <h3>Cronograma do evento</h3>
-                    <div class="cronograma-topo">
-                        <span class="cronograma-data">15 de setembro de 2026</span>
-                        <button type="button" class="btn-adicionar-atividade">
-                            <span>+</span> Adicionar atividade
-                        </button>
-                    </div>
-                </section>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-
-            <section class="cadastro_evento" hidden>
-                <div class="barra_progresso" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                    <div><span>4</span></div>
-                    <div class="progresso" style="width: 100%;"></div>
-                </div>
-                <section class="inscricoes">
-                    <div class="tipo-inscricao-container">
-                        <h3>Tipo de inscrição</h3>
-                        <label class="card-opcao">
-                            <input type="radio" name="tipo_inscricao" value="gratuito" checked>
-                            <div class="card-conteudo">
-                                <div class="radio-circle"></div>
-                                <div class="texto-opcao">
-                                    <strong>Gratuito</strong>
-                                    <p>Inscrição sem custo.</p>
-                                </div>
-                            </div>
-                        </label>
-                        <label class="card-opcao">
-                            <input type="radio" name="tipo_inscricao" value="pago">
-                            <div class="card-conteudo">
-                                <div class="radio-circle"></div>
-                                <div class="texto-opcao">
-                                    <strong>Pago</strong>
-                                    <p>Com valor de inscrição.</p>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                </section>
-                
-                <section class="limite_publico">
-                    <h3>Limites e público</h3>
-                    <div class="linha-vagas-espera">
-                        <div class="campo-grupo">
-                            <label for="vagas">Vagas disponíveis</label>
-                            <input type="number" id="vagas" name="vagas" value="300" required>
-                        </div>
-                        <div class="campo-grupo toggle-inline">
-                            <span class="toggle-label">Lista de espera</span>
-                            <label class="toggle-wrapper">
-                                <input type="checkbox" name="lista_espera" checked>
-                                <span class="slider"></span>
+                    <section class="local">
+                        <h3>Local do evento</h3>
+                        <label for="nome_local">Nome do Local:</label>
+                        <input type="text" id="nome_local" name="nome_local" required>
+                        
+                        <label for="endereco">Endereço:</label>
+                        <input type="text" id="endereco" name="endereco" required>
+                        
+                        <div class="como_sera_select">
+                            <label>
+                                <input type="radio" name="formato" value="presencial" required checked>
+                                <span>Presencial</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="formato" value="online">
+                                <span>Online</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="formato" value="hibrido">
+                                <span>Híbrido</span>
                             </label>
                         </div>
-                    </div>
-                    <div class="campo-grupo">
-                        <label for="publico">Público-alvo</label>
-                        <select id="publico" name="publico" required>
-                            <option value="" disabled selected>Selecione o público</option>
-                            <option value="geral">Público Geral</option>
-                            <option value="estudantes">Estudantes</option>
-                            <option value="profissionais">Profissionais</option>
-                        </select>
-                    </div>
-                </section>
-                <section class="informacoes_extras">
-                    <h3>Informações extras</h3>
-                    <label class="toggle-wrapper">
-                        <span>Exigir aprovação manual</span>
-                        <input type="checkbox" name="exigir_aprovacao">
-                        <span class="slider"></span>
-                    </label>
-                    <label class="toggle-wrapper">
-                        <span>Permitir cancelamento</span>
-                        <input type="checkbox" name="permitir_cancelamento" checked>
-                        <span class="slider"></span>
-                    </label>
-                    <label class="toggle-wrapper">
-                        <span>Enviar e-mail de confirmação</span>
-                        <input type="checkbox" name="enviar_email_confirmacao" checked>
-                        <span class="slider"></span>
-                    </label>
-                </section>
+                    </section>
+                </div>
+                <div class="botoes">
+                    <button type="button" class="btn_voltar">Voltar</button>
+                    <button type="button" class="btn_avancar">Avançar</button>
+                </div>
+            </section>
+
+            <!-- 3 -->
+            <section class="cadastro_evento" hidden>
+                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
+                    <div class="progress" style="transform: scaleX(0.66);"></div>
+                    <ol>
+                        <li class="active">1</li>
+                        <li class="active">2</li>
+                        <li class="active">3</li>
+                        <li>4</li>
+                    </ol>
+                </div>
+                <div class="linha">
+                    <section class="atividades">
+                        <h3>Atividades</h3>
+                        <div class="como_sera_select">
+                            <label class="btn-radio">
+                                <input type="radio" name="tipo_atividade" value="palestra" required checked> 
+                                <span>Palestra</span>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" name="tipo_atividade" value="oficina"> 
+                                <span>Oficina</span>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" name="tipo_atividade" value="painel"> 
+                                <span>Painel</span>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" name="tipo_atividade" value="networking"> 
+                                <span>Networking</span>
+                            </label>
+                        </div>
+                        <label for="titulo_atividade">Título da atividade</label>
+                        <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
+                        
+                        <label for="responsavel">Palestrante / Responsável</label>
+                        <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
+                        
+                        <label for="descricao_curta">Descrição curta (opcional)</label>
+                        <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
+                    </section>
+                    <section class="cronograma">
+                        <h3>Cronograma do evento</h3>
+                        <div class="cronograma-topo">
+                            <span class="cronograma-data">15 de setembro de 2026</span>
+                            <button type="button" class="btn-adicionar-atividade">
+                                <span>+</span> Adicionar atividade
+                            </button>
+                        </div>
+                    </section>
+                </div>
+                <div class="botoes">
+                    <button type="button" class="btn_voltar">Voltar</button>
+                    <button type="button" class="btn_avancar">Avançar</button>
+                </div>
+            </section>
+
+            <section class="cadastro_evento" hidden>
+                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
+                    <div class="progress" style="transform: scaleX(0.66);"></div>
+                    <ol>
+                        <li class="active">1</li>
+                        <li class="active">2</li>
+                        <li class="active">3</li>
+                        <li class="active">4</li>
+                    </ol>
+                </div>
+                <div class="linha">
+                    <section class="inscricoes">
+                        <div class="tipo-inscricao-container">
+                            <h3>Tipo de inscrição</h3>
+                            <label class="card-opcao">
+                                <input type="radio" name="tipo_inscricao" value="gratuito" checked>
+                                <div class="card-conteudo">
+                                    <div class="radio-circle"></div>
+                                    <div class="texto-opcao">
+                                        <strong>Gratuito</strong>
+                                        <p>Inscrição sem custo.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="card-opcao">
+                                <input type="radio" name="tipo_inscricao" value="pago">
+                                <div class="card-conteudo">
+                                    <div class="radio-circle"></div>
+                                    <div class="texto-opcao">
+                                        <strong>Pago</strong>
+                                        <p>Com valor de inscrição.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <section class="limite_publico">
+                        <h3>Limites e público</h3>
+                        <div class="linha-vagas-espera">
+                            <div class="campo-grupo">
+                                <label for="vagas">Vagas disponíveis</label>
+                                <input type="number" id="vagas" name="vagas" value="300" required>
+                            </div>
+                            <div class="campo-grupo toggle-inline">
+                                <span class="toggle-label">Lista de espera</span>
+                                <label class="toggle-wrapper">
+                                    <input type="checkbox" name="lista_espera" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="campo-grupo">
+                            <label for="publico">Público-alvo</label>
+                            <select id="publico" name="publico" required>
+                                <option value="" disabled selected>Selecione o público</option>
+                                <option value="geral">Público Geral</option>
+                                <option value="estudantes">Estudantes</option>
+                                <option value="profissionais">Profissionais</option>
+                            </select>
+                        </div>
+                    </section>
+                    <section class="informacoes_extras">
+                        <h3>Informações extras</h3>
+                        <label class="toggle-wrapper">
+                            <span>Exigir aprovação manual</span>
+                            <input type="checkbox" name="exigir_aprovacao">
+                            <span class="slider"></span>
+                        </label>
+                        <label class="toggle-wrapper">
+                            <span>Permitir cancelamento</span>
+                            <input type="checkbox" name="permitir_cancelamento" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <label class="toggle-wrapper">
+                            <span>Enviar e-mail de confirmação</span>
+                            <input type="checkbox" name="enviar_email_confirmacao" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </section>
+                </div>
                 <div class="botoes">
                     <button type="button" class="btn_voltar">Voltar</button>
                     <button type="submit" class="btn_cadastrar">Criar Evento</button>

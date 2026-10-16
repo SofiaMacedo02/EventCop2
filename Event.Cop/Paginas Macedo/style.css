@@ -302,6 +302,7 @@ main {
     flex: 1;
     width: 100%;
     min-height: calc(100vh - 84px);
+    flex-direction: column;
 }
 
 /* ==========================================================================
@@ -1381,4 +1382,108 @@ main {
     width: 56px;
     height: 56px;
     color: var(--accent-orange);
+}
+/* ==========================================================================
+   ESTILOS DO STEPPER / PROGRESS CONTAINER
+   ========================================================================== */
+
+.progress-container {
+    position: relative;
+    margin: 15px 0 25px 0;
+    width: 100%;
+}
+
+/* Linha de fundo da barra */
+.progress-container::before {
+    content: "";
+    height: 4px;
+    width: 100%;
+    background-color: var(--step-color, #e6d8ca);
+    position: absolute;
+    top: calc(var(--step-size, 32px) / 2);
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Linha de progresso preenchida */
+.progress-container .progress {
+    height: 4px;
+    width: 100%;
+    background-color: var(--bg-dark-red, #7d1a1a);
+    position: absolute;
+    top: calc(var(--step-size, 32px) / 2);
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 2;
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.progress-container ol {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-container li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--step-size, 32px);
+    height: var(--step-size, 32px);
+    background-color: var(--step-color, #e6d8ca);
+    color: var(--text-dark, #7d1a1a);
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+/* Bolinha ativa ou concluída */
+.progress-container li.active {
+    background-color: var(--bg-dark-red, #7d1a1a);
+    color: #fff;
+}
+
+.main_criar_evento{
+    display: flex;
+    flex-direction: column;
+}
+
+.topo {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 10%;
+    width: 100%;
+}
+
+.testos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 380px;
+}
+
+.testos h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.testos p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-dark);
+    opacity: 0.9;
 }
