@@ -23,19 +23,7 @@
         </ul>
     </nav>
 </header>
-<main class="main_criar_evento">>
-    <section class="topo">
-        <div class="testos">
-            <h1>Hora da Ação</h1>
-            <p>Gerencie seus eventos, crie novos, veja seus participantes e gere certificações em apenas um só lugar.</p>
-        </div>
-    </section>
-
-    <section class="eventos">
-        <div class="filtros"></div>
-        <div class="evento"></div>
-    </section>
-
+<main class="main_criar_evento">
     <form class="form-wizard" action="cadastro_evento.php" method="POST">
         <div class="completed" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -281,6 +269,130 @@
             </section>
         </div>
     </form>
+
+    <section class="dashboard">
+    <div class="painel-eventos">
+        <div class="painel-header">
+            <div class="filtros-status">
+                <button class="btn-filtro active">Todos (11)</button>
+                <button class="btn-filtro">Em planejamento (3)</button>
+                <button class="btn-filtro status-andamento">Em andamento (5)</button>
+                <button class="btn-filtro status-finalizado">Finalizados (3)</button>
+            </div>
+            
+            <div class="controles-busca">
+                <div class="campo-busca">
+                    <span class="icone-busca"></span>
+                    <input type="text" placeholder="Buscar evento...">
+                </div>
+                <select class="select-ordenar">
+                    <option>Mais recentes</option>
+                    <option>Mais antigos</option>
+                </select>
+            </div>
+        </div>
+        <div class="lista-eventos">
+            <div class="card-evento">
+                <div class="thumb-container">
+                    <img src="../imgs/workshop.jpg" alt="Workshop de Tecnologia">
+                    <span class="tag-status status-andamento">● Em andamento</span>
+                </div>
+                <div class="info-evento">
+                    <h3>Workshop de Tecnologia 2026</h3>
+                    <p class="detalhe-evento"><span class="icone"></span> 15 de setembro de 2026</p>
+                    <p class="detalhe-evento"><span class="icone"></span> São José dos Campos - SP</p>
+                </div>
+                <div class="metricas-evento">
+                    <div class="metrica-item">
+                        <span class="icone-metrica"></span>
+                        <div>
+                            <strong>320</strong>
+                            <small>inscritos</small>
+                        </div>
+                    </div>
+                    <div class="metrica-item">
+                        <span class="icone-metrica icone-check"></span>
+                        <div>
+                            <strong>240</strong>
+                            <small>confirmados</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes-evento">
+                    <button class="btn-gerenciar">Gerenciar evento <span>›</span></button>
+                    <button class="btn-opcoes">⋮</button>
+                </div>
+            </div>
+            <div class="card-evento">
+                <div class="thumb-container">
+                    <img src="../imgs/palestra.jpg" alt="Palestra de Marketing">
+                    <span class="tag-status status-planejamento">● Em planejamento</span>
+                </div>
+                <div class="info-evento">
+                    <h3>Palestra de Marketing</h3>
+                    <p class="detalhe-evento"><span class="icone"></span> 05 de outubro de 2026</p>
+                    <p class="detalhe-evento"><span class="icone"></span> Campinas - SP</p>
+                </div>
+                <div class="metricas-evento">
+                    <div class="metrica-item">
+                        <span class="icone-metrica"></span>
+                        <div>
+                            <strong>95</strong>
+                            <small>inscritos</small>
+                        </div>
+                    </div>
+                    <div class="metrica-item">
+                        <span class="icone-metrica icone-check"></span>
+                        <div>
+                            <strong>62</strong>
+                            <small>confirmados</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes-evento">
+                    <button class="btn-gerenciar">Gerenciar evento <span>›</span></button>
+                    <button class="btn-opcoes">⋮</button>
+                </div>
+            </div>
+            <div class="card-evento">
+                <div class="thumb-container">
+                    <img src="../imgs/lideranca.jpg" alt="Encontro de Liderança">
+                    <span class="tag-status status-finalizado">● Finalizado</span>
+                </div>
+                <div class="info-evento">
+                    <h3>Encontro de Liderança 2026</h3>
+                    <p class="detalhe-evento"><span class="icone"></span> 10 de agosto de 2026</p>
+                    <p class="detalhe-evento"><span class="icone"></span> São José dos Campos - SP</p>
+                </div>
+                <div class="metricas-evento">
+                    <div class="metrica-item">
+                        <span class="icone-metrica"></span>
+                        <div>
+                            <strong>210</strong>
+                            <small>inscritos</small>
+                        </div>
+                    </div>
+                    <div class="metrica-item">
+                        <span class="icone-metrica icone-check"></span>
+                        <div>
+                            <strong>208</strong>
+                            <small>confirmados</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes-evento">
+                    <button class="btn-gerenciar btn-finalizado">Ver relatórios <span>›</span></button>
+                    <button class="btn-opcoes">⋮</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="painel-footer">
+            <button class="btn-ver-mais">Ver todos os eventos <span>↓</span></button>
+        </div>
+    </div>
+</section>
+     
 </main>
 <footer class="footer">
     <div class="footer-coluna footer-empresa">
@@ -370,6 +482,5 @@
         </div>
     </div>
 </footer>
-
 </body>
 </html>

@@ -1,45 +1,33 @@
-/* ==========================================================================
-   EVENTCOP — ESTILOS GERAIS E ESTRUTURA
-   ========================================================================== */
-
+/* EVENTCOP — ESTILOS GERAIS E ESTRUTURA*/
 :root {
-    /* Cores principais e tons de vinho/bordô */
     --primary-color: #7d1a1a;      /* Tom principal ajustado */
     --primary-hover: #5a0505;      /* Baseado no seu --nav-bg para hover */
     --bg-dark-red: #7d1a1a;
     --nav-bg: #5a0505;
     --text-dark: #7d1a1a;
-    /* Fundos e superfícies */
     --bg-cream: #f4ebe1;           /* Tom de creme escolhido */
     --card-bg: #ffffff;            /* Fundo dos cartões/blocos */
     --input-bg: #faf5ee;           /* Fundo suave para inputs */
     --progress-bg: #e6d8ca;        /* Fundo para barras de progresso */
-    /* Acentos, textos e bordas */
     --accent-orange: #ee8f66;
     --text-main: #2d2d2d;
     --text-muted: #7b7b7b;
     --border-color: #e2ded8;
-    --border-input: #7d1a1a;
-    /* Arredondamentos (Raio) */
+    --border-input: #7d1a1a;                           
     --radius-lg: 16px;
     --radius-sm: 8px;
     --radius-input: 8px;
     --radius-btn: 20px;            /* Botões em formato pílula */
 }
-
-
 [hidden] {
     display: none !important;
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
-
-/* Base Universal do Corpo */
 body {
     min-height: 100vh;
     background-color: var(--bg-cream);
@@ -47,11 +35,7 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-/* ==========================================================================
-   HEADER SUPERIOR
-   ========================================================================== */
-
+/* HEADER SUPERIOR */
 .header {
     background-color: var(--nav-bg);
     display: flex;
@@ -60,7 +44,6 @@ body {
     padding: 12px 40px;
     width: 100%;
 }
-
 .logo-header {
     height: 50px;          
     width: auto;          
@@ -68,30 +51,24 @@ body {
     object-fit: contain;    
     display: block;
 }
- 
 .menu ul {
     display: flex;
     list-style: none;
     gap: 22px;
     align-items: center;
 }
-
 .menu a {
     text-decoration: none;
     color: #ffffff;
     font-weight: 600;
     font-size: 0.9rem;
 }
-
 .btn-header {
     padding: 8px 17px;
     border: 1px solid #FFF8F2;
     border-radius: 25px;
 }
-
-/* ==========================================================================
-   FOOTER INFERIOR E ESTRUTURA
-   ========================================================================== */
+/* FOOTER INFERIOR E ESTRUTURA*/
 .footer {
     width: 100%;
     padding: 50px 4% 25px;
@@ -101,31 +78,26 @@ body {
     grid-template-columns: 1.25fr 1fr 1.1fr 1.15fr;
     column-gap: 40px;
 }
-
 .footer-coluna {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
 .footer-coluna:not(:first-child) {
     border-left: 1px solid rgba(255, 248, 242, 0.2);
     padding-left: 35px;
 }
-
 .logo-footer {
     width: 100px;
     max-width: 100%;
     height: auto;
 }
-
 .descricao-footer {
     max-width: 310px;
     font-size: 16px;
     line-height: 1.55;
 }
-
 .traco {
     width: 48px;
     height: 4px;
@@ -133,45 +105,38 @@ body {
     background: #FFF8F2;
     border-radius: 10px;
 }
-
 .footer-info {
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
-
 .footer-info img {
     width: 30px;
     height: 30px;
     object-fit: contain;
     flex-shrink: 0;
 }
-
 .footer-info p {
     font-size: 15px;
     line-height: 1.55;
 }
-
 .footer-titulo {
     min-height: 85px;
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
-
 .footer-titulo > img {
     width: 40px;
     height: 40px;
     object-fit: contain;
     flex-shrink: 0;
 }
-
 .footer-titulo h3 {
     font-size: 21px;
     line-height: 1.2;
     font-weight: 700;
 }
-
 .footer-coluna > a {
     color: #FFF8F2;
     font-size: 16px;
@@ -179,11 +144,9 @@ body {
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
-
 .footer-coluna > a:hover {
     opacity: 0.75;
 }
-
 .ajuda {
     margin-top: 8px;
     width: 100%;
@@ -195,27 +158,23 @@ body {
     align-items: flex-start;
     gap: 14px;
 }
-
 .fone-ajuda {
     width: 42px;
     height: 42px;
     object-fit: contain;
     flex-shrink: 0;
 }
-
 .ajuda h3 {
     margin: 2px 0 6px;
     font-size: 16px;
     font-weight: 700;
     line-height: 1.1;
 }
-
 .ajuda p {
     margin: 0 0 14px;
     font-size: 12px;
     line-height: 1.45;
 }
-
 .btn-fale {
     width: 160px;
     min-width: 0;
@@ -231,15 +190,12 @@ body {
     text-decoration: none;
     transition: transform 0.2s ease;
 }
-
 .btn-fale:hover {
     transform: translateY(-2px);
 }
-
 .btn-fale span {
     font-size: 17px;
 }
-
 .footer-baixo {
     grid-column: 1 / -1;
     margin-top: 40px;
@@ -251,22 +207,18 @@ body {
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .redes {
     display: flex;
     align-items: center;
     gap: 22px;
 }
-
 .redes strong {
     font-size: 15px;
 }
-
 .redes img {
     width: 180px;
     height: auto;
 }
-
 .footer-baixo > p {
     font-size: 14px;
 }
@@ -276,26 +228,20 @@ body {
     align-items: center;
     gap: 20px;
 }
-
 .footer-politicas a {
     color: #FFF8F2;
     font-size: 14px;
     text-decoration: none;
 }
-
 .footer-politicas a:hover {
     text-decoration: underline;
 }
-
 .footer-politicas span {
     color: #FFF8F2;
     font-size: 14px;
 }
 
-/* ==========================================================================
-   LAYOUT PRINCIPAL UNIVERSAL (PROPORÇÃO 40% BANNER / 60% FORMULÁRIO)
-   ========================================================================== */
-
+/*LAYOUT PRINCIPAL UNIVERSAL (PROPORÇÃO 40% BANNER / 60% FORMULÁRIO)*/
 main {
     display: grid;
     grid-template-columns: 40% 60%;
@@ -304,11 +250,9 @@ main {
     min-height: calc(100vh - 84px);
     flex-direction: column;
 }
-
 /* ==========================================================================
    COLUNA ESQUERDA — BANNER
    ========================================================================== */
-
 .banner {
     grid-column: 1;
     background-color: var(--bg-dark-red);  
@@ -318,12 +262,10 @@ main {
     align-items: center;
     justify-content: center;
 }
-
 .banner-texto {
     width: 100%;
     max-width: 340px;
 }
-
 .banner-texto h1 {
     font-size: 1.7rem;
     font-weight: 800;
@@ -331,7 +273,6 @@ main {
     margin-bottom: 14px;
     color: #ffffff;
 }
-
 .banner-texto p {
     font-size: 0.92rem;
     line-height: 1.45;
@@ -339,11 +280,7 @@ main {
     opacity: 0.92;
     font-style: italic;
 }
-
-/* ==========================================================================
-   COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD
-   ========================================================================== */
-
+/*COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD */
 .form-wizard {
     grid-column: 2;
     background-color: var(--bg-cream);
@@ -352,7 +289,6 @@ main {
     align-items: center;
     justify-content: center;
 }
-
 /* Formulários Suportados: Usuário, Organizador e Evento */
 .cadastro_user,
 .cadastro_organizador,
@@ -364,19 +300,16 @@ main {
     flex-direction: column;
     gap: 10px;
 }
-
 /* Transições de opacidade para etapas */
 .cadastro_evento {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
-
 .cadastro_user.active,
 .cadastro_organizador.active,
 .cadastro_evento.active {
     opacity: 1;
 }
-
 .cadastro_user h1,
 .cadastro_organizador h1,
 .cadastro_evento h1 {
@@ -385,23 +318,17 @@ main {
     color: var(--text-dark);
     margin-bottom: 2px;
 }
-
-/* ==========================================================================
-   BARRA DE PROGRESSO (USADA EM MULTI-ETAPAS)
-   ========================================================================== */
-
+/* BARRA DE PROGRESSO (USADA EM MULTI-ETAPAS)*/
 .barra {
     width: 100%;
     margin-bottom: 4px;
 }
-
 .barra_txt {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 4px;
 }
-
 /* Ajusta o container principal da barra para acomodar a bolinha em cima */
 .barra_progresso {
     width: 100%;
@@ -414,7 +341,6 @@ main {
     gap: 6px;
     margin-bottom: 12px;
 }
-
 /* Transforma o span em uma bolinha perfeita com o número no meio */
 .barra_progresso span {
     display: flex;
@@ -428,7 +354,6 @@ main {
     font-size: 0.8rem;
     font-weight: 700;
 }
-
 /* O trilho real da barra de progresso */
 .barra_progresso .progresso {
     width: 100%;
@@ -474,7 +399,6 @@ main {
     font-size: 0.88rem;
     outline: none;
 }
-
 .form-wizard textarea {
     width: 100%;
     height: 65px;
@@ -487,14 +411,12 @@ main {
     outline: none;
     resize: vertical;
 }
-
 .form-wizard input:focus,
 .form-wizard select:focus,
 .form-wizard textarea:focus {
     border-color: #5f1214;
     box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
 }
-
 /* Layouts utilitários de campos */
 .div_cep {
     display: grid;
@@ -502,16 +424,13 @@ main {
     gap: 12px;
     width: 100%;
 }
-
 .div_cep > div {
     display: flex;
     flex-direction: column;
 }
-
 /* ==========================================================================
    BOTÕES DE AÇÃO UNIVERSAIS
    ========================================================================== */
-
 .botoes {
     display: flex;
     align-items: center;
@@ -557,14 +476,12 @@ main {
 /* ==========================================================================
    RECURSOS / CHECKBOXES (PASSO DE CRIAÇÃO DE EVENTO)
    ========================================================================== */
-
 .checkboxs_eventos {
     display: flex;
     flex-direction: column;
     gap: 8px;
     width: 100%;
 }
-
 .checkbox_evento {
     display: flex;
     align-items: center;
@@ -575,7 +492,6 @@ main {
     background-color: var(--input-bg);
     cursor: pointer;
 }
-
 .checkbox_evento h4 {
     font-size: 0.88rem;
     font-weight: 700;
@@ -603,47 +519,230 @@ main {
 .checkbox_evento:has(input:checked) p {
     color: #ffffff;
 }
+/* COLUNA ESQUERDA — BANNER / TOPO ("Hora da Ação") */
 
-/* ==========================================================================
-   CRIAR EVENTO — ESTILOS COMPLEMENTARES DAS ETAPAS DO WIZARD
-   ========================================================================== */
+.topo {
+    grid-column: 1;
+    padding: 40px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
 
-/* Tela de Conclusão / Sucesso (.completed) */
-.completed {
+.testos {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    max-width: 380px;
+    color: var(--bg-dark-red);  
+}
+
+.testos h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--bg-dark-red);  
+}
+
+.testos p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    opacity: 0.92;
+    color: var(--bg-dark-red);  
+}
+
+.eventos {
+    display: none;
+}
+
+/* ==========================================================================
+   COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD
+   ========================================================================== */
+
+.form-wizard {
+    grid-column: 2;
+    background-color: var(--bg-cream);
+    padding: 30px 40px;
+    display: flex;
     align-items: center;
-    text-align: center;
-    gap: 12px;
-    padding: 30px 20px;
+    justify-content: center;
+    width: 100%;
 }
 
-.completed svg {
-    width: 56px;
-    height: 56px;
-    color: var(--accent-orange);
+.formularios_eventos {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 auto;
 }
 
-.completed h3 {
-    font-size: 1.3rem;
+.formularios_eventos > h1 {
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--text-dark);
+    margin-bottom: 2px;
 }
 
-.completed p {
+.formularios_eventos > p {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text-dark);
+    opacity: 0.85;
+    margin-bottom: 8px;
 }
 
-/* Cabeçalhos de Seções dentro das Etapas */
+.cadastro_evento {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
 .cadastro_evento h3 {
     font-size: 1rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-top: 4px;
+    margin-top: 6px;
     margin-bottom: 4px;
 }
 
+/* ==========================================================================
+   STEPPER / BARRA DE PROGRESSO
+   ========================================================================== */
+.progress-container {
+    position: relative;
+    margin: 15px 0 25px 0;
+    width: 100%;
+}
+
+.progress-container::before {
+    content: "";
+    height: 4px;
+    width: 100%;
+    background-color: var(--progress-bg);
+    position: absolute;
+    top: calc(var(--step-size) / 2);
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.progress-container .progress {
+    height: 4px;
+    width: 100%;
+    background-color: var(--bg-dark-red);
+    position: absolute;
+    top: calc(var(--step-size) / 2);
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 2;
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.progress-container ol {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-container li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--step-size);
+    height: var(--step-size);
+    background-color: var(--progress-bg);
+    color: var(--text-dark);
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.progress-container li.active {
+    background-color: var(--bg-dark-red);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   CAMPOS DO FORMULÁRIO (INPUTS, SELECTS, TEXTAREAS)
+   ========================================================================== */
+.cadastro_user label,
+.cadastro_organizador label,
+.cadastro_evento label,
+.formularios_eventos label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.form-wizard input[type="text"],
+.form-wizard input[type="email"],
+.form-wizard input[type="tel"],
+.form-wizard input[type="password"],
+.form-wizard input[type="number"],
+.form-wizard input[type="datetime-local"],
+.form-wizard select {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-wizard textarea {
+    width: 100%;
+    height: 68px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-wizard input:focus,
+.form-wizard select:focus,
+.form-wizard textarea:focus {
+    border-color: #5f1214;
+    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
+}
+
+.div_cep {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.div_cep > div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   ESTILOS DAS SEÇÕES INTERNAS
+   ========================================================================== */
 .data_hora, 
 .local, 
 .atividades, 
@@ -657,7 +756,7 @@ main {
     width: 100%;
 }
 
-/* Seletor de Formato (Presencial, Online, Híbrido) e Tipos de Atividade */
+/* Seletor de Formato / Tipo de Atividade (Radio Buttons Estilizados) */
 .como_sera_select {
     display: flex;
     gap: 8px;
@@ -699,6 +798,82 @@ main {
     color: #ffffff;
 }
 
+/* Cards de Inscrição (Gratuito / Pago) */
+.tipo-inscricao-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.card-opcao {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-opcao input[type="radio"] {
+    display: none;
+}
+
+.card-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.radio-circle {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle {
+    border-color: #ffffff;
+}
+
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+.card-opcao:has(input:checked) {
+    background-color: var(--bg-dark-red);
+    border-color: var(--bg-dark-red);
+}
+
+.card-opcao:has(input:checked) .texto-opcao strong,
+.card-opcao:has(input:checked) .texto-opcao p {
+    color: #ffffff;
+}
+
+.texto-opcao strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: block;
+}
+
+.texto-opcao p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
 /* Cronograma Topo e Botão Adicionar */
 .cronograma-topo {
     display: flex;
@@ -735,120 +910,7 @@ main {
     background-color: rgba(125, 26, 26, 0.08);
 }
 
-/* Tipo de Inscrição (Cards Gratuito / Pago) */
-.tipo-inscricao-container {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-}
-
-.card-opcao {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card-opcao input[type="radio"] {
-    display: none;
-}
-
-.card-conteudo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.radio-circle {
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--border-input);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-orange);
-    border-radius: 50%;
-}
-
-.card-opcao:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-}
-
-.card-opcao:has(input:checked) .radio-circle {
-    border-color: #ffffff;
-}
-
-.card-opcao:has(input:checked) .texto-opcao strong,
-.card-opcao:has(input:checked) .texto-opcao p {
-    color: #ffffff;
-}
-
-.texto-opcao strong {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    display: block;
-}
-
-.texto-opcao p {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin: 0;
-}
-
-/* Limites e Público (Vagas e Lista de Espera) */
-.linha-vagas-espera {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-    align-items: center;
-}
-
-.campo-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.campo-grupo.toggle-inline {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    padding: 0 10px;
-    border-radius: var(--radius-input);
-    height: 34px;
-    margin-top: 18px;
-}
-
-.toggle-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-/* Informações Extras & Alternadores (Toggles) */
-.informacoes_extras {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
+/* Alternadores (Toggles / Switches) */
 .toggle-wrapper {
     display: flex;
     align-items: center;
@@ -861,6 +923,7 @@ main {
     font-weight: 700;
     color: var(--text-dark);
     cursor: pointer;
+    user-select: none;
 }
 
 .toggle-wrapper input[type="checkbox"] {
@@ -869,11 +932,13 @@ main {
 
 .slider {
     position: relative;
+    display: inline-block;
     width: 36px;
     height: 20px;
     background-color: var(--progress-bg);
     border-radius: 20px;
-    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    transition: background-color 0.25s ease;
 }
 
 .slider::before {
@@ -885,213 +950,73 @@ main {
     height: 16px;
     background-color: #ffffff;
     border-radius: 50%;
-    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.25s ease;
 }
 
+.toggle-wrapper input[type="checkbox"]:checked + .slider,
 .toggle-wrapper input[type="checkbox"]:checked ~ .slider {
     background-color: var(--accent-orange);
 }
 
+.toggle-wrapper input[type="checkbox"]:checked + .slider::before,
 .toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
     transform: translateX(16px);
 }
 
-/* ==========================================================================
-   COLUNA ESQUERDA — TEXTO CENTRALIZADO ("Hora da Ação")
-   ========================================================================== */
-
-.topo {
-    grid-column: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 10%;
-    height: 100%;
-}
-
-.testos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 380px;
-}
-
-.testos h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    color: var(--text-dark);
-}
-
-.testos p {
-    font-size: 0.98rem;
-    line-height: 1.5;
-    color: var(--text-dark);
-    opacity: 0.9;
-}
-
-.eventos {
-    display: none;
-}
-
-/* ==========================================================================
-   COLUNA DIREITA — FORMULÁRIO CENTRALIZADO NO MEIO
-   ========================================================================== */
-
-.form-wizard {
-    grid-column: 2;
-    background-color: var(--bg-cream);
-    padding: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-.formularios_eventos {
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
+.linha-vagas-espera {
+    display: grid;
+    grid-template-columns: 1fr auto;
     gap: 12px;
-    margin: 0 auto;
+    align-items: flex-end;
 }
 
-.formularios_eventos > h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--text-dark);
-    margin-bottom: 2px;
-}
-
-.formularios_eventos > p {
-    font-size: 0.9rem;
-    color: var(--text-dark);
-    opacity: 0.85;
-    margin-bottom: 8px;
-}
-
-/* ==========================================================================
-   BARRA DE PROGRESSO E BOLINHA DA ETAPA
-   ========================================================================== */
-
-.barra_progresso {
-    width: 100%;
-    background-color: transparent;
-    height: auto;
-    overflow: visible !important;
+.campo-grupo {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: 2px;
 }
 
-.barra_progresso span {
+.campo-grupo.toggle-inline {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    background-color: var(--bg-dark-red);
-    color: #ffffff;
-    border-radius: 50%;
+    gap: 10px;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--border-input);
+    padding: 0 10px;
+    border-radius: var(--radius-input);
+    height: 36px;
+    margin-top: 18px;
+}
+
+.campo-grupo.toggle-inline .toggle-wrapper {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.toggle-label {
     font-size: 0.8rem;
     font-weight: 700;
-}
-
-.barra_progresso .progresso {
-    width: 100%;
-    height: 6px;
-    background-color: var(--accent-orange);
-    border-radius: 10px;
-    overflow: hidden;
+    color: var(--text-dark);
 }
 
 /* ==========================================================================
-   CAMPOS DO FORMULÁRIO UNIVERSAIS
+   BOTÕES DE NAVEGAÇÃO
    ========================================================================== */
-
-.cadastro_user label,
-.cadastro_organizador label,
-.cadastro_evento label,
-.formularios_eventos label {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 3px;
-}
-
-.form-wizard input[type="text"],
-.form-wizard input[type="email"],
-.form-wizard input[type="tel"],
-.form-wizard input[type="password"],
-.form-wizard input[type="number"],
-.form-wizard input[type="datetime-local"],
-.form-wizard select {
-    width: 100%;
-    height: 38px;
-    padding: 0 12px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
-    outline: none;
-}
-
-.form-wizard textarea {
-    width: 100%;
-    height: 70px;
-    padding: 8px 12px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
-    outline: none;
-    resize: vertical;
-}
-
-.form-wizard input:focus,
-.form-wizard select:focus,
-.form-wizard textarea:focus {
-    border-color: #5f1214;
-    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
-}
-
-.div_cep {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-}
-
-.div_cep > div {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==========================================================================
-   BOTÕES DE AÇÃO UNIVERSAIS
-   ========================================================================== */
-
 .botoes {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 12px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .btn_avancar,
 .btn_cadastrar {
-    height: 36px;
-    padding: 0 28px;
+    height: 34px;
+    padding: 0 26px;
     border: none;
     border-radius: var(--radius-btn);
     background-color: var(--bg-dark-red);
@@ -1122,253 +1047,8 @@ main {
 }
 
 /* ==========================================================================
-   TOGGLES E COMPONENTES DE ETAPAS
+   TELA DE SUCESSO (.completed)
    ========================================================================== */
-
-.cadastro_evento h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-top: 6px;
-    margin-bottom: 4px;
-}
-
-.data_hora, 
-.local, 
-.atividades, 
-.cronograma, 
-.inscricoes, 
-.limite_publico, 
-.informacoes_extras {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.toggle-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    padding: 8px 14px;
-    border-radius: var(--radius-input);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    cursor: pointer;
-    user-select: none;
-}
-
-.toggle-wrapper input[type="checkbox"] {
-    display: none;
-}
-
-.slider {
-    position: relative;
-    display: inline-block;
-    width: 38px;
-    height: 20px;
-    background-color: #d1c4b8;
-    border-radius: 20px;
-    flex-shrink: 0;
-    transition: background-color 0.25s ease;
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    transition: transform 0.25s ease;
-}
-
-.toggle-wrapper input[type="checkbox"]:checked + .slider,
-.toggle-wrapper input[type="checkbox"]:checked ~ .slider {
-    background-color: var(--accent-orange);
-}
-
-.toggle-wrapper input[type="checkbox"]:checked + .slider::before,
-.toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
-    transform: translateX(18px);
-}
-
-.linha-vagas-espera {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: flex-end;
-}
-
-.campo-grupo.toggle-inline {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    padding: 0 12px;
-    border-radius: var(--radius-input);
-    height: 38px;
-}
-
-.campo-grupo.toggle-inline .toggle-wrapper {
-    border: none;
-    background: transparent;
-    padding: 0;
-}
-
-.toggle-label {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.como_sera_select {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-
-.como_sera_select label,
-.como_sera_select .btn-radio {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.como_sera_select input[type="radio"] {
-    accent-color: var(--accent-orange);
-}
-
-.como_sera_select label:has(input:checked),
-.como_sera_select .btn-radio:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-    color: #ffffff;
-}
-
-.tipo-inscricao-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.card-opcao {
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card-opcao input[type="radio"] {
-    display: none;
-}
-
-.card-conteudo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.radio-circle {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--border-input);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle {
-    border-color: #ffffff;
-}
-
-.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #ffffff;
-    border-radius: 50%;
-}
-
-.card-opcao:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-}
-
-.card-opcao:has(input:checked) .texto-opcao strong,
-.card-opcao:has(input:checked) .texto-opcao p {
-    color: #ffffff;
-}
-
-.texto-opcao strong {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    display: block;
-}
-
-.texto-opcao p {
-    font-size: 0.76rem;
-    color: var(--text-muted);
-    margin: 0;
-}
-
-.cronograma-topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-}
-
-.cronograma-data {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.btn-adicionar-atividade {
-    background: transparent;
-    border: 1px dashed var(--bg-dark-red);
-    color: var(--bg-dark-red);
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
 .completed {
     display: flex;
     flex-direction: column;
@@ -1383,106 +1063,323 @@ main {
     height: 56px;
     color: var(--accent-orange);
 }
-/* ==========================================================================
-   ESTILOS DO STEPPER / PROGRESS CONTAINER
-   ========================================================================== */
 
-.progress-container {
-    position: relative;
-    margin: 15px 0 25px 0;
-    width: 100%;
+.completed h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
 }
 
-/* Linha de fundo da barra */
-.progress-container::before {
-    content: "";
-    height: 4px;
-    width: 100%;
-    background-color: var(--step-color, #e6d8ca);
-    position: absolute;
-    top: calc(var(--step-size, 32px) / 2);
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 1;
+.completed p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
-
-/* Linha de progresso preenchida */
-.progress-container .progress {
-    height: 4px;
-    width: 100%;
-    background-color: var(--bg-dark-red, #7d1a1a);
-    position: absolute;
-    top: calc(var(--step-size, 32px) / 2);
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 2;
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.progress-container ol {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    z-index: 3;
-    padding: 0;
-    margin: 0;
-}
-
-.progress-container li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: var(--step-size, 32px);
-    height: var(--step-size, 32px);
-    background-color: var(--step-color, #e6d8ca);
-    color: var(--text-dark, #7d1a1a);
-    border-radius: 50%;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: 0.3s;
-}
-
-/* Bolinha ativa ou concluída */
-.progress-container li.active {
-    background-color: var(--bg-dark-red, #7d1a1a);
-    color: #fff;
-}
-
 .main_criar_evento{
     display: flex;
+    flex-direction: column;
+}
+/* ==========================================================================
+   DASHBOARD — PAINEL DE GESTÃO DE EVENTOS
+   ========================================================================== */
+
+.dashboard {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
 }
 
-.topo {
-    grid-column: 1;
+.painel-eventos {
+    background-color: var(--card-bg, #ffffff);
+    border: 1.5px solid var(--border-color, #e2ded8);
+    border-radius: var(--radius-lg, 16px);
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==========================================================================
+   CABEÇALHO DO PAINEL (FILTROS E CONTROLES)
+   ========================================================================== */
+.painel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--border-color, #e2ded8);
+}
+/* Botões de Filtro por Status */
+.filtros-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.btn-filtro {
+    background-color: var(--input-bg, #faf5ee);
+    border: 1.5px solid var(--border-color, #e2ded8);
+    color: var(--text-dark, #7d1a1a);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-filtro:hover {
+    background-color: var(--progress-bg, #e6d8ca);
+}
+.btn-filtro.active {
+    background-color: var(--bg-dark-red, #7d1a1a);
+    border-color: var(--bg-dark-red, #7d1a1a);
+    color: #ffffff;
+}
+/* Busca e Ordenação */
+.controles-busca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.campo-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.icone-busca {
+    position: absolute;
+    left: 10px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    opacity: 0.6;
+}
+.campo-busca input {
+    height: 36px;
+    padding: 0 12px 0 32px;
+    border: 1.5px solid var(--border-color, #e2ded8);
+    border-radius: var(--radius-input, 8px);
+    background-color: var(--input-bg, #faf5ee);
+    color: var(--text-dark, #7d1a1a);
+    font-size: 0.85rem;
+    outline: none;
+    width: 200px;
+    transition: all 0.2s ease;
+}
+.campo-busca input:focus {
+    border-color: var(--bg-dark-red, #7d1a1a);
+    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.12);
+}
+.select-ordenar {
+    height: 36px;
+    padding: 0 12px;
+    border: 1.5px solid var(--border-color, #e2ded8);
+    border-radius: var(--radius-input, 8px);
+    background-color: var(--input-bg, #faf5ee);
+    color: var(--text-dark, #7d1a1a);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+/* ==========================================================================
+   LISTA DE CARDS DE EVENTO
+   ========================================================================== */
+.lista-eventos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.card-evento {
+    display: grid;
+    grid-template-columns: 220px 1.2fr 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    background-color: var(--input-bg, #faf5ee);
+    border: 1.5px solid var(--border-color, #e2ded8);
+    border-radius: var(--radius-lg, 16px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-evento:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(125, 26, 26, 0.08);
+}
+/* Thumb e Tags de Status */
+.thumb-container {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    border-radius: var(--radius-sm, 8px);
+    overflow: hidden;
+}
+.thumb-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.tag-status {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+}
+.tag-status.status-andamento {
+    background-color: rgba(34, 139, 34, 0.85); /* Verde escuro profissional */
+}
+.tag-status.status-planejamento {
+    background-color: rgba(218, 120, 22, 0.88); /* Laranja escuro */
+}
+
+.tag-status.status-finalizado {
+    background-color: rgba(90, 5, 5, 0.85); /* Tom de vinho escuro */
+}
+/* Informações do Evento */
+.info-evento h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-dark, #7d1a1a);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+.detalhe-evento {
+    font-size: 0.82rem;
+    color: var(--text-muted, #7b7b7b);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+.detalhe-evento .icone {
+    font-size: 0.85rem;
+}
+/* Métricas do Evento */
+.metricas-evento {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #ffffff;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm, 8px);
+    border: 1px solid var(--border-color, #e2ded8);
+}
+.metrica-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icone-metrica {
+    font-size: 1.1rem;
+}
+
+.metrica-item div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.metrica-item strong {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-dark, #7d1a1a);
+}
+
+.metrica-item small {
+    font-size: 0.72rem;
+    color: var(--text-muted, #7b7b7b);
+}
+
+/* Ações (Botões) */
+.acoes-evento {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-gerenciar {
+    height: 38px;
+    padding: 0 18px;
+    border: none;
+    border-radius: var(--radius-btn, 20px);
+    background-color: var(--bg-dark-red, #7d1a1a);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-gerenciar:hover {
+    background-color: var(--primary-hover, #5a0505);
+}
+
+.btn-gerenciar.btn-finalizado {
+    background-color: transparent;
+    border: 1.5px solid var(--bg-dark-red, #7d1a1a);
+    color: var(--bg-dark-red, #7d1a1a);
+}
+
+.btn-gerenciar.btn-finalizado:hover {
+    background-color: var(--bg-dark-red, #7d1a1a);
+    color: #ffffff;
+}
+
+.btn-opcoes {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--border-color, #e2ded8);
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: var(--text-dark, #7d1a1a);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 10%;
-    width: 100%;
+    transition: background-color 0.15s ease;
 }
 
-.testos {
+.btn-opcoes:hover {
+    background-color: var(--progress-bg, #e6d8ca);
+}
+
+/* Rodapé do Painel */
+.painel-footer {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    max-width: 380px;
+    padding-top: 10px;
 }
 
-.testos h1 {
-    font-size: 2.2rem;
+.btn-ver-mais {
+    background: transparent;
+    border: none;
+    color: var(--bg-dark-red, #7d1a1a);
+    font-size: 0.88rem;
     font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.15s ease;
 }
 
-.testos p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: var(--text-dark);
-    opacity: 0.9;
+.btn-ver-mais:hover {
+    background-color: var(--input-bg, #faf5ee);
 }
+
