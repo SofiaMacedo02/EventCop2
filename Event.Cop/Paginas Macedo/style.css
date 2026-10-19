@@ -1,82 +1,1030 @@
-/* EVENTCOP — ESTILOS GERAIS E ESTRUTURA*/
+/* ==========================================================================
+   EVENTCOP — ESTILOS GERAIS
+   ÍNDICE
+   1.  Variáveis
+   2.  Reset e base
+   3.  Header
+   4.  Layout principal (banner 40% / formulário 60%)
+   5.  Componentes: formulários (campos, labels, grids)
+   6.  Componentes: botões
+   7.  Componentes: barras de progresso
+   8.  Componentes: opções (checkbox, radio, cards, toggles)
+   9.  Página: cadastro (usuário / organizador)
+   10. Página: criar evento
+   11. Página: dashboard de eventos
+   12. Footer
+   13. Responsividade
+   14. Acessibilidade e movimento
+   ========================================================================== *
+/* ==========================================================================
+   1. VARIÁVEIS
+   ========================================================================== */
 :root {
-    --primary-color: #7d1a1a;      /* Tom principal ajustado */
-    --primary-hover: #5a0505;      /* Baseado no seu --nav-bg para hover */
-    --bg-dark-red: #7d1a1a;
-    --nav-bg: #5a0505;
-    --text-dark: #7d1a1a;
-    --bg-cream: #f4ebe1;           /* Tom de creme escolhido */
-    --card-bg: #ffffff;            /* Fundo dos cartões/blocos */
-    --input-bg: #faf5ee;           /* Fundo suave para inputs */
-    --progress-bg: #e6d8ca;        /* Fundo para barras de progresso */
-    --accent-orange: #ee8f66;
+    /* Cores da marca */
+    --color-primary: #7d1a1a;
+    --color-primary-dark: #5a0505;      /* header, footer, hover */
+    --color-primary-darker: #5f1214;    /* foco e hover de botões */
+    --color-light: #fff8f2;             /* texto sobre fundos escuros */
+    --color-accent: #ee8f66;
+    /* Superfícies */
+    --bg-cream: #f4ebe1;
+    --card-bg: #ffffff;
+    --input-bg: #faf5ee;
+    --progress-bg: #e6d8ca;
+    /* Texto */
     --text-main: #2d2d2d;
-    --text-muted: #7b7b7b;
+    --text-dark: var(--color-primary);
+    --text-muted: #6b6b6b;              /* mais escuro p/ melhorar contraste */
+    /* Bordas */
     --border-color: #e2ded8;
-    --border-input: #7d1a1a;                           
-    --radius-lg: 16px;
+    --border-input: var(--color-primary);
+    /* Raios */
     --radius-sm: 8px;
     --radius-input: 8px;
-    --radius-btn: 20px;            /* Botões em formato pílula */
+    --radius-lg: 16px;
+    --radius-btn: 20px;                 /* botões em formato pílula */
+    /* Medidas */
+    --header-height: 84px;
+    --step-size: 32px;                  /* tamanho dos círculos do stepper */
+    --form-max-width: 480px;
+    /* Efeitos */
+    --focus-ring: 0 0 0 2px rgba(125, 26, 26, 0.15);
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+}
+/* ==========================================================================
+   2. RESET E BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 [hidden] {
     display: none !important;
 }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-}
 body {
     min-height: 100vh;
-    background-color: var(--bg-cream);
-    color: var(--text-dark);
     display: flex;
     flex-direction: column;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
-/* HEADER SUPERIOR */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+/* ==========================================================================
+   3. HEADER
+   ========================================================================== */
 .header {
-    background-color: var(--nav-bg);
+    width: 100%;
+    padding: 12px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 40px;
-    width: 100%;
+    background-color: var(--color-primary-dark);
 }
+
 .logo-header {
-    height: 50px;          
-    width: auto;          
-    max-height: 60px;      
-    object-fit: contain;    
     display: block;
+    height: 50px;
+    width: auto;
+    max-height: 60px;
+    object-fit: contain;
 }
+
 .menu ul {
     display: flex;
-    list-style: none;
-    gap: 22px;
     align-items: center;
+    gap: 22px;
+    list-style: none;
 }
+
 .menu a {
-    text-decoration: none;
     color: #ffffff;
-    font-weight: 600;
     font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
 }
+
 .btn-header {
     padding: 8px 17px;
-    border: 1px solid #FFF8F2;
+    border: 1px solid var(--color-light);
     border-radius: 25px;
 }
-/* FOOTER INFERIOR E ESTRUTURA*/
+
+
+/* ==========================================================================
+   4. LAYOUT PRINCIPAL (BANNER 40% / FORMULÁRIO 60%)
+   ========================================================================== */
+main {
+    flex: 1;
+    width: 100%;
+    min-height: calc(100vh - var(--header-height));
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+/* Variante usada na página de criar evento */
+.main_criar_evento {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Coluna esquerda: banner (páginas de cadastro) --- */
+.banner {
+    grid-column: 1;
+    padding: 40px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+.banner-texto {
+    width: 100%;
+    max-width: 340px;
+}
+.banner-texto h1 {
+    margin-bottom: 14px;
+    color: #ffffff;
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.banner-texto p {
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-style: italic;
+    line-height: 1.45;
+    opacity: 0.92;
+}
+/* --- Coluna esquerda: topo (página "Hora da Ação") --- */
+.topo {
+    grid-column: 1;
+    height: 100%;
+    padding: 40px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.testos {
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-primary);
+}
+.testos h1 {
+    margin-bottom: 12px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.testos p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    opacity: 0.92;
+}
+/* --- Coluna direita: contêiner do formulário --- */
+.form-wizard {
+    grid-column: 2;
+    width: 100%;
+    padding: 30px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-cream);
+    gap:10px;
+}
+/* Contêineres de formulário (todos compartilham o mesmo layout) */
+.cadastro_user,
+.cadastro_organizador,
+.cadastro_evento,
+.formularios_eventos {
+    width: 100%;
+    max-width: var(--form-max-width);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.formularios_eventos {
+    margin: 0 auto;
+}
+.formularios_eventos > h1,
+.cadastro_user h1,
+.cadastro_organizador h1,
+.cadastro_evento h1 {
+    margin-bottom: 2px;
+    color: var(--text-dark);
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+.formularios_eventos > p {
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.cadastro_evento h3 {
+    margin-top: 6px;
+    margin-bottom: 4px;
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* Cada etapa do wizard só aparece com .active */
+.cadastro_evento {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cadastro_user.active,
+.cadastro_organizador.active,
+.cadastro_evento.active {
+    opacity: 1;
+}
+/* ==========================================================================
+   5. COMPONENTES: FORMULÁRIOS
+   ========================================================================== */
+
+/* Labels */
+.cadastro_user label,
+.cadastro_organizador label,
+.cadastro_evento label,
+.formularios_eventos label {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--text-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+/* Campos de texto, selects e textarea */
+.form-wizard :is(
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    input[type="datetime-local"],
+    select,
+    textarea
+) {
+    width: 100%;
+    padding: 0 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.form-wizard :is(input, select) {
+    height: 36px;
+}
+.form-wizard textarea {
+    height: 68px;
+    padding: 8px 10px;
+    resize: vertical;
+}
+.form-wizard :is(input, select, textarea):focus {
+    border-color: var(--color-primary-darker);
+    box-shadow: var(--focus-ring);
+}
+/* Grid de dois campos lado a lado (ex.: CEP) */
+.div_cep {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.div_cep > div {
+    display: flex;
+    flex-direction: column;
+}
+/* Seções internas do formulário de evento */
+.data_hora,
+.local,
+.atividades,
+.cronograma,
+.inscricoes,
+.limite_publico,
+.informacoes_extras {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.linha-vagas-espera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: flex-end;
+}
+/* ==========================================================================
+   6. COMPONENTES: BOTÕES
+   ========================================================================== */
+/* Navegação do wizard */
+.botoes {
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+/* Botões primários em pílula (base compartilhada) */
+.btn_avancar,
+.btn_cadastrar,
+.btn-gerenciar {
+    border: none;
+    border-radius: var(--radius-btn);
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+.btn_avancar,
+.btn_cadastrar {
+    height: 34px;
+    padding: 0 26px;
+}
+.btn_avancar:hover,
+.btn_cadastrar:hover {
+    background-color: var(--color-primary-darker);
+}
+.btn_voltar {
+    padding: 4px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn_voltar:hover {
+    text-decoration: underline;
+}
+/* =========================================================================
+   7. COMPONENTES: BARRAS DE PROGRESSO
+   ========================================================================== */
+
+/* --- Versão simples (bolinha com número + barra) --- */
+.barra {
+    width: 100%;
+    margin-bottom: 4px;
+}
+.barra_txt {
+    margin-bottom: 4px;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+.barra_progresso {
+    width: 100%;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    overflow: visible;              /* evita cortar a bolinha */
+}
+.barra_progresso span {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.progresso {
+    height: 6px;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+}
+
+/* --- Versão stepper (círculos numerados) --- */
+.progress-container {
+    position: relative;
+    width: 100%;
+    margin: 15px 0 25px;
+}
+/* Trilho de fundo e preenchimento */
+.progress-container::before,
+.progress-container .progress {
+    content: "";
+    position: absolute;
+    top: calc(var(--step-size) / 2);
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: translateY(-50%);
+}
+.progress-container::before {
+    background-color: var(--progress-bg);
+    z-index: 1;
+}
+.progress-container .progress {
+    background-color: var(--color-primary);
+    z-index: 2;
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+.progress-container ol {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+}
+.progress-container li {
+    width: var(--step-size);
+    height: var(--step-size);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--progress-bg);
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.progress-container li.active {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+/* ==========================================================================
+   8. COMPONENTES: OPÇÕES (CHECKBOX, RADIO, CARDS, TOGGLES)
+   ========================================================================== */
+/* --- Recursos do evento (checkboxes em lista) --- */
+.checkboxs_eventos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.checkbox_evento {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1.5px solid var(--border-input);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    cursor: pointer;
+}
+.checkbox_evento h4 {
+    color: var(--text-dark);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+.checkbox_evento p {
+    color: var(--text-dark);
+    font-size: 0.78rem;
+    opacity: 0.85;
+}
+.checkbox_evento input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-accent);
+}
+.checkbox_evento:has(input:checked) {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+}
+.checkbox_evento:has(input:checked) :is(h4, p) {
+    color: #ffffff;
+}
+/* --- Seletor de formato (radio em botões) --- */
+.como_sera_select {
+    width: 100%;
+    margin: 2px 0;
+    display: flex;
+    gap: 8px;
+}
+.como_sera_select :is(label, .btn-radio) {
+    flex: 1;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+.como_sera_select input[type="radio"] {
+    accent-color: var(--color-accent);
+}
+.como_sera_select :is(label, .btn-radio):has(input:checked) {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+.como_sera_select :is(label, .btn-radio):has(input:checked) span {
+    color: #ffffff;
+}
+/* --- Cards de inscrição (Gratuito / Pago) --- */
+.tipo-inscricao-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.card-opcao {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    cursor: pointer;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+/* Visualmente oculto, mas continua acessível por teclado */
+.card-opcao input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.card-conteudo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.radio-circle {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid var(--border-input);
+    border-radius: 50%;
+}
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle {
+    border-color: #ffffff;
+}
+.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+.card-opcao:has(input:checked) {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+}
+.card-opcao:has(input:checked) :is(strong, p) {
+    color: #ffffff;
+}
+.texto-opcao strong {
+    display: block;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+.texto-opcao p {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+/* --- Cronograma --- */
+.cronograma-topo {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+}
+.cronograma-data {
+    color: var(--text-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+.btn-adicionar-atividade {
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px dashed var(--color-primary);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+.btn-adicionar-atividade:hover {
+    background-color: rgba(125, 26, 26, 0.08);
+}
+.toggle-wrapper {
+    position: relative;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+.toggle-wrapper input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background-color: var(--progress-bg);
+    transition: background-color 0.25s ease;
+}
+.slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease;
+}
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider {
+    background-color: var(--color-accent);
+}
+.toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
+    transform: translateX(16px);
+}
+.toggle-wrapper input[type="checkbox"]:focus-visible ~ .slider {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+.campo-grupo.toggle-inline {
+    height: 36px;
+    margin-top: 18px;
+    padding: 0 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid var(--border-input);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+}
+.campo-grupo.toggle-inline .toggle-wrapper {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+.toggle-label {
+    color: var(--text-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+/* ==========================================================================
+   9. PÁGINA: CADASTRO (USUÁRIO / ORGANIZADOR)
+   Usa apenas os componentes das seções 4 a 8.
+   ========================================================================== */
+/* ==========================================================================
+   10. PÁGINA: CRIAR EVENTO
+   ========================================================================== */
+
+.completed {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+.completed svg {
+    width: 56px;
+    height: 56px;
+    color: var(--color-accent);
+}
+.completed h3 {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+.completed p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+/* ==========================================================================
+   11. PÁGINA: DASHBOARD DE EVENTOS
+   ========================================================================== */
+.dashboard {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+.painel-eventos {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+.painel-header {
+    padding-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-bottom: 1.5px solid var(--border-color);
+}
+.filtros-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.btn-filtro {
+    padding: 8px 16px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+.btn-filtro:hover {
+    background-color: var(--progress-bg);
+}
+.btn-filtro.active {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+.controles-busca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.campo-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.icone-busca {
+    position: absolute;
+    left: 10px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.campo-busca input,
+.select-ordenar {
+    height: 36px;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-input);
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    outline: none;
+}
+.campo-busca input {
+    width: 200px;
+    padding: 0 12px 0 32px;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.campo-busca input:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--focus-ring);
+}
+.select-ordenar {
+    padding: 0 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.lista-eventos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.card-evento {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 220px 1.2fr 1fr auto;
+    align-items: center;
+    gap: 20px;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background-color: var(--input-bg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.card-evento:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(125, 26, 26, 0.08);
+}
+.thumb-container {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+.thumb-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.tag-status {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+.tag-status.status-andamento {
+    background-color: rgba(34, 139, 34, 0.85);
+}
+.tag-status.status-planejamento {
+    background-color: rgba(218, 120, 22, 0.88);
+}
+.tag-status.status-finalizado {
+    background-color: rgba(90, 5, 5, 0.85);
+}
+.info-evento h3 {
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+.detalhe-evento {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+.detalhe-evento .icone {
+    font-size: 0.85rem;
+}
+.metricas-evento {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--card-bg);
+}
+.metrica-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.metrica-item div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+.icone-metrica {
+    font-size: 1.1rem;
+}
+.metrica-item strong {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+.metrica-item small {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+}
+.acoes-evento {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.btn-gerenciar {
+    height: 38px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+.btn-gerenciar:hover {
+    background-color: var(--color-primary-dark);
+}
+.btn-gerenciar.btn-finalizado {
+    border: 1.5px solid var(--color-primary);
+    background-color: transparent;
+    color: var(--color-primary);
+}
+.btn-gerenciar.btn-finalizado:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+.btn-opcoes {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--border-color);
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+.btn-opcoes:hover {
+    background-color: var(--progress-bg);
+}
+.painel-footer {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.btn-ver-mais {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 20px;
+    background: transparent;
+    color: var(--color-primary);
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+.btn-ver-mais:hover {
+    background-color: var(--input-bg);
+}
+/* ==========================================================================
+   12. FOOTER
+   ========================================================================== */
 .footer {
     width: 100%;
     padding: 50px 4% 25px;
-    background: #5A0505;
-    color: #FFF8F2;
     display: grid;
     grid-template-columns: 1.25fr 1fr 1.1fr 1.15fr;
     column-gap: 40px;
+    background: var(--color-primary-dark);
+    color: var(--color-light);
 }
 .footer-coluna {
     position: relative;
@@ -85,8 +1033,18 @@ body {
     gap: 20px;
 }
 .footer-coluna:not(:first-child) {
-    border-left: 1px solid rgba(255, 248, 242, 0.2);
     padding-left: 35px;
+    border-left: 1px solid rgba(255, 248, 242, 0.2);
+}
+.footer-coluna > a {
+    color: var(--color-light);
+    font-size: 16px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: opacity var(--transition-base);
+}
+.footer-coluna > a:hover {
+    opacity: 0.75;
 }
 .logo-footer {
     width: 100px;
@@ -102,8 +1060,8 @@ body {
     width: 48px;
     height: 4px;
     margin-top: 7px;
-    background: #FFF8F2;
     border-radius: 10px;
+    background: var(--color-light);
 }
 .footer-info {
     display: flex;
@@ -113,8 +1071,8 @@ body {
 .footer-info img {
     width: 30px;
     height: 30px;
-    object-fit: contain;
     flex-shrink: 0;
+    object-fit: contain;
 }
 .footer-info p {
     font-size: 15px;
@@ -129,40 +1087,31 @@ body {
 .footer-titulo > img {
     width: 40px;
     height: 40px;
-    object-fit: contain;
     flex-shrink: 0;
+    object-fit: contain;
 }
 .footer-titulo h3 {
     font-size: 21px;
-    line-height: 1.2;
     font-weight: 700;
+    line-height: 1.2;
 }
-.footer-coluna > a {
-    color: #FFF8F2;
-    font-size: 16px;
-    line-height: 1.4;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-}
-.footer-coluna > a:hover {
-    opacity: 0.75;
-}
+/* Caixa de ajuda */
 .ajuda {
-    margin-top: 8px;
     width: 100%;
     max-width: 300px;
+    margin-top: 8px;
     padding: 18px 20px;
-    background: #7D1A1A;
-    border-radius: 13px;
     display: flex;
     align-items: flex-start;
     gap: 14px;
+    border-radius: 13px;
+    background: var(--color-primary);
 }
 .fone-ajuda {
     width: 42px;
     height: 42px;
-    object-fit: contain;
     flex-shrink: 0;
+    object-fit: contain;
 }
 .ajuda h3 {
     margin: 2px 0 6px;
@@ -175,20 +1124,20 @@ body {
     font-size: 12px;
     line-height: 1.45;
 }
+
 .btn-fale {
     width: 160px;
-    min-width: 0;
     padding: 10px 15px;
-    background: #FFF8F2;
-    color: #5A0505;
-    border-radius: 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: 25px;
+    background: var(--color-light);
+    color: var(--color-primary-dark);
     font-size: 13px;
     font-weight: 700;
     text-decoration: none;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-base);
 }
 .btn-fale:hover {
     transform: translateY(-2px);
@@ -196,22 +1145,28 @@ body {
 .btn-fale span {
     font-size: 17px;
 }
+/* Barra inferior do footer */
 .footer-baixo {
     grid-column: 1 / -1;
     margin-top: 40px;
     padding-top: 22px;
-    border-top: 1px solid rgba(255, 248, 242, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    border-top: 1px solid rgba(255, 248, 242, 0.2);
 }
+.footer-baixo > p {
+    font-size: 14px;
+}
+
 .redes {
     display: flex;
     align-items: center;
     gap: 22px;
 }
+
 .redes strong {
     font-size: 15px;
 }
@@ -219,1167 +1174,249 @@ body {
     width: 180px;
     height: auto;
 }
-.footer-baixo > p {
-    font-size: 14px;
-}
-
 .footer-politicas {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-.footer-politicas a {
-    color: #FFF8F2;
+.footer-politicas :is(a, span) {
+    color: var(--color-light);
     font-size: 14px;
     text-decoration: none;
 }
 .footer-politicas a:hover {
     text-decoration: underline;
 }
-.footer-politicas span {
+/* ==========================================================================
+   14. ACESSIBILIDADE E MOVIMENTO
+   ========================================================================== */
+/* Foco visível para navegação por teclado */
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+/* Campos já têm anel de foco próprio via box-shadow */
+.form-wizard :is(input, select, textarea):focus-visible,
+.campo-busca input:focus-visible {
+    outline: none;
+}
+/* ==========================================
+   MÓDULO DE PAGAMENTO COMPACTO (EVENTCOP)
+   ========================================== */
+.pagamento {
+    width: 100%;
+    max-width: 750px; /* Reduzido de 900px para 750px */
+    margin: 0 auto;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pagamento-corpo {
+    background-color: #5A0505;
+    border-radius: 16px;
+    padding: 22px 28px; /* Padding reduzido */
     color: #FFF8F2;
-    font-size: 14px;
-}
-
-/*LAYOUT PRINCIPAL UNIVERSAL (PROPORÇÃO 40% BANNER / 60% FORMULÁRIO)*/
-main {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    flex: 1;
-    width: 100%;
-    min-height: calc(100vh - 84px);
-    flex-direction: column;
-}
-/* ==========================================================================
-   COLUNA ESQUERDA — BANNER
-   ========================================================================== */
-.banner {
-    grid-column: 1;
-    background-color: var(--bg-dark-red);  
-    color: #ffffff;
-    padding: 40px 35px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.banner-texto {
-    width: 100%;
-    max-width: 340px;
-}
-.banner-texto h1 {
-    font-size: 1.7rem;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 14px;
-    color: #ffffff;
-}
-.banner-texto p {
-    font-size: 0.92rem;
-    line-height: 1.45;
-    color: #ffffff;
-    opacity: 0.92;
-    font-style: italic;
-}
-/*COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD */
-.form-wizard {
-    grid-column: 2;
-    background-color: var(--bg-cream);
-    padding: 25px 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-/* Formulários Suportados: Usuário, Organizador e Evento */
-.cadastro_user,
-.cadastro_organizador,
-.cadastro_evento,
-.formularios_eventos {
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-/* Transições de opacidade para etapas */
-.cadastro_evento {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-.cadastro_user.active,
-.cadastro_organizador.active,
-.cadastro_evento.active {
-    opacity: 1;
-}
-.cadastro_user h1,
-.cadastro_organizador h1,
-.cadastro_evento h1 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--text-dark);
-    margin-bottom: 2px;
-}
-/* BARRA DE PROGRESSO (USADA EM MULTI-ETAPAS)*/
-.barra {
-    width: 100%;
-    margin-bottom: 4px;
-}
-.barra_txt {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 4px;
-}
-/* Ajusta o container principal da barra para acomodar a bolinha em cima */
-.barra_progresso {
-    width: 100%;
-    background-color: transparent;
-    height: auto;
-    overflow: visible !important; /* Evita que a bolinha seja cortada */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 12px;
-}
-/* Transforma o span em uma bolinha perfeita com o número no meio */
-.barra_progresso span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    background-color: var(--bg-dark-red);
-    color: #ffffff;
-    border-radius: 50%;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-/* O trilho real da barra de progresso */
-.barra_progresso .progresso {
-    width: 100%;
-    height: 6px;
-    background-color:  var(--bg-dark-red);
-    border-radius: 10px;
-    overflow: hidden;
-}
-.progresso {
-    height: 100%;
-    background-color:  var(--bg-dark-red);
-    border-radius: 10px;
-}
-
-/* ==========================================================================
-   CAMPOS DO FORMULÁRIO UNIVERSAIS
-   ========================================================================== */
-
-.cadastro_user label,
-.cadastro_organizador label,
-.cadastro_evento label {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 2px;
-}
-
-.form-wizard input[type="text"],
-.form-wizard input[type="email"],
-.form-wizard input[type="tel"],
-.form-wizard input[type="password"],
-.form-wizard input[type="number"],
-.form-wizard input[type="datetime-local"],
-.form-wizard select {
-    width: 100%;
-    height: 34px;
-    padding: 0 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
-    outline: none;
-}
-.form-wizard textarea {
-    width: 100%;
-    height: 65px;
-    padding: 8px 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
-    outline: none;
-    resize: vertical;
-}
-.form-wizard input:focus,
-.form-wizard select:focus,
-.form-wizard textarea:focus {
-    border-color: #5f1214;
-    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
-}
-/* Layouts utilitários de campos */
-.div_cep {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-}
-.div_cep > div {
-    display: flex;
-    flex-direction: column;
-}
-/* ==========================================================================
-   BOTÕES DE AÇÃO UNIVERSAIS
-   ========================================================================== */
-.botoes {
-    display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: 12px;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(90, 5, 5, 0.15);
+}
+.pagamento-formulario {
     width: 100%;
-    margin-top: 8px;
-}
-
-.btn_avancar,
-.btn_cadastrar {
-    height: 34px;
-    padding: 0 26px;
-    border: none;
-    border-radius: var(--radius-btn);
-    background-color: var(--bg-dark-red);
-    color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-}
-
-.btn_avancar:hover,
-.btn_cadastrar:hover {
-    background-color: #5f1214;
-}
-
-.btn_voltar {
-    background: transparent;
-    border: none;
-    color: var(--text-dark);
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 4px 8px;
-}
-
-.btn_voltar:hover {
-    text-decoration: underline;
-}
-
-/* ==========================================================================
-   RECURSOS / CHECKBOXES (PASSO DE CRIAÇÃO DE EVENTO)
-   ========================================================================== */
-.checkboxs_eventos {
+    max-width: 440px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    width: 100%;
+    gap: 10px; /* Gap menor entre os elementos */
 }
-.checkbox_evento {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    border: 1.5px solid var(--border-input);
-    border-radius: 6px;
-    background-color: var(--input-bg);
-    cursor: pointer;
-}
-.checkbox_evento h4 {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.checkbox_evento p {
-    font-size: 0.78rem;
-    color: var(--text-dark);
-    opacity: 0.85;
-}
-
-.checkbox_evento input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--accent-orange);
-}
-
-.checkbox_evento:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-}
-
-.checkbox_evento:has(input:checked) h4,
-.checkbox_evento:has(input:checked) p {
-    color: #ffffff;
-}
-/* COLUNA ESQUERDA — BANNER / TOPO ("Hora da Ação") */
-
-.topo {
-    grid-column: 1;
-    padding: 40px 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.testos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 380px;
-    color: var(--bg-dark-red);  
-}
-
-.testos h1 {
-    font-size: 2.2rem;
+.pagamento-titulo h2 {
+    font-size: 20px; /* Reduzido */
     font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    color: var(--bg-dark-red);  
-}
-
-.testos p {
-    font-size: 0.98rem;
-    line-height: 1.5;
-    opacity: 0.92;
-    color: var(--bg-dark-red);  
-}
-
-.eventos {
-    display: none;
-}
-
-/* ==========================================================================
-   COLUNA DIREITA — FORMULÁRIO / CONTÊINER WIZARD
-   ========================================================================== */
-
-.form-wizard {
-    grid-column: 2;
-    background-color: var(--bg-cream);
-    padding: 30px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.formularios_eventos {
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0 auto;
-}
-
-.formularios_eventos > h1 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--text-dark);
     margin-bottom: 2px;
+    color: #FFF8F2;
 }
-
-.formularios_eventos > p {
-    font-size: 0.9rem;
-    color: var(--text-dark);
+.pagamento-titulo p {
+    font-size: 12px;
+    color: #F4EBE1;
     opacity: 0.85;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
-
-.cadastro_evento {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.pagamento input[type="text"],
+.pagamento input[type="password"],
+.pagamento select {
     width: 100%;
-}
-
-.cadastro_evento h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-top: 6px;
-    margin-bottom: 4px;
-}
-
-/* ==========================================================================
-   STEPPER / BARRA DE PROGRESSO
-   ========================================================================== */
-.progress-container {
-    position: relative;
-    margin: 15px 0 25px 0;
-    width: 100%;
-}
-
-.progress-container::before {
-    content: "";
-    height: 4px;
-    width: 100%;
-    background-color: var(--progress-bg);
-    position: absolute;
-    top: calc(var(--step-size) / 2);
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.progress-container .progress {
-    height: 4px;
-    width: 100%;
-    background-color: var(--bg-dark-red);
-    position: absolute;
-    top: calc(var(--step-size) / 2);
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 2;
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.progress-container ol {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    z-index: 3;
-    padding: 0;
-    margin: 0;
-}
-
-.progress-container li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: var(--step-size);
-    height: var(--step-size);
-    background-color: var(--progress-bg);
-    color: var(--text-dark);
-    border-radius: 50%;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: all 0.3s ease;
-}
-
-.progress-container li.active {
-    background-color: var(--bg-dark-red);
-    color: #ffffff;
-}
-
-/* ==========================================================================
-   CAMPOS DO FORMULÁRIO (INPUTS, SELECTS, TEXTAREAS)
-   ========================================================================== */
-.cadastro_user label,
-.cadastro_organizador label,
-.cadastro_evento label,
-.formularios_eventos label {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 2px;
-}
-
-.form-wizard input[type="text"],
-.form-wizard input[type="email"],
-.form-wizard input[type="tel"],
-.form-wizard input[type="password"],
-.form-wizard input[type="number"],
-.form-wizard input[type="datetime-local"],
-.form-wizard select {
-    width: 100%;
-    height: 36px;
-    padding: 0 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
+    height: 40px; /* Altura reduzida de 48px para 40px */
+    background-color: #FFF8F2;
+    border: none;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 13px;
+    color: #5A0505;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
-
-.form-wizard textarea {
-    width: 100%;
-    height: 68px;
-    padding: 8px 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    color: var(--text-dark);
-    font-size: 0.88rem;
-    outline: none;
-    resize: vertical;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.pagamento input::placeholder {
+    color: #7C6D65;
 }
-
-.form-wizard input:focus,
-.form-wizard select:focus,
-.form-wizard textarea:focus {
-    border-color: #5f1214;
-    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.15);
-}
-
-.div_cep {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-}
-
-.div_cep > div {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==========================================================================
-   ESTILOS DAS SEÇÕES INTERNAS
-   ========================================================================== */
-.data_hora, 
-.local, 
-.atividades, 
-.cronograma, 
-.inscricoes, 
-.limite_publico, 
-.informacoes_extras {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-}
-
-/* Seletor de Formato / Tipo de Atividade (Radio Buttons Estilizados) */
-.como_sera_select {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    margin: 2px 0;
-}
-
-.como_sera_select label,
-.como_sera_select .btn-radio {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 10px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.como_sera_select input[type="radio"] {
-    accent-color: var(--accent-orange);
-}
-
-.como_sera_select label:has(input:checked),
-.como_sera_select .btn-radio:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-    color: #ffffff;
-}
-
-.como_sera_select label:has(input:checked) span,
-.como_sera_select .btn-radio:has(input:checked) span {
-    color: #ffffff;
-}
-
-/* Cards de Inscrição (Gratuito / Pago) */
-.tipo-inscricao-container {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-}
-
-.card-opcao {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-    background-color: var(--input-bg);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card-opcao input[type="radio"] {
-    display: none;
-}
-
-.card-conteudo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.radio-circle {
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--border-input);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle {
-    border-color: #ffffff;
-}
-
-.card-opcao input[type="radio"]:checked + .card-conteudo .radio-circle::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #ffffff;
-    border-radius: 50%;
-}
-
-.card-opcao:has(input:checked) {
-    background-color: var(--bg-dark-red);
-    border-color: var(--bg-dark-red);
-}
-
-.card-opcao:has(input:checked) .texto-opcao strong,
-.card-opcao:has(input:checked) .texto-opcao p {
-    color: #ffffff;
-}
-
-.texto-opcao strong {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    display: block;
-}
-
-.texto-opcao p {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin: 0;
-}
-
-/* Cronograma Topo e Botão Adicionar */
-.cronograma-topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    border-radius: var(--radius-input);
-}
-
-.cronograma-data {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.btn-adicionar-atividade {
-    background: transparent;
-    border: 1px dashed var(--bg-dark-red);
-    color: var(--bg-dark-red);
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: background-color 0.15s ease;
-}
-
-.btn-adicionar-atividade:hover {
-    background-color: rgba(125, 26, 26, 0.08);
-}
-
-/* Alternadores (Toggles / Switches) */
-.toggle-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    padding: 7px 12px;
-    border-radius: var(--radius-input);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    cursor: pointer;
-    user-select: none;
-}
-
-.toggle-wrapper input[type="checkbox"] {
-    display: none;
-}
-
-.slider {
-    position: relative;
-    display: inline-block;
-    width: 36px;
-    height: 20px;
-    background-color: var(--progress-bg);
-    border-radius: 20px;
-    flex-shrink: 0;
-    transition: background-color 0.25s ease;
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    transition: transform 0.25s ease;
-}
-
-.toggle-wrapper input[type="checkbox"]:checked + .slider,
-.toggle-wrapper input[type="checkbox"]:checked ~ .slider {
-    background-color: var(--accent-orange);
-}
-
-.toggle-wrapper input[type="checkbox"]:checked + .slider::before,
-.toggle-wrapper input[type="checkbox"]:checked ~ .slider::before {
-    transform: translateX(16px);
-}
-
-.linha-vagas-espera {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: flex-end;
-}
-
 .campo-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    width: 100%;
 }
-
-.campo-grupo.toggle-inline {
+.grupinho {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.alerta-seguranca {
+    background-color: #F4EBE1;
+    border-radius: 10px;
+    padding: 8px 14px;
+    color: #5A0505;
+    margin-top: 2px;
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: var(--input-bg);
-    border: 1.5px solid var(--border-input);
-    padding: 0 10px;
-    border-radius: var(--radius-input);
-    height: 36px;
-    margin-top: 18px;
+}
+.alerta-seguranca strong {
+    font-size: 12px;
+    display: block;
 }
 
-.campo-grupo.toggle-inline .toggle-wrapper {
-    border: none;
-    background: transparent;
-    padding: 0;
+.alerta-seguranca p {
+    font-size: 11px;
+    margin: 0;
+    opacity: 0.8;
 }
-
-.toggle-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-/* ==========================================================================
-   BOTÕES DE NAVEGAÇÃO
-   ========================================================================== */
-.botoes {
+.pagamento-rodape {
+    background-color: #5A0505;
+    border-radius: 16px;
+    padding: 12px 24px; /* Padding reduzido */
+    color: #FFF8F2;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.btn_avancar,
-.btn_cadastrar {
-    height: 34px;
-    padding: 0 26px;
-    border: none;
-    border-radius: var(--radius-btn);
-    background-color: var(--bg-dark-red);
-    color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-}
-
-.btn_avancar:hover,
-.btn_cadastrar:hover {
-    background-color: #5f1214;
-}
-
-.btn_voltar {
-    background: transparent;
-    border: none;
-    color: var(--text-dark);
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 4px 8px;
-}
-
-.btn_voltar:hover {
-    text-decoration: underline;
-}
-
-/* ==========================================================================
-   TELA DE SUCESSO (.completed)
-   ========================================================================== */
-.completed {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    padding: 30px 20px;
-}
-
-.completed svg {
-    width: 56px;
-    height: 56px;
-    color: var(--accent-orange);
-}
-
-.completed h3 {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--text-dark);
-}
-
-.completed p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-.main_criar_evento{
-    display: flex;
-    flex-direction: column;
-}
-/* ==========================================================================
-   DASHBOARD — PAINEL DE GESTÃO DE EVENTOS
-   ========================================================================== */
-
-.dashboard {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 30px 20px;
-}
-
-.painel-eventos {
-    background-color: var(--card-bg, #ffffff);
-    border: 1.5px solid var(--border-color, #e2ded8);
-    border-radius: var(--radius-lg, 16px);
-    padding: 24px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* ==========================================================================
-   CABEÇALHO DO PAINEL (FILTROS E CONTROLES)
-   ========================================================================== */
-.painel-header {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding-bottom: 18px;
-    border-bottom: 1.5px solid var(--border-color, #e2ded8);
 }
-/* Botões de Filtro por Status */
-.filtros-status {
+.rodape-seguranca {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 10px;
+    border-right: 1px solid rgba(255, 248, 242, 0.2);
+    padding-right: 20px;
 }
-.btn-filtro {
-    background-color: var(--input-bg, #faf5ee);
-    border: 1.5px solid var(--border-color, #e2ded8);
-    color: var(--text-dark, #7d1a1a);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.rodape-seguranca strong {
+    font-size: 12px;
+    display: block;
 }
-.btn-filtro:hover {
-    background-color: var(--progress-bg, #e6d8ca);
+.rodape-seguranca p {
+    font-size: 10px;
+    margin: 0;
+    opacity: 0.8;
 }
-.btn-filtro.active {
-    background-color: var(--bg-dark-red, #7d1a1a);
-    border-color: var(--bg-dark-red, #7d1a1a);
-    color: #ffffff;
-}
-/* Busca e Ordenação */
-.controles-busca {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.campo-busca {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.icone-busca {
-    position: absolute;
-    left: 10px;
-    font-size: 0.85rem;
-    pointer-events: none;
-    opacity: 0.6;
-}
-.campo-busca input {
-    height: 36px;
-    padding: 0 12px 0 32px;
-    border: 1.5px solid var(--border-color, #e2ded8);
-    border-radius: var(--radius-input, 8px);
-    background-color: var(--input-bg, #faf5ee);
-    color: var(--text-dark, #7d1a1a);
-    font-size: 0.85rem;
-    outline: none;
-    width: 200px;
-    transition: all 0.2s ease;
-}
-.campo-busca input:focus {
-    border-color: var(--bg-dark-red, #7d1a1a);
-    box-shadow: 0 0 0 2px rgba(125, 26, 26, 0.12);
-}
-.select-ordenar {
-    height: 36px;
-    padding: 0 12px;
-    border: 1.5px solid var(--border-color, #e2ded8);
-    border-radius: var(--radius-input, 8px);
-    background-color: var(--input-bg, #faf5ee);
-    color: var(--text-dark, #7d1a1a);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-}
-
-/* ==========================================================================
-   LISTA DE CARDS DE EVENTO
-   ========================================================================== */
-.lista-eventos {
+.rodape-total {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    text-align: left;
 }
-.card-evento {
-    display: grid;
-    grid-template-columns: 220px 1.2fr 1fr auto;
-    align-items: center;
-    gap: 20px;
-    padding: 16px;
-    background-color: var(--input-bg, #faf5ee);
-    border: 1.5px solid var(--border-color, #e2ded8);
-    border-radius: var(--radius-lg, 16px);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.label-total {
+    font-size: 10px;
+    opacity: 0.8;
 }
-.card-evento:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(125, 26, 26, 0.08);
-}
-/* Thumb e Tags de Status */
-.thumb-container {
-    position: relative;
-    width: 100%;
-    height: 110px;
-    border-radius: var(--radius-sm, 8px);
-    overflow: hidden;
-}
-.thumb-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.tag-status {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.72rem;
+.valor-total {
+    font-size: 22px; /* Reduzido de 28px para 22px */
     font-weight: 800;
-    backdrop-filter: blur(4px);
-    color: #ffffff;
+    line-height: 1.1;
+    color: #FFF8F2;
 }
-.tag-status.status-andamento {
-    background-color: rgba(34, 139, 34, 0.85); /* Verde escuro profissional */
-}
-.tag-status.status-planejamento {
-    background-color: rgba(218, 120, 22, 0.88); /* Laranja escuro */
-}
-
-.tag-status.status-finalizado {
-    background-color: rgba(90, 5, 5, 0.85); /* Tom de vinho escuro */
-}
-/* Informações do Evento */
-.info-evento h3 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text-dark, #7d1a1a);
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-.detalhe-evento {
-    font-size: 0.82rem;
-    color: var(--text-muted, #7b7b7b);
+.btn-finalizar {
+    background-color: #FFF8F2;
+    color: #5A0505;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 20px; /* Mais compacto */
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 20px;
+}
+.btn-finalizar:hover {
+    transform: scale(1);
+    background-color: #FFFFFF;
+}
+.btn-finalizar span {
+    font-size: 12px;
+}
+/* ==========================================
+   ESTILOS PARA A SELECÇÃO DE PAGAMENTOS
+   ========================================== */
+.pagamentos {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    gap: 10px;
+}
+.pagamentos h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #5A0505;
     margin-bottom: 4px;
 }
-.detalhe-evento .icone {
-    font-size: 0.85rem;
+.pagamentos p {
+    font-size: 13px;
+    color: #7C6D65;
+    margin-bottom: 15px;
 }
-/* Métricas do Evento */
-.metricas-evento {
+.formas_pagamento {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+.formas_pagamento > div {
+    flex: 1;
+}
+.formas_pagamento button {
+    width: 100%;
+    height: 48px;
+    background-color: transparent;
+    border: 1.5px solid #5A0505;
+    border-radius: 25px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
-    gap: 20px;
-    background-color: #ffffff;
-    padding: 10px 16px;
-    border-radius: var(--radius-sm, 8px);
-    border: 1px solid var(--border-color, #e2ded8);
-}
-.metrica-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icone-metrica {
-    font-size: 1.1rem;
-}
-
-.metrica-item div {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-}
-
-.metrica-item strong {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--text-dark, #7d1a1a);
-}
-
-.metrica-item small {
-    font-size: 0.72rem;
-    color: var(--text-muted, #7b7b7b);
-}
-
-/* Ações (Botões) */
-.acoes-evento {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-gerenciar {
-    height: 38px;
-    padding: 0 18px;
-    border: none;
-    border-radius: var(--radius-btn, 20px);
-    background-color: var(--bg-dark-red, #7d1a1a);
-    color: #ffffff;
-    font-size: 0.82rem;
+    justify-content: center;
+    color: #5A0505;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background-color 0.15s ease;
-    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+.formas_pagamento button:hover,
+.formas_pagamento button.active {
+    background-color: #5A0505;
+    color: #f4ebe1;
+}
+.junta_incriçao{
+    gap: 10px;
+}
+.pix-input-container{
+    gap: 8px;
+}
+.pix-input-container .btn-copiar {
+    background-color: var(--color-primary) !important;
+    color: #FFF8F2 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
 }
 
-.btn-gerenciar:hover {
-    background-color: var(--primary-hover, #5a0505);
+.pix-input-container .btn-copiar:hover {
+    background-color: #7A0A0A !important;
 }
-
-.btn-gerenciar.btn-finalizado {
-    background-color: transparent;
-    border: 1.5px solid var(--bg-dark-red, #7d1a1a);
-    color: var(--bg-dark-red, #7d1a1a);
-}
-
-.btn-gerenciar.btn-finalizado:hover {
-    background-color: var(--bg-dark-red, #7d1a1a);
-    color: #ffffff;
-}
-
-.btn-opcoes {
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid var(--border-color, #e2ded8);
-    border-radius: 50%;
-    background-color: #ffffff;
-    color: var(--text-dark, #7d1a1a);
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.15s ease;
-}
-
-.btn-opcoes:hover {
-    background-color: var(--progress-bg, #e6d8ca);
-}
-
-/* Rodapé do Painel */
-.painel-footer {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-}
-
-.btn-ver-mais {
-    background: transparent;
-    border: none;
-    color: var(--bg-dark-red, #7d1a1a);
-    font-size: 0.88rem;
-    font-weight: 800;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: background-color 0.15s ease;
-}
-
-.btn-ver-mais:hover {
-    background-color: var(--input-bg, #faf5ee);
-}
-
