@@ -52,6 +52,8 @@
                 <div class="botoes">
                     <button type="submit" class="btn_cadastrar">Criar Conta</button>
                 </div>
+
+                <p>Já possui uma conta? <a href="login_normal">Entrar</a></p>
             </form>
         </section>
     </div>

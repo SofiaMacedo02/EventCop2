@@ -1416,7 +1416,22 @@ main {
     gap: 8px !important;
     white-space: nowrap !important;
 }
-
 .pix-input-container .btn-copiar:hover {
     background-color: #7A0A0A !important;
+}
+p {
+    font-size: 0.85rem;
+    color: var(--text-muted, #7b7b7b);
+    text-align: center;
+    margin-top: 14px;
+}
+p a {
+    color: var(--bg-dark-red, #7d1a1a);
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+p a:hover {
+    text-decoration: underline;
+    opacity: 0.85;
 }

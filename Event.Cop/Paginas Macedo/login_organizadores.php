@@ -1,3 +1,35 @@
+<?php
+require_once "../Paginas Vitoria/config.php";
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST["email"]);
+    $senha = $_POST["senha"];
+
+    if (!empty($email) && !empty($senha)) {
+        $sql = "SELECT * FROM organizadores WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $userBanco = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($userBanco && password_verify($senha, $userBanco["senha"])) {
+            session_regenerate_id(true);
+            $_SESSION["user_id"] = $userBanco["id"];
+            $_SESSION["user_email"] = $userBanco["email"];
+
+            header("Location: ../Paginas Leticia/index.php");
+            exit;
+        } else {
+            echo "Email ou senha incorretos.";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

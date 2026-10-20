@@ -1,3 +1,37 @@
+<?php 
+require_once "../Paginas Vitoria/config.php";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+$nome = trim($_POST["nome"]);
+$email = trim($_POST["email"]);
+$telefone = trim($_POST["telefone"]);
+$senha = $_POST["senha"];
+
+    if (!empty($nome) && !empty($email) && !empty($telefone) && !empty($senha)) {
+        try {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            
+            $sql = "INSERT INTO organizadores (nome_orga, email_orga, telefone_orga, senha_orga) 
+                    VALUES (:nome, :email, :telefone, :senha)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':telefone', $telefone, PDO::PARAM_STR);
+            $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
+            $stmt->execute();
+
+            header("Location: criar_evento.php");
+            exit;
+        } catch (PDOException $e) {
+            echo "Erro" . $e->getMessage();
+        }
+    }
+} else {
+    $erro = "Por favor, preencha todos os campos obrigatórios.";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,10 +87,12 @@
                 <div class="botoes">
                     <button type="submit" class="btn_cadastrar">Criar Conta</button>
                 </div>
+
+                <p>Já possui uma conta? <a href="login_normal">Entrar</a></p>
             </form>
         </section>
     </div>
 </main>
-
 </body>
 </html>
+
