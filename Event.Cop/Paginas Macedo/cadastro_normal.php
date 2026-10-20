@@ -59,3 +59,34 @@
 
 </body>
 </html>
+
+<?php 
+require_once "../Paginas Vitoria/config.php";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nome = trim($_POST["nome"]);
+    $email = trim($_POST["email"]);
+    $telefone = trim($_POST["telefone"]);
+    $senha = $_POST["senha"];
+
+    if (!empty($nome) && !empty($email) && !empty($telefone) && !empty($senha)) {
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+       try {
+            $sql = "INSERT INTO usuarios (nome_user, email_user, senha_user, telefone_user) VALUES (:nome, :email, :telefone, :senha)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':telefone', $telefone, PDO::PARAM_STR);
+            $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            header("Location: cadastro_normal.php?cadastro=sucesso");
+            exit;
+        } catch (PDOException $e) {
+            echo "Erro ao cadastrar: " . $e->getMessage();
+        }
+    } else {
+        echo "Por favor, preencha todos os campos obrigatórios.";
+    }
+}
