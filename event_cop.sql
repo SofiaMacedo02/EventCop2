@@ -3,14 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15/10/2026 às 11:23
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -104,13 +102,15 @@ ALTER TABLE `eventos`
 -- Índices de tabela `organizadores`
 --
 ALTER TABLE `organizadores`
-  ADD PRIMARY KEY (`id_orga`);
+  ADD PRIMARY KEY (`id_orga`),
+  ADD UNIQUE KEY `uk_email_orga` (`email_orga`);
 
 --
 -- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `uk_email_user` (`email_user`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas

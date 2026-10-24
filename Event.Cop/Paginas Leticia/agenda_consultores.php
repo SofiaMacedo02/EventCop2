@@ -1,17 +1,22 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$estaLogado = isset($_SESSION["user_id"]);
+$nomeUsuario = $_SESSION["user_nome"] ?? "Usuário";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Agenda - Consultores | EventCop</title>
-
+    <title>Agendamento com Consultores | EventCop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
- <header class="header">
+<header class="header">
     <a href="index.php">
         <img src="../imgs/logo_footer.jpeg" alt="EventCop" class="logo-header">
     </a>
@@ -20,18 +25,24 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="empresas.php">EventCop Empresas</a></li>
             <li><a href="cases.php">Cases</a></li>
-            <li><a href="planos_preços.php">Planos e Preços</a></li>
-            <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
-            <li><a href="" class="btn-header">Criar Evento</a></li>
+            <li><a href="planos_precos.php">Planos e Preços</a></li>
+            <?php if ($estaLogado): ?>
+                <li><span style="color: #6a1b29; font-weight: bold;">Olá, <?= htmlspecialchars($nomeUsuario) ?></span></li>
+                <li><a href="../Paginas Macedo/logout.php" style="color: #c94b4b;">Sair</a></li>
+            <?php else: ?>
+                <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
+                <li><a href="../Paginas Macedo/login_normal.php">Entrar</a></li>
+            <?php endif; ?>
+            <li><a href="../Paginas Macedo/criar_evento.php" class="btn-header">Criar Evento</a></li>
         </ul>
     </nav>
 </header>
 
 <main class="pagina-agenda">
     <section class="area-consultores">
-        <h1>Consultores disponívei <br> no momento</h1>
+        <h1>Consultores disponíveis<br>no momento</h1>
         <div class="consultores-grid">
-            <button class="consultor-card ativo" data-consultor="juliana">
+            <button type="button" class="consultor-card ativo" data-consultor="juliana">
                 <div class="foto-consultor">
                     <img src="../imgs/imagem juliana.png" alt="Juliana Campos">
                 </div>
@@ -41,10 +52,9 @@
                     <small>São Paulo, SP</small>
                 </div>
             </button>
-            <button class="consultor-card"
-                    data-consultor="marina">
+            <button type="button" class="consultor-card" data-consultor="marina">
                 <div class="foto-consultor">
-                    <img src="../imgs/imagem marina.png"alt="Marina Oliveira">
+                    <img src="../imgs/imagem marina.png" alt="Marina Oliveira">
                 </div>
                 <div class="consultor-info">
                     <strong>Marina Oliveira</strong>
@@ -52,7 +62,7 @@
                     <small>Rio de Janeiro, RJ</small>
                 </div>
             </button>
-            <button class="consultor-card" data-consultor="rafael">
+            <button type="button" class="consultor-card" data-consultor="rafael">
                 <div class="foto-consultor">
                     <img src="../imgs/imagem rafael.png" alt="Rafael Santos">
                 </div>
@@ -62,7 +72,7 @@
                     <small>Salvador, BA</small>
                 </div>
             </button>
-            <button class="consultor-card" data-consultor="isabela">
+            <button type="button" class="consultor-card" data-consultor="isabela">
                 <div class="foto-consultor">
                     <img src="../imgs/imagem isabela.png" alt="Isabela Ferreira">
                 </div>
@@ -72,7 +82,7 @@
                     <small>Curitiba, PR</small>
                 </div>
             </button>
-            <button class="consultor-card" data-consultor="lucas">
+            <button type="button" class="consultor-card" data-consultor="lucas">
                 <div class="foto-consultor">
                     <img src="../imgs/imagem lucas.png" alt="Lucas Mendes">
                 </div>
@@ -82,8 +92,7 @@
                     <small>Belo Horizonte, MG</small>
                 </div>
             </button>
-            <button class="consultor-card"
-                    data-consultor="pedro">
+            <button type="button" class="consultor-card" data-consultor="pedro">
                 <div class="foto-consultor">
                     <img src="../imgs/imagem pedro.png" alt="Pedro Almeida">
                 </div>
@@ -95,14 +104,13 @@
             </button>
         </div>
     </section>
+
     <section class="area-agenda">
-        <h2>Agenda:</h2>
+        <h2>Selecione o Dia e Horário:</h2>
         <!-- CALENDÁRIO -->
         <div class="calendario">
             <div class="calendario-topo">
-                <button class="btn-mes" id="mesAnterior">‹</button>
-                <strong id="mesAtual">Setembro de 2026</strong>
-                <button class="btn-mes" id="mesProximo">›</button>
+                <strong id="mesAtual">Outubro de 2026</strong>
             </div>
             <div class="dias-semana">
                 <span>Dom</span>
@@ -113,32 +121,33 @@
                 <span>Sex</span>
                 <span>Sáb</span>
             </div>
-            <div class="dias-calendario" id="diasCalendario">
-            </div>
+            <div class="dias-calendario" id="diasCalendario"></div>
             <div class="legenda">
                 <span><i class="bolinha disponivel"></i>Disponível</span>
-                <span> <i class="bolinha limitado"></i> Disponibilidade limitada </span>
-                <span> <i class="bolinha indisponivel"></i> Indisponível</span>
+                <span><i class="bolinha limitado"></i>Vagas limitadas</span>
+                <span><i class="bolinha indisponivel"></i>Indisponível</span>
             </div>
         </div>
-        <div class="seta-agenda">⌄</div>
-        <div class="horarios-box">
+
+        <div class="horarios-box" style="margin-top: 20px;">
             <div class="horarios-cabecalho">
                 <div>
-                    <h3>▣ Horários disponíveis</h3>
-                    <p id="dataSelecionada">Selecione uma data disponível</p>
+                    <h3>Horários disponíveis</h3>
+                    <p id="dataSelecionada">Clique em um dia verde para ver os horários</p>
                 </div>
-                <span>Duração da reunião: 60 min ◷</span>
+                <span>Duração: 60 min ⏱</span>
             </div>
             <div class="horarios" id="listaHorarios"></div>
-            <div class="aviso">
-                ⓘ
-                <span>Após escolher o horário, você receberá a confirmação por e-mail e WhatsApp.</span>
+            <div class="aviso" style="margin-top: 15px;">
+                ⓘ <span>Após escolher o horário, você receberá a confirmação por e-mail e WhatsApp.</span>
             </div>
-            <button id="confirmarHorario" class="btn-confirmar" disabled> ▣ Confirmar horário selecionado</button>
+            <button type="button" id="confirmarHorario" class="btn-confirmar" disabled style="margin-top: 15px; width: 100%;">
+                Confirmar Reunião com Consultor
+            </button>
         </div>
     </section>
 </main>
+
 <footer class="footer">
     <div class="footer-coluna footer-empresa">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-footer">
@@ -173,40 +182,40 @@
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Corporativos</a>
-        <a href="">› Workshops e Palestras</a>
-        <a href="">› Treinamentos</a>
-        <a href="">› Feiras e Exposições</a>
+        <a href="cases.php">› Corporativos</a>
+        <a href="cases.php">› Workshops e Palestras</a>
+        <a href="cases.php">› Treinamentos</a>
+        <a href="cases.php">› Feiras e Exposições</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem recursos plataforma footer.png" alt="Recursos">
             <div>
-                <h3>Recursos da<br>Plataforma</h3>
+                <h3>Recursos da Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Gestão de Eventos</a>
-        <a href="">› Inscrições e Convites</a>
-        <a href="">› Relatórios e Métricas</a>
-        <a href="">› Agendamento com Consultores</a>
+        <a href="../Paginas Macedo/criar_evento.php">› Gestão de Eventos</a>
+        <a href="../Paginas Macedo/inscricao.php">› Inscrições e Convites</a>
+        <a href="empresas.php">› Relatórios e Métricas</a>
+        <a href="agenda_consultores.php">› Agendamento com Consultores</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
             <div>
-                <h3></h3>Comece na<br>Plataforma</h3>
+                <h3>Comece na Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Criar minha conta</a>
-        <a href="">› Quero organizar um evento</a>
+        <a href="../Paginas Macedo/cadastro_normal.php">› Criar minha conta</a>
+        <a href="../Paginas Macedo/cadastro_organizador.php">› Quero organizar um evento</a>
         <div class="ajuda">
             <img src="../imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
             <div>
                 <h3>Precisa de ajuda?</h3>
                 <p>Nossa equipe está pronta<br>para te atender!</p>
-                <a href="" class="btn-fale"> Fale conosco <span>→</span> </a>
+                <a href="agenda_consultores.php" class="btn-fale"> Fale conosco <span>→</span> </a>
             </div>
         </div>
     </div>
@@ -215,7 +224,7 @@
             <strong>Siga-nos</strong>
             <img src="../imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
         </div>
-        <p> ©️ 2026 EventCop. Todos os direitos reservados.</p>
+        <p> © 2026 EventCop. Todos os direitos reservados.</p>
         <div class="footer-politicas">
             <a href=""> Política de Privacidade</a>
             <span>|</span>
@@ -223,6 +232,7 @@
         </div>
     </div>
 </footer>
-    <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>

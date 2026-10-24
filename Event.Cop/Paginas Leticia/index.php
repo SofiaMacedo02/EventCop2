@@ -1,10 +1,18 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$estaLogado = isset($_SESSION["user_id"]);
+$nomeUsuario = $_SESSION["user_nome"] ?? "Usuário";
+$tipoUsuario = $_SESSION["user_tipo"] ?? "usuario";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workshop | EventCop</title>
+    <title>EventCop - A Plataforma Completa para seus Eventos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,9 +26,15 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="empresas.php">EventCop Empresas</a></li>
             <li><a href="cases.php">Cases</a></li>
-            <li><a href="planos_preços.php">Planos e Preços</a></li>
-            <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
-            <li><a href="" class="btn-header">Criar Evento</a></li>
+            <li><a href="planos_precos.php">Planos e Preços</a></li>
+            <?php if ($estaLogado): ?>
+                <li><span style="color: #6a1b29; font-weight: bold;">Olá, <?= htmlspecialchars($nomeUsuario) ?></span></li>
+                <li><a href="../Paginas Macedo/logout.php" style="color: #c94b4b;">Sair</a></li>
+            <?php else: ?>
+                <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
+                <li><a href="../Paginas Macedo/login_normal.php">Entrar</a></li>
+            <?php endif; ?>
+            <li><a href="../Paginas Macedo/criar_evento.php" class="btn-header">Criar Evento</a></li>
         </ul>
     </nav>
 </header>
@@ -31,9 +45,9 @@
         <p>
             Divulgue patrocinadores, distribua materiais de apoio e facilite
             a organização das principais etapas do seu workshop com uma
-            plataforma de eventos.
+            plataforma de eventos moderna e segura.
         </p>
-        <a href="criar-workshop.php" class="btn-claro">
+        <a href="../Paginas Macedo/criar_evento.php" class="btn-claro">
             Crie seu Workshop →
         </a>
     </section>
@@ -87,12 +101,11 @@
                 <p>Taxa de 10% sobre as inscrições</p>
                 <p>Seu dinheiro em 10 dias</p>
                 <p>Certificados ilimitados</p>
-
             </div>
         </div>
 
-        <a href="criar-workshop.php" class="btn-vinho">
-            Crie seu Workshop
+        <a href="planos_precos.php" class="btn-vinho">
+            Conheça todos os Planos
             <span>→</span>
         </a>
     </section>
@@ -109,25 +122,28 @@
                 as inscrições online, distribuição de certificados
                 e muito mais.
             </p>
-            <a href="criar-workshop.php" class="btn-claro"> Crie seu Workshop → </a>
+            <a href="../Paginas Macedo/criar_evento.php" class="btn-claro"> Crie seu Evento → </a>
         </div>
     </section>
+
     <section class="funcionalidades">
         <h2>Explore mais funcionalidades para o seu Workshop</h2>
         <div class="funcionalidades-conteudo">
             <div class="container-imagem-funcionalidades">
-        <img src="../imgs/imagem funcionalidades3.png" alt="Funcionalidades EventCop" class="imagem-funcionalidades">
-            <div class="botoes-funcionalidades">
-                <a href="divulgacao.php" class="btn-funcionalidade">Saiba mais</a>
-                <a href="inscricoes.php" class="btn-funcionalidade">Saiba mais</a>
-                <a href="eventos.php" class="btn-funcionalidade">Saiba mais</a>
-                <a href="relatorios.php" class="btn-funcionalidade">Saiba mais</a>
-                <a href="participantes.php" class="btn-funcionalidade">Saiba mais</a>
-                <a href="consultores.php" class="btn-funcionalidade">Saiba mais</a>
+                <img src="../imgs/imagem funcionalidades3.png" alt="Funcionalidades EventCop" class="imagem-funcionalidades">
+                <div class="botoes-funcionalidades">
+                    <a href="../Paginas Macedo/criar_evento.php" class="btn-funcionalidade">Divulgação</a>
+                    <a href="../Paginas Macedo/inscricao.php" class="btn-funcionalidade">Inscrições</a>
+                    <a href="../Paginas Macedo/criar_evento.php" class="btn-funcionalidade">Gestão</a>
+                    <a href="empresas.php" class="btn-funcionalidade">Relatórios</a>
+                    <a href="../Paginas Macedo/cadastro_normal.php" class="btn-funcionalidade">Participantes</a>
+                    <a href="agenda_consultores.php" class="btn-funcionalidade">Consultores</a>
+                </div>
             </div>
         </div>
     </section>
 </main>
+
 <footer class="footer">
     <div class="footer-coluna footer-empresa">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-footer">
@@ -166,40 +182,40 @@
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Corporativos</a>
-        <a href="">› Workshops e Palestras</a>
-        <a href="">› Treinamentos</a>
-        <a href="">› Feiras e Exposições</a>
+        <a href="cases.php">› Corporativos</a>
+        <a href="cases.php">› Workshops e Palestras</a>
+        <a href="cases.php">› Treinamentos</a>
+        <a href="cases.php">› Feiras e Exposições</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem recursos plataforma footer.png" alt="Recursos">
             <div>
-                <h3>Recursos da<br>Plataforma</h3>
+                <h3>Recursos da Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Gestão de Eventos</a>
-        <a href="">› Inscrições e Convites</a>
-        <a href="">› Relatórios e Métricas</a>
-        <a href="">› Agendamento com Consultores</a>
+        <a href="../Paginas Macedo/criar_evento.php">› Gestão de Eventos</a>
+        <a href="../Paginas Macedo/inscricao.php">› Inscrições e Convites</a>
+        <a href="empresas.php">› Relatórios e Métricas</a>
+        <a href="agenda_consultores.php">› Agendamento com Consultores</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
             <div>
-                <h3></h3>Comece na<br>Plataforma</h3>
+                <h3>Comece na Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Criar minha conta</a>
-        <a href="">› Quero organizar um evento</a>
+        <a href="../Paginas Macedo/cadastro_normal.php">› Criar minha conta</a>
+        <a href="../Paginas Macedo/cadastro_organizador.php">› Quero organizar um evento</a>
         <div class="ajuda">
             <img src="../imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
             <div>
                 <h3>Precisa de ajuda?</h3>
                 <p>Nossa equipe está pronta<br>para te atender!</p>
-                <a href="" class="btn-fale"> Fale conosco <span>→</span> </a>
+                <a href="agenda_consultores.php" class="btn-fale"> Fale conosco <span>→</span> </a>
             </div>
         </div>
     </div>
@@ -208,7 +224,7 @@
             <strong>Siga-nos</strong>
             <img src="../imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
         </div>
-        <p> ©️ 2026 EventCop. Todos os direitos reservados.</p>
+        <p> © 2026 EventCop. Todos os direitos reservados.</p>
         <div class="footer-politicas">
             <a href=""> Política de Privacidade</a>
             <span>|</span>

@@ -1,9 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$estaLogado = isset($_SESSION["user_id"]);
+$nomeUsuario = $_SESSION["user_nome"] ?? "Usuário";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventCop Empresas</title>
+    <title>EventCop Empresas - Gestão Corporativa de Eventos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,26 +21,34 @@
     </a>
     <nav class="menu">
         <ul>
-             <li><a href="index.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="empresas.php">EventCop Empresas</a></li>
             <li><a href="cases.php">Cases</a></li>
-            <li><a href="planos_preços.php">Planos e Preços</a></li>
-            <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
-            <li><a href="" class="btn-header">Criar Evento</a></li>
+            <li><a href="planos_precos.php">Planos e Preços</a></li>
+            <?php if ($estaLogado): ?>
+                <li><span style="color: #6a1b29; font-weight: bold;">Olá, <?= htmlspecialchars($nomeUsuario) ?></span></li>
+                <li><a href="../Paginas Macedo/logout.php" style="color: #c94b4b;">Sair</a></li>
+            <?php else: ?>
+                <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
+                <li><a href="../Paginas Macedo/login_normal.php">Entrar</a></li>
+            <?php endif; ?>
+            <li><a href="../Paginas Macedo/criar_evento.php" class="btn-header">Criar Evento</a></li>
         </ul>
     </nav>
 </header>
+
 <main>
     <section class="hero-empresas">
         <div class="hero-empresas-texto">
             <h1>Centralize todos os<br>seus eventos em um só<br>lugar</h1>
             <p>Gerencie eventos, inscrições, participantes e<br>resultados de forma simples e organizada com o<br>EventCop Empresas.</p>
-            <a href="" class="btn-consultor-claro">Fale com um consultor<span>›</span></a>
+            <a href="agenda_consultores.php" class="btn-consultor-claro">Fale com um consultor<span>›</span></a>
         </div>
         <div class="hero-empresas-imagem">
             <img src="../imgs/imagem conectando pessoas e conhecimento.png" alt="Gestão de eventos EventCop" class="imagem-hero-empresas">
         </div>
     </section>
+
     <section class="beneficios-empresas">
         <div class="card-beneficio">
             <img src="../imgs/imagem portal de eventos.png" alt="Portal de Eventos" class="imagem-card-beneficio">
@@ -57,75 +72,79 @@
             </div>
         </div>
     </section>
+
     <section class="gestao-equipe">
         <div class="titulo-gestao">
             <h2>Tudo o que sua equipe precisa para<br>gerenciar seus eventos</h2>
             <p>Centralize informações, acompanhe resultados e simplifique a rotina da sua equipe.</p>
         </div>
+
         <div class="bloco-gestao bloco-resultados">
             <div class="texto-gestao">
                 <h3>Acompanhe os resultados</h3>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Visualize receitas, inscrições e outros indicadores;.png" alt="Receitas">
+                        <img src="../imgs/icone_visualize_receitas.png" alt="Receitas">
                     </div>
                     <p>Visualize receitas, inscrições e outros<br>indicadores;</p>
                 </div>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Analise o desempenho de cada evento;.png" alt="Desempenho">
+                        <img src="../imgs/icone_analise_desempenho.png" alt="Desempenho">
                     </div>
                     <p>Analise o desempenho de cada evento;</p>
                 </div>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Consulte relatórios personalizados..png" alt="Relatórios">
+                        <img src="../imgs/icone_consulte_relatorios.png" alt="Relatórios">
                     </div>
                     <p>Consulte relatórios personalizados.</p>
                 </div>
             </div>
             <div class="imagem-gestao">
-                <img src="../imgs/imagem  Acompanhe os resultados.png" alt="Resultados dos eventos"class="imagem-resultados">
+                <img src="../imgs/imagem Acompanhe os resultados.png" alt="Resultados dos eventos" class="imagem-resultados">
             </div>
         </div>
+
         <div class="bloco-gestao bloco-organizacao">
             <div class="imagem-gestao">
-                <img src="../imgs/imagem  Organize seus eventos.png" alt="Organização de eventos" class="imagem-organizacao">
+                <img src="../imgs/imagem Organize seus eventos.png" alt="Organização de eventos" class="imagem-organizacao">
             </div>
             <div class="texto-gestao">
                 <h3>Organize seus eventos</h3>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Gerencie diferentes eventos em um só lugar;.png" alt="Gerenciar">
+                        <img src="../imgs/icone_gerencie_eventos.png" alt="Gerenciar">
                     </div>
                     <p>Gerencie diferentes eventos em um só lugar;</p>
                 </div>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Categorize eventos por tipo ou finalidade;.png" alt="Categorias">
+                        <img src="../imgs/icone_categorize_eventos.png" alt="Categorias">
                     </div>
                     <p>Categorize eventos por tipo ou finalidade;</p>
                 </div>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Mantenha todas as informações organizadas..png" alt="Organização">
+                        <img src="../imgs/icone_mantenha_organizado.png" alt="Organização">
                     </div>
                     <p>Mantenha todas as informações organizadas;</p>
                 </div>
             </div>
         </div>
+
         <div class="bloco-gestao bloco-ferramentas">
             <div class="texto-gestao">
                 <h3>Conecte suas ferramentas</h3>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Integre o EventCop às ferramentas utilizadas pela sua empresa;.png" alt="Integração">
+                        <img src="../imgs/icone_integre_ferramentas.png" alt="Integração">
                     </div>
                     <p>Integre o EventCop às ferramentas utilizadas<br>pela sua empresa;</p>
                 </div>
                 <div class="item-gestao">
                     <div class="icone-gestao">
-                        <img src="../imgs/ícone Centralize informações importantes;.png" alt="Informações">
+                        <img src="../imgs/icone_centralize_informacoes.png" alt="Informações">
                     </div>
                     <p>Centralize informações importantes;</p>
                 </div>
@@ -140,8 +159,10 @@
                 <img src="../imgs/imagem Conecte suas ferramentas.png" alt="Integração de ferramentas" class="imagem-ferramentas">
             </div>
         </div>
-        <a href="" class="btn-consultor-vinho"> Fale com um consultor<span>→</span></a>
+
+        <a href="agenda_consultores.php" class="btn-consultor-vinho"> Fale com um consultor<span>→</span></a>
     </section>
+
     <section class="faq">
         <h2>Perguntas frequentes</h2>
         <details class="pergunta"><summary> O que é a EventCop? <span>⌄</span> </summary>
@@ -154,22 +175,24 @@
             <p>Sim. Você pode criar eventos restritos para colaboradores ou convidados específicos, controlando quem terá acesso às informações e inscrições.</p>
         </details>
         <details class="pergunta"><summary>Com quanto tempo recebo o valor das inscrições?<span>⌄</span></summary>
-            <p>Os valores das inscrições são repassados após a confirmação dos pagamentos, seguindo o prazo definido pela forma de pagamento escolhida e pelas condições da plataforma.</p>
+            <p>Os valores das inscrições são repassados após a confirmação dos pagamentos, em até 10 dias úteis.</p>
         </details>
     </section>
+
     <section class="outras-solucoes">
         <h2>Conheça outras soluções</h2>
         <div class="imagem-solucoes-container">
-            <img src="../imgs/imagem Conheça outras soluções.png" alt="Outras soluções EventCop" class="imagem-solucoes">
-            <a href="" class="btn-solucao btn-solucao-1">Saiba mais</a>
-            <a href="" class="btn-solucao btn-solucao-2">Saiba mais</a>
-            <a href="" class="btn-solucao btn-solucao-3">Saiba mais</a>
-            <a href="" class="btn-solucao btn-solucao-4">Saiba mais</a>
-            <a href="" class="btn-solucao btn-solucao-5">Saiba mais</a>
-            <a href="" class="btn-solucao btn-solucao-6">Saiba mais</a>
+            <img src="../imgs/imagem_conheca_outras_solucoes.png" alt="Outras soluções EventCop" class="imagem-solucoes">
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-1">Saiba mais</a>
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-2">Saiba mais</a>
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-3">Saiba mais</a>
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-4">Saiba mais</a>
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-5">Saiba mais</a>
+            <a href="planos_precos.php" class="btn-solucao btn-solucao-6">Saiba mais</a>
         </div>
     </section>
 </main>
+
 <footer class="footer">
     <div class="footer-coluna footer-empresa">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-footer">
@@ -204,40 +227,40 @@
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Corporativos</a>
-        <a href="">› Workshops e Palestras</a>
-        <a href="">› Treinamentos</a>
-        <a href="">› Feiras e Exposições</a>
+        <a href="cases.php">› Corporativos</a>
+        <a href="cases.php">› Workshops e Palestras</a>
+        <a href="cases.php">› Treinamentos</a>
+        <a href="cases.php">› Feiras e Exposições</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem recursos plataforma footer.png" alt="Recursos">
             <div>
-                <h3>Recursos da<br>Plataforma</h3>
+                <h3>Recursos da Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Gestão de Eventos</a>
-        <a href="">› Inscrições e Convites</a>
-        <a href="">› Relatórios e Métricas</a>
-        <a href="">› Agendamento com Consultores</a>
+        <a href="../Paginas Macedo/criar_evento.php">› Gestão de Eventos</a>
+        <a href="../Paginas Macedo/inscricao.php">› Inscrições e Convites</a>
+        <a href="empresas.php">› Relatórios e Métricas</a>
+        <a href="agenda_consultores.php">› Agendamento com Consultores</a>
     </div>
     <div class="footer-coluna">
         <div class="footer-titulo">
             <img src="../imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
             <div>
-                <h3></h3>Comece na<br>Plataforma</h3>
+                <h3>Comece na Plataforma</h3>
                 <div class="traco"></div>
             </div>
         </div>
-        <a href="">› Criar minha conta</a>
-        <a href="">› Quero organizar um evento</a>
+        <a href="../Paginas Macedo/cadastro_normal.php">› Criar minha conta</a>
+        <a href="../Paginas Macedo/cadastro_organizador.php">› Quero organizar um evento</a>
         <div class="ajuda">
             <img src="../imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
             <div>
                 <h3>Precisa de ajuda?</h3>
                 <p>Nossa equipe está pronta<br>para te atender!</p>
-                <a href="" class="btn-fale"> Fale conosco <span>→</span> </a>
+                <a href="agenda_consultores.php" class="btn-fale"> Fale conosco <span>→</span> </a>
             </div>
         </div>
     </div>
@@ -246,7 +269,7 @@
             <strong>Siga-nos</strong>
             <img src="../imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
         </div>
-        <p> ©️ 2026 EventCop. Todos os direitos reservados.</p>
+        <p> © 2026 EventCop. Todos os direitos reservados.</p>
         <div class="footer-politicas">
             <a href=""> Política de Privacidade</a>
             <span>|</span>
