@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="form-wizard">
         <?php if ($sucesso): ?>
             <div style="background-color: #d4edda; color: #155724; padding: 25px; border-radius: 10px; margin: 30px auto; max-width: 650px; text-align: center; border: 1px solid #c3e6cb;">
-                <h2 style="color: #2d6a4f; margin-bottom: 10px;">🎉 Inscrição Confirmada!</h2>
+                <h2 style="color: #2d6a4f; margin-bottom: 10px;">Inscrição Confirmada!</h2>
                 <p style="font-size: 16px;"><?= htmlspecialchars($mensagem_info) ?></p>
                 <div style="margin-top: 15px; padding: 15px; background: #fff; border-radius: 8px; border: 1px dashed #2d6a4f;">
                     <strong>Evento:</strong> <?= htmlspecialchars($evento['nome_event'] ?? 'Workshop EventCop') ?><br>
@@ -198,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <p>Escolha como deseja confirmar sua inscrição:</p>
                         <div class="formas_pagamento">
                             <div id="pix">
-                                <button type="button" class="btn-metodo active"><span>Pix</span></button>
+                                <button type="button" class="btn-metodo"><span>Pix</span></button>
                             </div>
                             <div id="cartao">
                                 <button type="button" class="btn-metodo"><span>Cartão de Crédito</span></button>
@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </section>
 
                     <!-- SEÇÃO PIX -->
-                    <section class="pagamento" id="sec-pix">
+                    <section class="pagamento" id="sec-pix" hidden >
                         <div class="pagamento-corpo">
                             <div class="pagamento-formulario">
                                 <div class="pagamento-titulo">
