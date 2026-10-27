@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php endif; ?>
 
             <form class="formulario_organizador" action="cadastro_organizador.php" method="POST">
-                <label for="nome">Seu Nome / Razão Social:</label>
+                <label for="nome">Seu Nome:</label>
                 <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
                 
                 <label for="email">E-mail corporativo:</label>

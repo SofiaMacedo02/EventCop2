@@ -4,7 +4,7 @@
 $host   = "localhost";
 $user   = "root";
 $pass   = "";
-$bdname = "event_cop";
+$bdname = "eventcop";
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$bdname;charset=utf8mb4", $user, $pass);

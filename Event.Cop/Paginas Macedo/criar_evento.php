@@ -73,11 +73,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 // Buscar eventos cadastrados no banco
 $eventos_cadastrados = [];
-try {
-    $stmtEventos = $pdo->query("SELECT e.*, o.nome_orga FROM eventos e LEFT JOIN organizadores o ON e.id_orga = o.id_orga ORDER BY e.id_event DESC");
-    $eventos_cadastrados = $stmtEventos->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao buscar eventos: " . $e->getMessage());
+
+// 1. Verifica se existe um organizador logado na sessão
+if (estaLogado() && ehOrganizador() && !empty($_SESSION["user_id"])) {
+    $id_orga_logado = $_SESSION["user_id"];
+
+    try {
+        // 2. Consulta filtrando pelo id_orga do usuário logado
+        $sql = "SELECT e.*, o.nome_orga 
+                FROM eventos e 
+                LEFT JOIN organizadores o ON e.id_orga = o.id_orga 
+                WHERE e.id_orga = :id_orga 
+                ORDER BY e.id_event DESC";
+
+        $stmtEventos = $pdo->prepare($sql);
+        $stmtEventos->bindParam(':id_orga', $id_orga_logado, PDO::PARAM_INT);
+        $stmtEventos->execute();
+
+        $eventos_cadastrados = $stmtEventos->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Erro ao buscar eventos do organizador: " . $e->getMessage());
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -102,7 +118,7 @@ try {
             <li><a href="../Paginas Leticia/cases.php">Cases</a></li>
             <li><a href="../Paginas Leticia/planos_precos.php">Planos e Preços</a></li>
             <?php if (estaLogado()): ?>
-                <li><span style="color: #6a1b29; font-weight: bold;">Olá, <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Organizador') ?></span></li>
+                <li><span style="color: #f0f0f0; font-weight: bold;">Olá, <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Organizador') ?></span></li>
                 <li><a href="logout.php" style="color: #c94b4b;">Sair</a></li>
             <?php else: ?>
                 <li><a href="login_organizadores.php">Sou um organizador</a></li>
@@ -383,11 +399,9 @@ try {
                             <div class="info-evento">
                                 <h3><?= htmlspecialchars($ev['nome_event']) ?></h3>
                                 <p class="detalhe-evento">
-                                    <span class="icone">📅</span> 
                                     <?= date('d/m/Y', strtotime($ev['data_event'])) ?> às <?= substr($ev['hora_event'], 0, 5) ?>
                                 </p>
                                 <p class="detalhe-evento">
-                                    <span class="icone">📍</span> 
                                     <?= htmlspecialchars($ev['cidade']) ?> - <?= htmlspecialchars($ev['estado']) ?> (<?= ucfirst($ev['formato']) ?>)
                                 </p>
                                 <p style="font-size: 13px; color: #555; margin-top: 6px;">
@@ -402,40 +416,7 @@ try {
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <!-- Cards Demonstrativos Iniciais -->
-                    <div class="card-evento">
-                        <div class="thumb-container">
-                            <img src="../imgs/imagem conectando pessoas e conhecimento.png" alt="Workshop de Tecnologia">
-                            <span class="tag-status status-andamento">● Em andamento</span>
-                        </div>
-                        <div class="info-evento">
-                            <h3>Workshop de Tecnologia 2026</h3>
-                            <p class="detalhe-evento"><span class="icone">📅</span> 15 de setembro de 2026</p>
-                            <p class="detalhe-evento"><span class="icone">📍</span> São José dos Campos - SP</p>
-                        </div>
-                        <div class="acoes-evento">
-                            <a href="inscricao.php" class="btn-gerenciar" style="text-align: center; text-decoration: none; display: inline-block;">
-                                Inscrever-se <span>›</span>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="card-evento">
-                        <div class="thumb-container">
-                            <img src="../imgs/imagem portal de eventos.png" alt="Palestra de Marketing">
-                            <span class="tag-status status-planejamento">● Em planejamento</span>
-                        </div>
-                        <div class="info-evento">
-                            <h3>Palestra de Marketing e Vendas</h3>
-                            <p class="detalhe-evento"><span class="icone">📅</span> 05 de outubro de 2026</p>
-                            <p class="detalhe-evento"><span class="icone">📍</span> Campinas - SP</p>
-                        </div>
-                        <div class="acoes-evento">
-                            <a href="inscricao.php" class="btn-gerenciar" style="text-align: center; text-decoration: none; display: inline-block;">
-                                Inscrever-se <span>›</span>
-                            </a>
-                        </div>
-                    </div>
                 <?php endif; ?>
             </div>
         </div>

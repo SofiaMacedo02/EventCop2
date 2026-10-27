@@ -1,285 +1,453 @@
+<?php
+session_start();
+
+// Configuração da Conexão com o Banco de Dados MySQL
+$host = 'localhost';
+$usuario = 'root';
+$senha = '';
+$banco = 'eventcop'; // Altere para o nome exato do banco de dados de vocês
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$banco;charset=utf8", $usuario, $senha);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erro na conexão com o banco de dados: " . $e->getMessage());
+}
+
+// ID padrão do organizador logado (ajuste conforme a sessão do seu sistema de login)
+$id_user = $_SESSION['id_user'] ?? 1;
+
+// Processa o formulário quando enviado via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+    if ($nome && $email) {
+        try {
+            $sql = "UPDATE usuarios SET nome = :nome, email = :email WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':id', $id_user);
+
+            if ($stmt->execute()) {
+                $_SESSION['msg_sucesso'] = "Perfil atualizado com sucesso!";
+            } else {
+                $_SESSION['msg_erro'] = "Erro ao atualizar perfil.";
+            }
+        } catch (PDOException $e) {
+            $_SESSION['msg_erro'] = "Erro no banco de dados: " . $e->getMessage();
+        }
+    } else {
+        $_SESSION['msg_erro'] = "Por favor, preencha todos os campos corretamente.";
+    }
+
+    header('Location: configuracoes.php');
+    exit;
+}
+
+// Busca os dados atuais do organizador no banco de dados
+$stmt = $pdo->prepare("SELECT nome, email FROM usuarios WHERE id = :id");
+$stmt->bindParam(':id', $id_user);
+$stmt->execute();
+$usuario_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Valores recuperados do banco ou valores padrão caso a tabela esteja vazia
+$nome_atual = $usuario_db['nome'] ?? 'Marina Oliveira';
+$email_atual = $usuario_db['email'] ?? 'marina.oliveira@email.com';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>EventCap - Configurações</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/configurações.css">
 </head>
 <body>
-<main>
-    <section class="topo">
-        <div class="testos">
-            <h1>Hora da Ação</h1> <!-- php com o nome da pessoa -->
-            <p>Gerencie seus eventos, crie novos, veja seus participantes e gere certificações em apenas um só lugar.</p>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="top-bar-logo">
+            <img src="imgs/eventcop-logo.png" alt="EventCap Logo" class="logo-img">
         </div>
-    </section>
+        <nav class="top-bar-nav">
+            <a href="dashboard.html" class="top-bar-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+            <a href="#" class="top-bar-item"><i class="fa-solid fa-calendar-days"></i> Meus eventos</a>
+            <a href="#" class="top-bar-item"><i class="fa-solid fa-users-rectangle"></i> Criar evento</a>
+            <a href="#" class="top-bar-item"><i class="fa-solid fa-bell"></i></a>
+            <div class="user-profile">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Marina Oliveira">
+                <span class="user-name"><?= htmlspecialchars($nome_atual) ?></span>
+            </div>
+        </nav>
+    </header>
 
-    <section class="eventos">
-        <div class="filtros"></div>
-        <div class="evento"></div>
-    </section>
+    <!-- Main Section with Sidebar & Content -->
+    <div class="main-container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item"><a href="dashboard.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-calendar-days"></i> Meus eventos</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-users"></i> Participantes</a></li>
+                <li class="sidebar-item"><a href="relatorios-metricas.html"><i class="fa-solid fa-chart-line"></i> Relatórios e métricas</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-award"></i> Certificados</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-user-tie"></i> Consultores</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-handshake"></i> Reuniões</a></li>
+                <li class="sidebar-item"><a href="#"><i class="fa-solid fa-images"></i> Galeria de eventos</a></li>
+                <li class="sidebar-item active"><a href="configuracoes.php"><i class="fa-solid fa-gear"></i> Configurações</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+            </div>
+        </aside>
 
-    <form class="form-wizard" action="cadastro_evento.php" method="POST">
-        <div class="completed" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <h3>Cadastro Realizado com Sucesso!</h3>
-            <p>O seu evento foi criado.</p>
-        </div>
-
-        <div class="formularios_eventos">
-            <h1>Criar Evento</h1>
-
-            <!-- PASSO 1: Informações Básicas -->
-            <section class="cadastro_evento">
-                <label for="nome_evento">Nome do Evento:</label>
-                <input type="text" id="nome_evento" name="nome_evento" required>
-
-                <label for="descricao">Descrição do Evento:</label>
-                <textarea id="descricao" name="descricao" required></textarea>
-
-                <div class="div_selects">
-                    <div>
-                        <label for="categoria">Categoria do Evento:</label>
-                        <select id="categoria" name="categoria" required>
-                            <option value="1">Workshop</option>
-                            <option value="2">Corporativo</option>
-                            <option value="3">Network</option>
-                            <option value="4">Educacional</option>
-                        </select>
-                    </div> 
-                </div>
-
-                <div class="botoes">
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-
-            <!-- PASSO 2: Data, Hora e Local -->
+        <!-- Main Content Area -->
+        <main class="content-area">
             
-            <section class="cadastro_evento" hidden >
-                <div class="teste">
-                    <div class="data-hora-container">
-                        <h3>Data e Hora</h3>
-                        <label for="data_inicio">Data e Hora de Início:</label>
-                        <input type="datetime-local" id="data_inicio" name="data_inicio" required>
+            <!-- Header da Página -->
+            <div class="welcome-header">
+                <h1>Configurações</h1>
+                <p>Gerencie suas informações, preferências e a segurança da sua conta.</p>
+            </div>
 
-                        <label for="data_fim">Data e Hora de Término:</label>
-                        <input type="datetime-local" id="data_fim" name="data_fim" required>
-                    </div>
+            <!-- Mensagens de Feedback do Banco de Dados -->
+            <?php if (isset($_SESSION['msg_sucesso'])): ?>
+                <div style="padding: 12px 16px; background: #e6f4ea; color: #1e7e34; border: 1px solid #ceead6; border-radius: 8px; margin-bottom: 20px; font-weight: 600; font-size: 0.9rem;">
+                    <i class="fa-solid fa-circle-check"></i> <?= $_SESSION['msg_sucesso']; unset($_SESSION['msg_sucesso']); ?>
+                </div>
+            <?php endif; ?>
 
-                    <section class="local">
-                        <h3>Local do evento</h3>
-                        <label for="nome_local">Nome do Local:</label>
-                        <input type="text" id="nome_local" name="nome_local" required>
+            <?php if (isset($_SESSION['msg_erro'])): ?>
+                <div style="padding: 12px 16px; background: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; border-radius: 8px; margin-bottom: 20px; font-weight: 600; font-size: 0.9rem;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <?= $_SESSION['msg_erro']; unset($_SESSION['msg_erro']); ?>
+                </div>
+            <?php endif; ?>
 
-                        <label for="endereco">Endereço:</label>
-                        <input type="text" id="endereco" name="endereco" required>
-
-                        <div class="como_sera_select">
-                            <label>
-                                <input type="radio" name="formato" value="presencial" required checked>
-                                <span>Presencial</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="formato" value="online">
-                                <span>Online</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="formato" value="hibrido">
-                                <span>Híbrido</span>
-                            </label>
+            <!-- Bloco 1: Informações do perfil (Sincronizado com MySQL) -->
+            <div class="card-box settings-card">
+                <div class="card-box-header-row">
+                    <div class="card-header-with-icon">
+                        <div class="section-icon-circle"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h3>Informações do perfil</h3>
+                            <p class="card-subtitle">Esses dados serão exibidos em sua conta e nos seus eventos.</p>
                         </div>
                     </div>
-                </section>
-                
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
                 </div>
-            </section>
 
-            <!-- PASSO 3: Atividades e Cronograma -->
-            <section class="cadastro_evento" hidden>
-                <div class="teste">
-                    <section class="atividades">
-                        <div class="como_sera_select">
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="palestra" required checked> 
-                                <span>Palestra</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="oficina"> 
-                                <span>Oficina</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="painel"> 
-                                <span>Painel</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="networking"> 
-                                <span>Networking</span>
-                            </label>
+                <form action="configuracoes.php" method="POST">
+                    <div class="profile-info-grid">
+                        <!-- Foto de Perfil com botão da câmara -->
+                        <div class="profile-avatar-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" alt="Foto de Perfil" class="profile-avatar-img" id="profileImg">
+                            <button type="button" class="btn-camera-upload" onclick="document.getElementById('fileAvatar').click()"><i class="fa-solid fa-camera"></i></button>
+                            <input type="file" id="fileAvatar" style="display: none;" accept="image/*" onchange="previewAvatar(event)">
                         </div>
 
-                        <label for="titulo_atividade">Título da atividade</label>
-                        <input type="text" id="titulo_atividade" name="titulo_atividade" required placeholder="Ex.: Futuro da Tecnologia">
-
-                        <label for="responsavel">Palestrante / Responsável</label>
-                        <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do palestrante">
-
-                        <label for="descricao_curta">Descrição curta (opcional)</label>
-                        <textarea id="descricao_curta" name="descricao_curta" placeholder="Breve descrição da atividade..."></textarea>
-                    </section>
-
-                    <section class="cronograma">
-                        <h3>Cronograma do evento</h3>
-                        <div class="cronograma-topo">
-                            <span class="cronograma-data">15 de setembro de 2026</span>
-                            <button type="button" class="btn-adicionar-atividade">
-                                <span>+</span> Adicionar atividade
-                            </button>
-                        </div>
-
-                        <div class="cronograma-timeline">
-                            <div class="cronograma-item">
-                                <div class="timeline-ponto"></div>
-                                <div class="item-horario">09:00 - 10:00</div>
-                                <div class="item-conteudo">
-                                    <h4>Credenciamento</h4>
-                                    <p>Recepção dos participantes</p>
-                                </div>
-                                <div class="item-acoes">
-                                    <button type="button" class="btn-acao" title="Editar">✏️</button>
-                                    <button type="button" class="btn-acao" title="Excluir">🗑️</button>
-                                </div>
+                        <!-- Campos de Entrada de Dados com valores do banco -->
+                        <div class="profile-fields-grid">
+                            <div class="form-group">
+                                <label>Nome completo</label>
+                                <input type="text" name="nome" id="inputNome" value="<?= htmlspecialchars($nome_atual) ?>" required>
                             </div>
-
-                            <div class="cronograma-item">
-                                <div class="timeline-ponto"></div>
-                                <div class="item-horario">10:00 - 11:30</div>
-                                <div class="item-conteudo">
-                                    <h4>Palestra de Abertura</h4>
-                                    <p>Marina Oliveira</p>
-                                </div>
-                                <div class="item-acoes">
-                                    <button type="button" class="btn-acao" title="Editar">✏️</button>
-                                    <button type="button" class="btn-acao" title="Excluir">🗑️</button>
-                                </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input type="email" name="email" id="inputEmail" value="<?= htmlspecialchars($email_atual) ?>" required>
                             </div>
-
-                            <div class="cronograma-item">
-                                <div class="timeline-ponto"></div>
-                                <div class="item-horario">13:30 - 15:00</div>
-                                <div class="item-conteudo">
-                                    <h4>Inovação na Prática</h4>
-                                    <p>Rafael Mendes</p>
-                                </div>
-                                <div class="item-acoes">
-                                    <button type="button" class="btn-acao" title="Editar">✏️</button>
-                                    <button type="button" class="btn-acao" title="Excluir">🗑️</button>
-                                </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="text" id="inputTelefone" value="(12) 98888-7777">
+                            </div>
+                            <div class="form-group">
+                                <label>Empresa / Organização</label>
+                                <input type="text" id="inputEmpresa" value="EventCop Eventos Corporativos">
                             </div>
                         </div>
-                    </section>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button type="submit" class="btn-submit-dark" style="padding: 11px 24px; background: #5A0505; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">Salvar alterações</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bloco 2: Alterar senha -->
+            <div class="card-box settings-card" style="margin-top: 24px;">
+                <div class="card-header-with-icon">
+                    <div class="section-icon-circle"><i class="fa-solid fa-lock"></i></div>
+                    <div>
+                        <h3>Alterar senha</h3>
+                        <p class="card-subtitle">Mantenha sua conta segura com uma senha forte.</p>
+                    </div>
                 </div>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
 
-            <!-- PASSO 4: Inscrições, Limites e Informações Extras -->
-            <section class="cadastro_evento" hidden >
-                <div class="teste">
-                    <section class="inscricoes">
-                        <div class="tipo-inscricao-container">
-                            <h3>Tipo de inscrição</h3>
-                            <label class="card-opcao">
-                                <input type="radio" name="tipo_inscricao" value="gratuito" checked>
-                                <div class="card-conteudo">
-                                    <div class="radio-circle"></div>
-                                    <div class="texto-opcao">
-                                        <strong>Gratuito</strong>
-                                        <p>Inscrição sem custo.</p>
-                                    </div>
-                                </div>
+                <form class="password-form" onsubmit="event.preventDefault(); alert('Senha alterada com sucesso!');">
+                    <div class="password-fields-grid">
+                        <div class="form-group">
+                            <label>Senha atual</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" placeholder="Digite sua senha atual">
+                                <i class="fa-regular fa-eye password-toggle"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nova senha</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" placeholder="Digite sua nova senha">
+                                <i class="fa-regular fa-eye password-toggle"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmar nova senha</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" placeholder="Confirme sua nova senha">
+                                <i class="fa-regular fa-eye password-toggle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit-dark">Alterar senha</button>
+                </form>
+            </div>
+
+            <!-- Bloco 3: Preferências de conta -->
+            <div class="card-box settings-card" style="margin-top: 24px;">
+                <div class="card-header-with-icon">
+                    <div class="section-icon-circle"><i class="fa-solid fa-gear"></i></div>
+                    <div>
+                        <h3>Preferências de conta</h3>
+                        <p class="card-subtitle">Personalize sua experiência na EventCop.</p>
+                    </div>
+                </div>
+
+                <div class="preferences-grid">
+                    <div class="form-group">
+                        <label>Idioma</label>
+                        <div class="select-wrapper">
+                            <select>
+                                <option>Português (Brasil)</option>
+                                <option>English</option>
+                                <option>Español</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fuso horário</label>
+                        <div class="select-wrapper">
+                            <select>
+                                <option>(GMT-03:00) Brasília</option>
+                                <option>(GMT-04:00) Manaus</option>
+                                <option>(GMT+00:00) Lisboa</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tema</label>
+                        <div class="theme-options">
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="claro" checked onchange="changeTheme('claro')">
+                                <span class="radio-custom"></span>
+                                Claro
                             </label>
-                            <label class="card-opcao">
-                                <input type="radio" name="tipo_inscricao" value="pago">
-                                <div class="card-conteudo">
-                                    <div class="radio-circle"></div>
-                                    <div class="texto-opcao">
-                                        <strong>Pago</strong>
-                                        <p>Com valor de inscrição.</p>
-                                    </div>
-                                </div>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="escuro" onchange="changeTheme('escuro')">
+                                <span class="radio-custom"></span>
+                                Escuro
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="auto" onchange="changeTheme('auto')">
+                                <span class="radio-custom"></span>
+                                Automático
                             </label>
                         </div>
-                    </section>
+                    </div>
+                </div>
+            </div>
 
-                    <section class="limite_publico">
-                        <h3>Limites e público</h3>
-                        <div class="linha-vagas-espera">
-                            <div class="campo-grupo">
-                                <label for="vagas">Vagas disponíveis</label>
-                                <div class="input-com-icone">
-                                    <span class="icone-esq">👥</span>
-                                    <input type="number" id="vagas" name="vagas" value="300">
-                                </div>
-                            </div>
+            <!-- Bloco 4: Notificações + Excluir conta -->
+            <div class="dashboard-split" style="margin-top: 24px;">
+                <div class="card-box">
+                    <div class="card-header-with-icon">
+                        <div class="section-icon-circle"><i class="fa-solid fa-bell"></i></div>
+                        <div>
+                            <h3>Notificações por e-mail</h3>
+                            <p class="card-subtitle">Escolha quais notificações deseja receber.</p>
+                        </div>
+                    </div>
 
-                            <div class="campo-grupo toggle-inline">
-                                <span class="toggle-label">Lista de espera</span>
-                                <label class="toggle-wrapper">
-                                    <input type="checkbox" name="lista_espera" checked>
-                                    <span class="slider"></span>
-                                </label>
+                    <div class="notifications-list">
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span>Novos inscritos no evento</span>
                             </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
                         </div>
 
-                        <div class="campo-grupo">
-                            <label for="publico">Público-alvo</label>
-                            <div class="input-com-icone">
-                                <select id="publico" name="publico" required>
-                                    <option value="" disabled selected>Selecione o público</option>
-                                    <option value="geral">Público Geral</option>
-                                    <option value="estudantes">Estudantes</option>
-                                    <option value="profissionais">Profissionais</option>
-                                </select>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>Lembretes de reuniões</span>
                             </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
                         </div>
-                    </section>
 
-                    <section class="informacoes_extras">
-                        <h3>Informações extras</h3>
-                        <label class="toggle-wrapper">
-                            <span>Exigir aprovação manual</span>
-                            <input type="checkbox" name="exigir_aprovacao">
-                            <span class="slider"></span>
-                        </label>
-                        <label class="toggle-wrapper">
-                            <span>Permitir cancelamento</span>
-                            <input type="checkbox" name="permitir_cancelamento" checked>
-                            <span class="slider"></span>
-                        </label>
-                        <label class="toggle-wrapper">
-                            <span>Enviar e-mail de confirmação</span>
-                            <input type="checkbox" name="enviar_email_confirmacao" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </section>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <i class="fa-regular fa-bell"></i>
+                                <span>Atualizações de pagamento</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <i class="fa-regular fa-file-lines"></i>
+                                <span>Novidades da EventCop</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="submit" class="btn_cadastrar">Cadastrar Evento</button>
+
+                <div class="card-box">
+                    <div class="card-header-with-icon">
+                        <div class="section-icon-circle delete-icon"><i class="fa-regular fa-trash-can"></i></div>
+                        <div>
+                            <h3 class="delete-title">Excluir conta</h3>
+                        </div>
+                    </div>
+
+                    <p class="delete-description">
+                        Essa ação não pode ser desfeita. Todos os seus dados serão permanentemente removidos.
+                    </p>
+
+                    <button class="btn-delete-account" onclick="if(confirm('Tem certeza de que deseja excluir a sua conta?')) alert('Ação solicitada com sucesso.');">Excluir minha conta</button>
                 </div>
-            </section>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-coluna footer-empresa">
+            <img src="imgs/logo footer.jpg.jpeg" alt="EventCap" class="logo-footer">
+            <p class="descricao-footer">
+                A plataforma completa para planejar, organizar e executar eventos corporativos com eficiência.
+            </p>
+            <div class="traco"></div>
+
+            <div class="footer-info">
+                <img src="imgs/imagem localizacao footer.png" alt="Localização">
+                <p>
+                    Avenida das Nações, nº 850<br>
+                    São José dos Campos - SP<br>
+                    CEP: 12227-000
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imgs/imagem CNPJ footer.png" alt="Documento">
+                <p>CNPJ: 48.729.315/0001-62</p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imgs/imagem e-mail footer.png" alt="E-mail">
+                <p>contato@eventcop.com.br</p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imgs/imagem telefone footer.png" alt="Telefone">
+                <p>(12) 3456-7890</p>
+            </div>
         </div>
-    </form>
-</main>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imgs/imagem calendario footer.png" alt="Calendário">
+                <div>
+                    <h3>Tipos de Eventos</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Corporativos</a>
+            <a href="">› Workshops e Palestras</a>
+            <a href="">› Treinamentos</a>
+            <a href="">› Feiras e Exposições</a>
+        </div>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imgs/imagem recursos plataforma footer.png" alt="Recursos">
+                <div>
+                    <h3>Recursos da<br>Plataforma</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Gestão de Eventos</a>
+            <a href="">› Inscrições e Convites</a>
+            <a href="relatorios-metricas.html">› Relatórios e Métricas</a>
+            <a href="">› Agendamento com Consultores</a>
+        </div>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
+                <div>
+                    <h3>Comece na<br>Plataforma</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Criar minha conta</a>
+            <a href="">› Quero organizar um evento</a>
+
+            <div class="ajuda">
+                <img src="imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
+                <div>
+                    <h3>Precisa de ajuda?</h3>
+                    <p>Nossa equipe está pronta para te atender!</p>
+                    <a href="" class="btn-fale">
+                        Fale conosco
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-baixo">
+            <div class="redes">
+                <strong>Siga-nos</strong>
+                <img src="imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
+            </div>
+            <p>©️ 2026 EventCop. Todos os direitos reservados.</p>
+            <div class="footer-politicas">
+                <a href="">Política de Privacidade</a>
+                <span>|</span>
+                <a href="">Termos de Uso</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script JS -->
+    <script src="js/configurações.js"></script>
 </body>
 </html>
