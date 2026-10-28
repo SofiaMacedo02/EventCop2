@@ -1,0 +1,278 @@
+[hidden] {
+    display: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+/* Base Universal do Corpo */
+body {
+    min-height: 100vh;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER SUPERIOR
+   ========================================================================== */
+
+.header {
+    background-color: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    width: 100%;
+}
+
+.logo-header {
+    height: 50px;          
+    width: auto;          
+    max-height: 60px;      
+    object-fit: contain;    
+    display: block;
+}
+ 
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 22px;
+    align-items: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+}
+
+.menu a:hover {
+    opacity: 0.85;
+}
+
+.btn-header {
+    padding: 8px 17px;
+    border: 1px solid #FFF8F2;
+    border-radius: 25px;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-header:hover {
+    background: #FFF8F2;
+    color: var(--nav-bg) !important;
+}
+/* ==========================================================================
+   FOOTER INFERIOR E ESTRUTURA
+   ========================================================================== */
+.footer {
+    width: 100%;
+    padding: 50px 4% 25px;
+    background: #5A0505;
+    color: #FFF8F2;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1.1fr 1.15fr;
+    column-gap: 40px;
+}
+
+.footer-coluna {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-coluna:not(:first-child) {
+    border-left: 1px solid rgba(255, 248, 242, 0.2);
+    padding-left: 35px;
+}
+
+.logo-footer {
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+}
+
+.descricao-footer {
+    max-width: 310px;
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.traco {
+    width: 48px;
+    height: 4px;
+    margin-top: 7px;
+    background: #FFF8F2;
+    border-radius: 10px;
+}
+
+.footer-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-info img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-info p {
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.footer-titulo {
+    min-height: 85px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-titulo > img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.footer-titulo h3 {
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.footer-coluna > a {
+    color: #FFF8F2;
+    font-size: 16px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-coluna > a:hover {
+    opacity: 0.75;
+}
+
+.ajuda {
+    margin-top: 8px;
+    width: 100%;
+    max-width: 300px;
+    padding: 18px 20px;
+    background: #7D1A1A;
+    border-radius: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.fone-ajuda {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.ajuda h3 {
+    margin: 2px 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ajuda p {
+    margin: 0 0 14px;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.btn-fale {
+    width: 160px;
+    min-width: 0;
+    padding: 10px 15px;
+    background: #FFF8F2;
+    color: #5A0505;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-fale:hover {
+    transform: translateY(-2px);
+}
+
+.btn-fale span {
+    font-size: 17px;
+}
+
+/* ==========================================================================
+   BARRA INFERIOR (DIREITOS E POLÍTICAS)
+   ========================================================================== */
+.footer-baixo {
+    grid-column: 1 / -1;
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 248, 242, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.redes {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.redes strong {
+    font-size: 15px;
+}
+
+.redes img {
+    width: 250px;
+    height: auto;
+}
+
+.footer-baixo > p {
+    font-size: 14px;
+}
+
+.footer-politicas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-politicas a {
+    color: #FFF8F2;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.footer-politicas a:hover {
+    text-decoration: underline;
+}
+
+.footer-politicas span {
+    color: #FFF8F2;
+    font-size: 14px;
+}
+

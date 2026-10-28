@@ -1,0 +1,60 @@
+/* ==========================================================================
+   ANIMAÇÕES E EFEITOS - EventCop
+   Respeita prefers-reduced-motion. Ativadas por atributos data-* (ver js/core/ui.js).
+   ========================================================================== */
+
+/* Entrada ao rolar: <div data-reveal> ou data-reveal="left|right|zoom" data-delay="120" */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+}
+[data-reveal="left"]  { transform: translateX(-32px); }
+[data-reveal="right"] { transform: translateX(32px); }
+[data-reveal="zoom"]  { transform: scale(0.94); }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* Entrada ao carregar a página */
+@keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn    { 0% { opacity: 0; transform: scale(0.85); } 70% { transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes floatY   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes growX    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes growY    { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(238, 143, 102, 0.6); } 100% { box-shadow: 0 0 0 10px rgba(238, 143, 102, 0); } }
+@keyframes shimmer  { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes spin     { to { transform: rotate(360deg); } }
+
+.anim-fade-up  { animation: fadeUp 0.7s ease both; }
+.anim-fade-in  { animation: fadeIn 0.8s ease both; }
+.anim-pop      { animation: popIn 0.55s ease both; }
+.anim-float    { animation: floatY 5s ease-in-out infinite; }
+.anim-delay-1  { animation-delay: 0.1s; }
+.anim-delay-2  { animation-delay: 0.2s; }
+.anim-delay-3  { animation-delay: 0.3s; }
+.anim-delay-4  { animation-delay: 0.4s; }
+
+/* Barras que crescem quando o gráfico entra na tela */
+.bar-grow-x { transform-origin: left center; transform: scaleX(0); }
+.bar-grow-y { transform-origin: center bottom; transform: scaleY(0); }
+.is-visible .bar-grow-x, .bar-grow-x.is-visible { animation: growX 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; animation-delay: var(--reveal-delay, 0ms); }
+.is-visible .bar-grow-y, .bar-grow-y.is-visible { animation: growY 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; animation-delay: var(--reveal-delay, 0ms); }
+
+/* Linha de gráfico SVG desenhando: <path class="draw-line" pathLength="1"> */
+.draw-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.is-visible .draw-line, .draw-line.is-visible { animation: drawLine 1.6s ease forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    [data-reveal] { opacity: 1; transform: none; }
+    .bar-grow-x, .bar-grow-y { transform: none; }
+    .draw-line { stroke-dashoffset: 0; }
+}
