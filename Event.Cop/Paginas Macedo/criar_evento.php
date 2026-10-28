@@ -106,7 +106,6 @@ if (estaLogado() && ehOrganizador() && !empty($_SESSION["user_id"])) {
     <script src="script.js" defer></script>
 </head>
 <body class="body_criar_evento">
-
 <header class="header">
     <a href="../Paginas Leticia/index.php">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
@@ -115,19 +114,11 @@ if (estaLogado() && ehOrganizador() && !empty($_SESSION["user_id"])) {
         <ul>
             <li><a href="../Paginas Leticia/index.php">Home</a></li>
             <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="../Paginas Leticia/cases.php">Cases</a></li>
-            <li><a href="../Paginas Leticia/planos_precos.php">Planos e Preços</a></li>
-            <?php if (estaLogado()): ?>
-                <li><span style="color: #f0f0f0; font-weight: bold;">Olá, <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Organizador') ?></span></li>
-                <li><a href="logout.php" style="color: #c94b4b;">Sair</a></li>
-            <?php else: ?>
-                <li><a href="login_organizadores.php">Sou um organizador</a></li>
-            <?php endif; ?>
-            <li><a href="criar_evento.php" class="btn-header">Criar Evento</a></li>
+            <li><a href="login_organizadores.php">Sou adm</a></li>
+            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
         </ul>
     </nav>
 </header>
-
 <main class="main_criar_evento">
 
     <?php if (!estaLogado() || !ehOrganizador()): ?>

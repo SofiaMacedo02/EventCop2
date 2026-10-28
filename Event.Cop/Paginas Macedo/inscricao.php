@@ -133,10 +133,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <ul>
             <li><a href="../Paginas Leticia/index.php">Home</a></li>
             <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="../Paginas Leticia/cases.php">Cases</a></li>
-            <li><a href="../Paginas Leticia/planos_precos.php">Planos e Preços</a></li>
-            <li><a href="login_organizadores.php">Sou um organizador</a></li>
-            <li><a href="criar_evento.php" class="btn-header">Criar Evento</a></li>
+            <li><a href="login_organizadores.php">Sou adm</a></li>
+            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
         </ul>
     </nav>
 </header>
@@ -180,7 +178,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <section class="cadastro_organizador active">
                         <h1>Inscreva-se Já!</h1>
                         <p>Preencha os dados do participante abaixo:</p>
-
                         <div style="margin-top: 15px;">
                             <label for="nome">Seu Nome Completo:</label>
                             <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($_POST['nome'] ?? $nomePre) ?>" required>

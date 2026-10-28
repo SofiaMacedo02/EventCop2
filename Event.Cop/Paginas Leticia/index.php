@@ -18,23 +18,15 @@ $tipoUsuario = $_SESSION["user_tipo"] ?? "usuario";
 
 <body>
 <header class="header">
-    <a href="index.php">
-        <img src="../imgs/logo_footer.jpeg" alt="EventCop" class="logo-header">
+    <a href="../Paginas Leticia/index.php">
+        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
     </a>
     <nav class="menu">
         <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="empresas.php">EventCop Empresas</a></li>
-            <li><a href="cases.php">Cases</a></li>
-            <li><a href="planos_precos.php">Planos e Preços</a></li>
-            <?php if ($estaLogado): ?>
-                <li><span style="color: #6a1b29; font-weight: bold;">Olá, <?= htmlspecialchars($nomeUsuario) ?></span></li>
-                <li><a href="../Paginas Macedo/logout.php" style="color: #c94b4b;">Sair</a></li>
-            <?php else: ?>
-                <li><a href="../Paginas Macedo/login_organizadores.php">Sou um organizador</a></li>
-                <li><a href="../Paginas Macedo/login_normal.php">Entrar</a></li>
-            <?php endif; ?>
-            <li><a href="../Paginas Macedo/criar_evento.php" class="btn-header">Criar Evento</a></li>
+            <li><a href="../Paginas Leticia/index.php">Home</a></li>
+            <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
+            <li><a href="login_organizadores.php">Sou adm</a></li>
+            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
         </ul>
     </nav>
 </header>
