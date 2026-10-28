@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --primary-dark: #5A0505;
     --sidebar-color: #7D1A1A;
     --nav-bg: #5A0505;
@@ -68,7 +68,7 @@ body {
 }
 
 .btn-header {
-    padding: 8px 18px;
+    padding: 8px 17px;
     border: 1px solid #FFF8F2;
     border-radius: 25px;
     background: transparent;

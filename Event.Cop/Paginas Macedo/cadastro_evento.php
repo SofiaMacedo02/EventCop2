@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id_orga = $_SESSION["user_id"];
     $nome_evento = trim($_POST["nome_evento"] ?? "");
     $descricao = trim($_POST["descricao"] ?? "");
-    $categoria = $_POST["categoria"] ?? "1";
-    $formato = $_POST["formato"] ?? "presencial";
-    $cidade = trim($_POST["cidade"] ?? "São José dos Campos");
-    $estado = strtoupper(trim($_POST["estado"] ?? "SP"));
+    $categoria = $_POST["categoria"] ?? "";
+    $formato = $_POST["formato"] ?? "";
+    $cidade = trim($_POST["cidade"] ?? "");
+    $estado = strtoupper(trim($_POST["estado"] ?? ""));
     $tipo = $_POST["tipo"] ?? "1";
 
     // Tratar data e hora
@@ -30,12 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $data_event = date("Y-m-d", strtotime("+7 days"));
         $hora_event = "14:00:00";
     }
-
     // Garantir formato dentro do ENUM ('presencial','online','hibrido')
     if (!in_array($formato, ['presencial', 'online', 'hibrido'])) {
         $formato = 'presencial';
     }
-
     // Garantir categoria dentro do ENUM ('1','2','3','4')
     if (!in_array($categoria, ['1', '2', '3', '4'])) {
         $categoria = '1';

@@ -70,14 +70,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <a href="../Paginas Leticia/index.php">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
     </a>
+
     <nav class="menu">
         <ul>
             <li><a href="../Paginas Leticia/index.php">Home</a></li>
             <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="../Paginas Leticia/cases.php">Cases</a></li>
-            <li><a href="../Paginas Leticia/planos_precos.php">Planos e Preços</a></li>
-            <li><a href="login_organizadores.php">Sou um organizador</a></li>
-            <li><a href="criar_evento.php" class="btn-header">Criar Evento</a></li>
+            <li><a href="login_organizadores.php">Sou adm</a></li>
+            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
         </ul>
     </nav>
 </header>

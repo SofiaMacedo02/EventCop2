@@ -18,15 +18,16 @@ $tipoUsuario = $_SESSION["user_tipo"] ?? "usuario";
 
 <body>
 <header class="header">
-    <a href="../Paginas Leticia/index.php">
+    <a href="index.php">
         <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
     </a>
+
     <nav class="menu">
         <ul>
-            <li><a href="../Paginas Leticia/index.php">Home</a></li>
-            <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="login_organizadores.php">Sou adm</a></li>
-            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="empresas.php">EventCop Empresas</a></li>
+            <li><a href="../Paginas Macedo/login_organizadores.php">Sou adm</a></li>
+            <li><a href="../Paginas Macedo/login_normal.php" class="btn-header">Entrar</a></li>
         </ul>
     </nav>
 </header>
@@ -49,7 +50,7 @@ $tipoUsuario = $_SESSION["user_tipo"] ?? "usuario";
             Conheça as vantagens da EventCop para seu Workshop
         </h2>
         <img
-            src="../imgs/Imagem do ChatGPT 26 de set. de 2026, 15_06_16.png"
+            src="../imgs/Imagem do ChatGPT 26 de set. de 2026.png"
             alt="Vantagens da EventCop"
             class="imagem-vantagens">
 
@@ -68,38 +69,6 @@ $tipoUsuario = $_SESSION["user_tipo"] ?? "usuario";
                 alt="Organizadores EventCop no Brasil"
                 class="mapa-organizadores">
         </div>
-    </section>
-
-    <section class="precos">
-        <h2>Quanto custa criar um Workshop?</h2>
-        <div class="planos">
-            <div class="plano">
-                <h3>Workshop Gratuito</h3>
-                <div class="valor-gratis">
-                    <span>R$</span>
-                    <strong>0</strong>
-                </div>
-                <p>Grátis para inscrições gratuitas</p>
-                <p>Participantes ilimitados</p>
-                <p>Importe seus participantes</p>
-                <p>Site personalizado</p>
-                <p>E-mails ilimitados</p>
-                <p>Inscrições via boleto, cartão e Pix</p>
-            </div>
-            <div class="plano">
-                <h3>Workshop Pago</h3>
-                <strong class="cifrao">$</strong>
-                <p>Todos os recursos do gratuito</p>
-                <p>Taxa de 10% sobre as inscrições</p>
-                <p>Seu dinheiro em 10 dias</p>
-                <p>Certificados ilimitados</p>
-            </div>
-        </div>
-
-        <a href="planos_precos.php" class="btn-vinho">
-            Conheça todos os Planos
-            <span>→</span>
-        </a>
     </section>
 
     <section class="dashboard">

@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    EVENTCOP — ESTILOS GERAIS
    ÍNDICE
    1.  Variáveis
@@ -111,12 +111,24 @@ textarea {
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.menu a:hover {
+    opacity: 0.85;
 }
 
 .btn-header {
     padding: 8px 17px;
     border: 1px solid var(--color-light);
     border-radius: 25px;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-header:hover {
+    background: var(--color-light);
+    color: var(--color-primary-dark) !important;
 }
 
 

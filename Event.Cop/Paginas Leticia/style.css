@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    1. RESET E BASE
    ========================================================================== */
 
@@ -68,12 +68,24 @@ body {
     color: #ffffff;
     font-weight: 600;
     font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+}
+
+.menu a:hover {
+    opacity: 0.85;
 }
 
 .btn-header {
     padding: 8px 17px;
     border: 1px solid #FFF8F2;
     border-radius: 25px;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-header:hover {
+    background: #FFF8F2;
+    color: var(--nav-bg) !important;
 }
 /* ==========================================================================
    FOOTER INFERIOR E ESTRUTURA
