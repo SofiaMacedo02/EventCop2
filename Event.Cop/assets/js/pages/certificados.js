@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     popularListaParticipantesExemplo();
 });
 
-// Modelos pré-configurados
 const modelosDisponiveis = [
     { id: 'vinho', nome: 'Vinho Institucional', corPrincipal: '#5A0505', corFundo: '#fffdf9' },
     { id: 'dourado', nome: 'Dourado Elegante', corPrincipal: '#b45309', corFundo: '#fdfaf3' },
@@ -17,11 +16,18 @@ const modelosDisponiveis = [
 
 let modeloAtualIndex = 0;
 
+function notificarCert(msg, tipo = 'ok') {
+    if (window.EventCop && typeof window.EventCop.toast === 'function') {
+        window.EventCop.toast(msg, tipo);
+    } else {
+        alert(msg);
+    }
+}
+
 /**
  * Vincula todos os inputs aos respectivos elementos da pré-visualização
  */
 function inicializarBindsTempoReal() {
-    // 1. Título do Certificado
     const inputTitulo = document.getElementById('inputTituloCertificado');
     const prevTitulo = document.getElementById('prevTitulo');
     if (inputTitulo && prevTitulo) {
@@ -30,7 +36,6 @@ function inicializarBindsTempoReal() {
         });
     }
 
-    // 2. Nome do Evento
     const inputNomeEvento = document.getElementById('inputNomeEvento');
     const lblResumoEvento = document.getElementById('lblResumoEvento');
     if (inputNomeEvento && lblResumoEvento) {
@@ -39,24 +44,21 @@ function inicializarBindsTempoReal() {
         });
     }
 
-    // 3. Texto do Certificado
     const inputTexto = document.getElementById('inputTextoCertificado');
     const prevText = document.getElementById('prevText');
     if (inputTexto && prevText) {
         inputTexto.addEventListener('input', (e) => {
             let texto = e.target.value;
-            // Se tiver o placeholder [Nome do participante], remove dele para manter o nome em destaque
             texto = texto.replace('[Nome do participante]', '').trim();
             prevText.textContent = texto;
         });
     }
 
-    // 4. Data e Local
     const inputLocal = document.getElementById('inputLocal');
     const inputData = document.getElementById('inputDataEvento');
     const prevLocation = document.getElementById('prevLocation');
     const atualizarLocalData = () => {
-        const local = inputLocal ? inputLocal.value : 'São Paulo - SP';
+        const local = inputLocal ? inputLocal.value : 'São José dos Campos - SP';
         const data = inputData ? inputData.value : '15 de setembro de 2026';
         if (prevLocation) {
             prevLocation.textContent = `${local}, ${data}.`;
@@ -65,7 +67,6 @@ function inicializarBindsTempoReal() {
     if (inputLocal) inputLocal.addEventListener('input', atualizarLocalData);
     if (inputData) inputData.addEventListener('input', atualizarLocalData);
 
-    // 5. Autoridades / Assinaturas 1 e 2
     bindAssinatura('inputSig1Nome', 'prevSig1Nome', 'prevSig1Rubrica');
     bindAssinatura('inputSig1Cargo', 'prevSig1Cargo');
     bindAssinatura('inputSig2Nome', 'prevSig2Nome', 'prevSig2Rubrica');
@@ -96,13 +97,11 @@ function selecionarModelo(idModelo, elThumb) {
 
     if (!papel) return;
 
-    // Atualiza classes ativas nas miniaturas
     thumbs.forEach(t => t.classList.remove('active'));
     if (elThumb) {
         elThumb.classList.add('active');
     }
 
-    // Remove classes anteriores
     papel.classList.remove('model-vinho', 'model-dourado', 'model-verde');
     papel.classList.add(`model-${idModelo}`);
 
@@ -112,7 +111,6 @@ function selecionarModelo(idModelo, elThumb) {
         if (lblResumo) lblResumo.textContent = modeloEncontrado.nome;
     }
 
-    // Limpa custom styles diretos para prevalecer a classe do tema
     papel.style.backgroundColor = '';
     const frame = papel.querySelector('.cert-border-frame');
     if (frame) frame.style.borderColor = '';
@@ -163,19 +161,21 @@ function setFonteParticipantes(tipo, botao) {
         if (inputQtd) inputQtd.value = 248;
         if (lblInscritos) lblInscritos.textContent = '248';
         atualizarQtdCertificados(248);
+        notificarCert('Lista sincronizada com os 248 inscritos confirmados.', 'ok');
     } else if (tipo === 'manual') {
-        const manualQtd = prompt('Digite quantos participantes deseja adicionar manualmente:', '1');
+        const manualQtd = prompt('Digite quantos participantes deseja adicionar manualmente:', '15');
         const num = parseInt(manualQtd, 10);
         if (!isNaN(num) && num > 0) {
             if (inputQtd) inputQtd.value = num;
             if (lblInscritos) lblInscritos.textContent = num;
             atualizarQtdCertificados(num);
+            notificarCert(`${num} participante(s) adicionado(s) manualmente.`, 'ok');
         }
     } else if (tipo === 'csv') {
-        alert('Funcionalidade de importação de arquivo CSV/Excel ativada. Selecione sua planilha com nomes e e-mails.');
         if (inputQtd) inputQtd.value = 150;
         if (lblInscritos) lblInscritos.textContent = '150';
         atualizarQtdCertificados(150);
+        notificarCert('Planilha CSV importada com 150 participantes!', 'ok');
     }
 }
 
@@ -205,7 +205,7 @@ function adicionarAutoridade() {
 
     const totalAtual = container.querySelectorAll('.form-grid-2').length + 1;
     if (totalAtual > 3) {
-        alert('O modelo suporta até 3 assinaturas para garantir a diagramação visual ideal.');
+        notificarCert('O modelo suporta até 3 assinaturas para garantir a diagramação ideal.', 'info');
         return;
     }
 
@@ -224,7 +224,6 @@ function adicionarAutoridade() {
     `;
     container.appendChild(novoBloco);
 
-    // Adiciona na pré-visualização
     const novaSigPrev = document.createElement('div');
     novaSigPrev.className = 'sig-item';
     novaSigPrev.id = 'sigItem3';
@@ -239,6 +238,7 @@ function adicionarAutoridade() {
     bindAssinatura('inputSig3Cargo', 'prevSig3Cargo');
 
     if (lblAutoridades) lblAutoridades.textContent = '3 autoridades';
+    notificarCert('3ª autoridade adicionada ao certificado.', 'ok');
 }
 
 /**
@@ -258,10 +258,9 @@ function gerarCertificadosAcao() {
         btn.disabled = false;
         btn.innerHTML = textoOriginal;
         successBox.style.display = 'block';
-
-        // Rolagem suave até a confirmação
+        notificarCert('Certificados gerados com sucesso!', 'ok');
         successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 900);
+    }, 650);
 }
 
 /**
@@ -276,14 +275,14 @@ function baixarCertificadosPDF() {
  */
 function enviarCertificadosEmail() {
     const qtd = document.getElementById('inputQtdCertificados')?.value || '248';
-    alert(`Sucesso! Os certificados personalizados foram colocados na fila de envio e estão sendo disparados para os ${qtd} participantes.`);
+    notificarCert(`Certificados enviados por e-mail para os ${qtd} participantes!`, 'ok');
 }
 
 /**
  * Salvar modelo de certificado
  */
 function salvarModeloCertificado() {
-    alert('Modelo de certificado salvo com sucesso no perfil do organizador!');
+    notificarCert('Modelo de certificado salvo com sucesso no perfil do organizador!', 'ok');
 }
 
 /**

@@ -1,71 +1,33 @@
 <?php
-require_once "../Paginas Vitoria/config.php";
-require_once "../Paginas Vitoria/auth.php";
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
-$erro = "";
-$sucesso = "";
+$erro    = '';
+$sucesso = '';
 
-if (isset($_GET["cadastro"]) && $_GET["cadastro"] === "sucesso") {
-    $sucesso = "Cadastro realizado com sucesso! Faça login para continuar.";
+if (isset($_GET['cadastro']) && $_GET['cadastro'] === 'sucesso') {
+    $sucesso = 'Cadastro realizado com sucesso! Faça login para continuar.';
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = trim($_POST["email"] ?? "");
-    $senha = $_POST["senha"] ?? "";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim((string) ($_POST['email'] ?? ''));
+    $senha = (string) ($_POST['senha'] ?? '');
 
-    if (!empty($email) && !empty($senha)) {
-        try {
-            $sql = "SELECT * FROM usuarios WHERE email_user = :email LIMIT 1";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->execute();
-
-            $userBanco = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($userBanco && password_verify($senha, $userBanco["senha_user"])) {
-                session_regenerate_id(true);
-                $_SESSION["user_id"] = $userBanco["id_user"];
-                $_SESSION["user_nome"] = $userBanco["nome_user"];
-                $_SESSION["user_email"] = $userBanco["email_user"];
-                $_SESSION["user_tipo"] = "usuario";
-
-                header("Location: ../Paginas Leticia/index.php");
-                exit;
-            } else {
-                $erro = "E-mail ou senha incorretos.";
-            }
-        } catch (PDOException $e) {
-            error_log("Erro no login: " . $e->getMessage());
-            $erro = "Erro ao processar login. Tente novamente mais tarde.";
-        }
+    if (login_mock('participante', $email, $senha)) {
+        flash('ok', 'Login realizado com sucesso!');
+        redirect_to('galeria');
     } else {
-        $erro = "Por favor, preencha todos os campos.";
+        $erro = 'Por favor, preencha seu e-mail e senha para entrar.';
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login de Participante - EventCop</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="header">
-    <a href="../Paginas Leticia/index.php">
-        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
-    </a>
-    <nav class="menu">
-        <ul>
-            <li><a href="../Paginas Leticia/index.php">Home</a></li>
-            <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="login_organizadores.php">Sou adm</a></li>
-            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
-        </ul>
-    </nav>
-</header>
 
+$flashes   = flash_consumir();
+$pageTitle = 'Login de Participante | EventCop';
+$pageCss   = ['pages/flow.css'];
+$menuAtivo = 'home';
+
+require ROOT_PATH . '/includes/layout/head.php';
+require ROOT_PATH . '/includes/layout/header.php';
+?>
 <main>
     <section class="banner">
         <div class="banner-texto">
@@ -81,34 +43,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h1>Bem-vindo de Volta!</h1>
             <p>Preencha os campos abaixo para realizar o seu acesso como participante:</p>
 
-            <?php if (!empty($erro)): ?>
-                <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 16px; border: 1px solid #f5c6cb;">
-                    <?= htmlspecialchars($erro) ?>
+            <?php foreach ($flashes as $f): ?>
+                <div class="alert alert-<?= $f['tipo'] === 'ok' ? 'ok' : ($f['tipo'] === 'erro' ? 'erro' : 'info') ?>">
+                    <?= e($f['msg']) ?>
                 </div>
+            <?php endforeach; ?>
+
+            <?php if ($erro !== ''): ?>
+                <div class="alert alert-erro"><?= e($erro) ?></div>
             <?php endif; ?>
 
-            <?php if (!empty($sucesso)): ?>
-                <div style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 16px; border: 1px solid #c3e6cb;">
-                    <?= htmlspecialchars($sucesso) ?>
-                </div>
+            <?php if ($sucesso !== ''): ?>
+                <div class="alert alert-ok"><?= e($sucesso) ?></div>
             <?php endif; ?>
 
-            <form class="formulario_organizador" action="login_normal.php" method="POST">
+            <form class="formulario_organizador" action="<?= route('login') ?>" method="POST">
                 <label for="email">Seu e-mail:</label>
-                <input type="email" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
-                
+                <input type="email" id="email" name="email" value="<?= e($_POST['email'] ?? '') ?>" placeholder="seuemail@exemplo.com" required>
+
                 <label for="senha">Sua senha de acesso:</label>
-                <input type="password" id="senha" name="senha" required>  
-                
+                <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+
                 <div class="botoes">
                     <button type="submit" class="btn_cadastrar">Entrar</button>
                 </div>
 
-                <p style="margin-top: 15px; text-align: center;">Não possui conta? <a href="cadastro_normal.php">Cadastre-se</a></p>
-                <p style="margin-top: 5px; text-align: center;">É organizador? <a href="login_organizadores.php">Login de Organizador</a></p>
+                <p class="text-muted">Não possui conta? <a href="<?= route('cadastro') ?>">Cadastre-se</a></p>
+                <p class="text-muted">É organizador? <a href="<?= route('login_admin') ?>">Login de Organizador</a></p>
             </form>
         </section>
     </div>
 </main>
-</body>
-</html>
+<?php require ROOT_PATH . '/includes/layout/footer.php'; ?>

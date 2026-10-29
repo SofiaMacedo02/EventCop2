@@ -1,506 +1,306 @@
 <?php
-require_once "../Paginas Vitoria/config.php";
-require_once "../Paginas Vitoria/auth.php";
+require_once __DIR__ . '/../../includes/bootstrap.php';
+require_once ROOT_PATH . '/data/eventos.php';
+require_once ROOT_PATH . '/data/organizador.php';
 
-$mensagem_sucesso = "";
-$mensagem_erro = "";
+$usuario = usuario_logado();
+$erro    = '';
 
-if (isset($_GET["criado"]) && $_GET["criado"] === "sucesso") {
-    $mensagem_sucesso = "Evento criado com sucesso! Seu evento já está disponível para inscrições.";
-}
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+    $cidade      = trim((string) ($_POST['cidade'] ?? 'São José dos Campos'));
+    $estado      = strtoupper(trim((string) ($_POST['estado'] ?? 'SP')));
+    $nomeEvento  = trim((string) ($_POST['nome_evento'] ?? ''));
+    $descricao   = trim((string) ($_POST['descricao'] ?? ''));
+    $expectativa = trim((string) ($_POST['expectativa'] ?? '50 a 150 participantes'));
+    $tipo        = trim((string) ($_POST['tipo'] ?? 'publico'));
+    $categoria   = trim((string) ($_POST['categoria'] ?? 'tecnologia'));
+    $formato     = trim((string) ($_POST['formato'] ?? 'presencial'));
+    $nomeOrga    = trim((string) ($_POST['nome_organizador'] ?? ($usuario['nome'] ?? 'Marina Oliveira')));
+    $emailOrga   = trim((string) ($_POST['email_organizador'] ?? ($usuario['email'] ?? 'marina@eventcop.com.br')));
+    $recursos    = $_POST['recursos'] ?? ['inscricoes', 'programacao'];
 
-if (isset($_GET["erro"])) {
-    $mensagem_erro = "Ocorreu um erro ao criar o evento. Por favor, verifique os campos obrigatórios.";
-}
-
-// Processamento POST direto
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!estaLogado() || !ehOrganizador()) {
-        header("Location: login_organizadores.php?aviso=faca_login");
-        exit;
+    if (!in_array($formato, ['presencial', 'online', 'hibrido'], true)) {
+        $formato = 'presencial';
     }
 
-    $id_orga = $_SESSION["user_id"];
-    $nome_evento = trim($_POST["nome_evento"] ?? "");
-    $descricao = trim($_POST["descricao"] ?? "");
-    $categoria = $_POST["categoria"] ?? "1";
-    $formato = $_POST["formato"] ?? "presencial";
-    $cidade = trim($_POST["cidade"] ?? "São José dos Campos");
-    $estado = strtoupper(trim($_POST["estado"] ?? "SP"));
-    $tipo = $_POST["tipo"] ?? "1";
-
-    $data_inicio_raw = $_POST["data_inicio"] ?? "";
-    if (!empty($data_inicio_raw)) {
-        $timestamp = strtotime($data_inicio_raw);
-        $data_event = date("Y-m-d", $timestamp);
-        $hora_event = date("H:i:s", $timestamp);
+    if ($nomeEvento === '') {
+        $erro = 'Por favor, informe o nome do evento para continuar.';
     } else {
-        $data_event = date("Y-m-d", strtotime("+7 days"));
-        $hora_event = "14:00:00";
-    }
-
-    if (!in_array($formato, ['presencial', 'online', 'hibrido'])) $formato = 'presencial';
-    if (!in_array($categoria, ['1', '2', '3', '4'])) $categoria = '1';
-    if (!in_array($tipo, ['1', '2'])) $tipo = '1';
-
-    if (!empty($nome_evento) && !empty($descricao)) {
-        try {
-            $sql = "INSERT INTO eventos (nome_event, descricao, cidade, estado, tipo, categoria, formato, id_orga, data_event, hora_event)
-                    VALUES (:nome, :descricao, :cidade, :estado, :tipo, :categoria, :formato, :id_orga, :data_event, :hora_event)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nome', $nome_evento, PDO::PARAM_STR);
-            $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
-            $stmt->bindParam(':cidade', $cidade, PDO::PARAM_STR);
-            $stmt->bindParam(':estado', $estado, PDO::PARAM_STR);
-            $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
-            $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
-            $stmt->bindParam(':formato', $formato, PDO::PARAM_STR);
-            $stmt->bindParam(':id_orga', $id_orga, PDO::PARAM_INT);
-            $stmt->bindParam(':data_event', $data_event, PDO::PARAM_STR);
-            $stmt->bindParam(':hora_event', $hora_event, PDO::PARAM_STR);
-            $stmt->execute();
-
-            header("Location: criar_evento.php?criado=sucesso");
-            exit;
-        } catch (PDOException $e) {
-            error_log("Erro ao salvar evento: " . $e->getMessage());
-            $mensagem_erro = "Erro ao registrar o evento no banco de dados.";
+        if (!eh_organizador()) {
+            login_mock('organizador', $emailOrga !== '' ? $emailOrga : 'marina@eventcop.com.br', 'demo');
         }
-    } else {
-        $mensagem_erro = "Por favor, preencha o nome e a descrição do evento.";
+
+        if (!isset($_SESSION['eventos_criados']) || !is_array($_SESSION['eventos_criados'])) {
+            $_SESSION['eventos_criados'] = [];
+        }
+
+        $_SESSION['eventos_criados'][] = [
+            'id'          => count($_SESSION['eventos_criados']) + 100,
+            'titulo'      => $nomeEvento,
+            'descricao'   => $descricao !== '' ? $descricao : 'Evento corporativo cadastrado na plataforma EventCop.',
+            'cidade'      => $cidade !== '' ? $cidade : 'São José dos Campos',
+            'estado'      => $estado !== '' ? substr($estado, 0, 2) : 'SP',
+            'expectativa' => $expectativa !== '' ? $expectativa : '100 participantes',
+            'tipo'        => $tipo,
+            'categoria'   => $categoria,
+            'formato'     => $formato,
+            'organizador' => $nomeOrga,
+            'recursos'    => is_array($recursos) ? $recursos : ['inscricoes', 'programacao'],
+            'data'        => date('Y-m-d', strtotime('+14 days')),
+            'hora_inicio' => '09:00',
+            'confirmados' => 45,
+            'vagas'       => 150,
+        ];
+
+        flash('ok', 'Evento criado com sucesso!');
+        redirect_to('dashboard');
     }
 }
 
-// Buscar eventos cadastrados no banco
-$eventos_cadastrados = [];
+$categorias  = eventos_categorias();
+$pageTitle   = 'Criar Evento | EventCop';
+$pageCss     = ['pages/organizer.css'];
+$pageJs      = ['pages/organizer.js'];
+$menuAtivo   = 'divulgar';
 
-// 1. Verifica se existe um organizador logado na sessão
-if (estaLogado() && ehOrganizador() && !empty($_SESSION["user_id"])) {
-    $id_orga_logado = $_SESSION["user_id"];
-
-    try {
-        // 2. Consulta filtrando pelo id_orga do usuário logado
-        $sql = "SELECT e.*, o.nome_orga 
-                FROM eventos e 
-                LEFT JOIN organizadores o ON e.id_orga = o.id_orga 
-                WHERE e.id_orga = :id_orga 
-                ORDER BY e.id_event DESC";
-
-        $stmtEventos = $pdo->prepare($sql);
-        $stmtEventos->bindParam(':id_orga', $id_orga_logado, PDO::PARAM_INT);
-        $stmtEventos->execute();
-
-        $eventos_cadastrados = $stmtEventos->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erro ao buscar eventos do organizador: " . $e->getMessage());
-    }
-}
+require ROOT_PATH . '/includes/layout/head.php';
+require ROOT_PATH . '/includes/layout/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar e Gerenciar Eventos - EventCop</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-<body class="body_criar_evento">
-<header class="header">
-    <a href="index.php"> <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header"> </a>
-    <nav class="menu">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="empresas.php">EventCop Empresas</a></li>
-            <li><a href="../Paginas Macedo/login_organizadores.php">Sou adm</a></li>
-            <li><a href="../Paginas Macedo/login_normal.php" class="btn-header">Entrar</a></li>
-        </ul>
-    </nav>
-</header>
-<main class="main_criar_evento">
 
-    <?php if (!estaLogado() || !ehOrganizador()): ?>
-        <div style="background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin: 20px auto; max-width: 900px; border: 1px solid #ffeeba; text-align: center;">
-            <strong>Atenção:</strong> Você precisa estar conectado como <strong>Organizador</strong> para salvar novos eventos. 
-            <a href="login_organizadores.php" style="color: #6a1b29; font-weight: bold; text-decoration: underline; margin-left: 10px;">Fazer Login</a> ou 
-            <a href="cadastro_organizador.php" style="color: #6a1b29; font-weight: bold; text-decoration: underline; margin-left: 5px;">Cadastrar-se</a>.
+<main class="ce-main" id="ceMain">
+    <!-- Coluna esquerda (Vinho) - Passos 1 a 3 -->
+    <aside class="ce-banner" id="ceBanner">
+        <div class="ce-banner-inner">
+            <img src="<?= asset('img/logonv.jpeg') ?>" alt="EventCop Eventos Corporativos" class="ce-banner-logo">
+            <h2 class="ce-banner-title">Você em boas mãos</h2>
+            <blockquote class="ce-banner-quote">
+                “A EventCop tornou a organização do nosso evento muito mais simples. Conseguimos centralizar as inscrições, acompanhar os participantes e disponibilizar todas as informações em um só lugar.”
+            </blockquote>
+            <p class="ce-banner-author">Marina Oliveira - Organizadora do Conecta Inovação 2026</p>
         </div>
-    <?php endif; ?>
+    </aside>
 
-    <?php if (!empty($mensagem_sucesso)): ?>
-        <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin: 20px auto; max-width: 900px; border: 1px solid #c3e6cb; text-align: center; font-weight: bold;">
-            <?= htmlspecialchars($mensagem_sucesso) ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (!empty($mensagem_erro)): ?>
-        <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin: 20px auto; max-width: 900px; border: 1px solid #f5c6cb; text-align: center;">
-            <?= htmlspecialchars($mensagem_erro) ?>
-        </div>
-    <?php endif; ?>
-
-    <form class="form-wizard" action="criar_evento.php" method="POST">
-        <div class="formularios_eventos">
-            <h1>Criar Evento</h1>
-            <p>Siga as etapas para criar e publicar seu evento na plataforma.</p>
-
-            <!-- 1. Informações Básicas -->
-            <section class="cadastro_evento">
-                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
-                    <div class="progress" style="transform: scaleX(0);"></div>
-                    <ol>
-                        <li class="active">1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                    </ol>
-                </div>
-
-                <label for="nome_evento">Nome do Evento:</label>
-                <input type="text" id="nome_evento" name="nome_evento" required placeholder="Ex.: Workshop de Inteligência Artificial 2026">
-                
-                <label for="descricao">Descrição do Evento:</label>
-                <textarea id="descricao" name="descricao" required placeholder="Descreva os objetivos, palestrantes e diferenciais do seu evento..."></textarea>
-                
-                <div class="div_selects">
-                    <div>
-                        <label for="categoria">Categoria do Evento:</label>
-                        <select id="categoria" name="categoria" required>
-                            <option value="1" selected>Workshop</option>
-                            <option value="2">Corporativo</option>
-                            <option value="3">Networking</option>
-                            <option value="4">Educacional</option>
-                        </select>
-                    </div> 
-                    <div>
-                        <label for="tipo">Privacidade:</label>
-                        <select id="tipo" name="tipo" required>
-                            <option value="1" selected>Evento Público</option>
-                            <option value="2">Evento Privado</option>
-                        </select>
-                    </div> 
-                </div>
-
-                <div class="botoes">
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-            
-            <!-- 2. Data, Hora e Local -->
-            <section class="cadastro_evento" hidden>
-                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
-                    <div class="progress" style="transform: scaleX(0.33);"></div>
-                    <ol>
-                        <li class="active">1</li>
-                        <li class="active">2</li>
-                        <li>3</li>
-                        <li>4</li>
-                    </ol>
-                </div>
-                <div class="linha">
-                    <section class="data_hora">
-                        <h3>Data e Hora</h3>
-                        <label for="data_inicio">Data e Hora de Início:</label>
-                        <input type="datetime-local" id="data_inicio" name="data_inicio" required>
-
-                        <label for="data_termino">Data e Hora de Término:</label>
-                        <input type="datetime-local" id="data_termino" name="data_termino" required>
-                    </section>
-                    
-                    <section class="local">
-                        <h3>Local do evento</h3>
-                        <div style="display: flex; gap: 10px;">
-                            <div style="flex: 2;">
-                                <label for="cidade">Cidade:</label>
-                                <input type="text" id="cidade" name="cidade" value="São José dos Campos" required>
-                            </div>
-                            <div style="flex: 1;">
-                                <label for="estado">UF:</label>
-                                <input type="text" id="estado" name="estado" maxlength="2" value="SP" required>
-                            </div>
-                        </div>
-
-                        <label for="nome_local">Nome do Local / Plataforma:</label>
-                        <input type="text" id="nome_local" name="nome_local" required placeholder="Ex.: Centro de Convenções ou Zoom">
-                        
-                        <label for="endereco">Endereço Completo:</label>
-                        <input type="text" id="endereco" name="endereco" required placeholder="Rua, número, bairro">
-                        
-                        <div class="como_sera_select">
-                            <label>
-                                <input type="radio" name="formato" value="presencial" required checked>
-                                <span>Presencial</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="formato" value="online">
-                                <span>Online</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="formato" value="hibrido">
-                                <span>Híbrido</span>
-                            </label>
-                        </div>
-                    </section>
-                </div>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-
-            <!-- 3. Atividades -->
-            <section class="cadastro_evento" hidden>
-                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
-                    <div class="progress" style="transform: scaleX(0.66);"></div>
-                    <ol>
-                        <li class="active">1</li>
-                        <li class="active">2</li>
-                        <li class="active">3</li>
-                        <li>4</li>
-                    </ol>
-                </div>
-                <div class="linha">
-                    <section class="atividades">
-                        <h3>Atividades do Evento</h3>
-                        <div class="como_sera_select">
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="palestra" checked> 
-                                <span>Palestra</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="oficina"> 
-                                <span>Oficina</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="painel"> 
-                                <span>Painel</span>
-                            </label>
-                            <label class="btn-radio">
-                                <input type="radio" name="tipo_atividade" value="networking"> 
-                                <span>Networking</span>
-                            </label>
-                        </div>
-                        <label for="titulo_atividade">Título da Atividade Principal:</label>
-                        <input type="text" id="titulo_atividade" name="titulo_atividade" placeholder="Ex.: Palestra de Abertura">
-                        
-                        <label for="responsavel">Palestrante / Responsável:</label>
-                        <input type="text" id="responsavel" name="responsavel" placeholder="Nome do palestrante ou instrutor">
-                        
-                        <label for="descricao_curta">Breve Resumo da Atividade:</label>
-                        <textarea id="descricao_curta" name="descricao_curta" placeholder="Tópicos que serão abordados..."></textarea>
-                    </section>
-                    <section class="cronograma">
-                        <h3>Resumo da Programação</h3>
-                        <div class="cronograma-topo">
-                            <span class="cronograma-data">Grade do Evento</span>
-                        </div>
-                        <p style="font-size: 14px; color: #666; margin-top: 10px;">
-                            Você poderá adicionar mais palestras, workshops e palestrantes após publicar o evento no painel de controle.
-                        </p>
-                    </section>
-                </div>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="button" class="btn_avancar">Avançar</button>
-                </div>
-            </section>
-
-            <!-- 4. Inscrições e Publicação -->
-            <section class="cadastro_evento" hidden>
-                <div class="progress-container" style="--step-size: 32px; --step-color: #e6d8ca; --main-color: #ee8f66; --progress-width: 100%;">
-                    <div class="progress" style="transform: scaleX(1);"></div>
-                    <ol>
-                        <li class="active">1</li>
-                        <li class="active">2</li>
-                        <li class="active">3</li>
-                        <li class="active">4</li>
-                    </ol>
-                </div>
-                <div class="linha">
-                    <section class="inscricoes">
-                        <div class="tipo-inscricao-container">
-                            <h3>Tipo de inscrição</h3>
-                            <label class="card-opcao">
-                                <input type="radio" name="tipo_inscricao" value="gratuito" checked>
-                                <div class="card-conteudo">
-                                    <div class="radio-circle"></div>
-                                    <div class="texto-opcao">
-                                        <strong>Gratuito</strong>
-                                        <p>Inscrição sem custo para os participantes.</p>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="card-opcao">
-                                <input type="radio" name="tipo_inscricao" value="pago">
-                                <div class="card-conteudo">
-                                    <div class="radio-circle"></div>
-                                    <div class="texto-opcao">
-                                        <strong>Pago</strong>
-                                        <p>Com valor de inscrição e emissão de ingressos.</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </section>
-                    
-                    <section class="limite_publico">
-                        <h3>Limites e Público</h3>
-                        <div class="linha-vagas-espera">
-                            <div class="campo-grupo">
-                                <label for="vagas">Vagas disponíveis:</label>
-                                <input type="number" id="vagas" name="vagas" value="100" min="1">
-                            </div>
-                        </div>
-                        <div class="campo-grupo" style="margin-top: 10px;">
-                            <label for="publico">Público-alvo:</label>
-                            <select id="publico" name="publico">
-                                <option value="geral" selected>Público Geral</option>
-                                <option value="estudantes">Estudantes e Acadêmicos</option>
-                                <option value="profissionais">Profissionais e Empresas</option>
-                            </select>
-                        </div>
-                    </section>
-                </div>
-                <div class="botoes">
-                    <button type="button" class="btn_voltar">Voltar</button>
-                    <button type="submit" class="btn_cadastrar">Publicar Evento Agora</button>
-                </div>
-            </section>
-        </div>
-    </form>
-
-    <!-- DASHBOARD DE EVENTOS -->
-    <section class="dashboard">
-        <div class="painel-eventos">
-            <div class="painel-header">
-                <h2>Eventos Cadastrados no Sistema</h2>
-                <p>Acompanhe os eventos disponíveis e gerencie as inscrições:</p>
+    <!-- Coluna direita (Creme) - Passos 1 a 3 + Passo 4 (Tela cheia de boas-vindas) -->
+    <section class="ce-wizard-col">
+        <?php if ($erro !== ''): ?>
+            <div class="alert alert-erro" role="alert" style="max-width: 620px; width: 100%; margin-bottom: 16px;">
+                <?= e($erro) ?>
             </div>
-            
-            <div class="lista-eventos">
-                <?php if (!empty($eventos_cadastrados)): ?>
-                    <?php foreach ($eventos_cadastrados as $ev): ?>
-                        <div class="card-evento">
-                            <div class="thumb-container">
-                                <img src="../imgs/imagem portal de eventos.png" alt="Evento EventCop">
-                                <span class="tag-status status-andamento">● Ativo</span>
-                            </div>
-                            <div class="info-evento">
-                                <h3><?= htmlspecialchars($ev['nome_event']) ?></h3>
-                                <p class="detalhe-evento">
-                                    <?= date('d/m/Y', strtotime($ev['data_event'])) ?> às <?= substr($ev['hora_event'], 0, 5) ?>
-                                </p>
-                                <p class="detalhe-evento">
-                                    <?= htmlspecialchars($ev['cidade']) ?> - <?= htmlspecialchars($ev['estado']) ?> (<?= ucfirst($ev['formato']) ?>)
-                                </p>
-                                <p style="font-size: 13px; color: #555; margin-top: 6px;">
-                                    <?= htmlspecialchars(mb_strimwidth($ev['descricao'], 0, 100, '...')) ?>
-                                </p>
-                            </div>
-                            <div class="acoes-evento">
-                                <a href="inscricao.php?id_evento=<?= $ev['id_event'] ?>" class="btn-gerenciar" style="text-align: center; text-decoration: none; display: inline-block;">
-                                    Inscrever-se <span>›</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
+        <?php endif; ?>
 
-                <?php endif; ?>
+        <form method="POST" action="<?= route('criar_evento') ?>" id="formCriarEvento" class="ce-form" novalidate>
+
+            <!-- PASSO 1 DE 3: Vamos criar seu evento (criar evento - 1.png) -->
+            <div class="ce-step is-active" data-ce-step="1">
+                <h1 class="ce-step-title">Vamos criar seu evento</h1>
+
+                <div class="ce-progress-wrap">
+                    <span class="ce-progress-label">Passo 1 de 3</span>
+                    <div class="ce-progress-bar"><span style="width: 35%;"></span></div>
+                </div>
+
+                <div class="ce-grid-2">
+                    <div class="ce-field">
+                        <label for="ceCidade">Cidade</label>
+                        <input type="text" id="ceCidade" name="cidade" required placeholder="Ex.: São José dos Campos" value="<?= e($_POST['cidade'] ?? 'São José dos Campos') ?>">
+                    </div>
+                    <div class="ce-field">
+                        <label for="ceEstado">Estado</label>
+                        <input type="text" id="ceEstado" name="estado" maxlength="2" required placeholder="SP" value="<?= e($_POST['estado'] ?? 'SP') ?>">
+                    </div>
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceNomeEvento">Nome do Evento</label>
+                    <input type="text" id="ceNomeEvento" name="nome_evento" required placeholder="Ex.: Simpósio de Inovação Corporativa 2026" value="<?= e($_POST['nome_evento'] ?? '') ?>">
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceDescricao">Descrição do evento</label>
+                    <textarea id="ceDescricao" name="descricao" rows="3" required placeholder="Descreva os objetivos, público-alvo e destaques do seu evento..."><?= e($_POST['descricao'] ?? '') ?></textarea>
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceExpectativa">Expectativa de participantes</label>
+                    <select id="ceExpectativa" name="expectativa" required>
+                        <option value="" disabled>Selecione uma opção</option>
+                        <option value="Até 50 participantes">Até 50 participantes</option>
+                        <option value="50 a 150 participantes" selected>50 a 150 participantes</option>
+                        <option value="150 a 400 participantes">150 a 400 participantes</option>
+                        <option value="Mais de 400 participantes">Mais de 400 participantes</option>
+                    </select>
+                </div>
+
+                <div class="ce-grid-2">
+                    <div class="ce-field">
+                        <label for="ceTipo">Tipo</label>
+                        <select id="ceTipo" name="tipo" required>
+                            <option value="" disabled>Selecione uma opção</option>
+                            <option value="publico" selected>Evento Público</option>
+                            <option value="corporativo">Evento Corporativo</option>
+                            <option value="privado">Evento para Convidados</option>
+                        </select>
+                    </div>
+                    <div class="ce-field">
+                        <label for="ceCategoria">Categoria</label>
+                        <select id="ceCategoria" name="categoria" required>
+                            <option value="" disabled>Selecione uma opção</option>
+                            <?php foreach ($categorias as $slug => $rotulo): ?>
+                                <option value="<?= e($slug) ?>"<?= $slug === 'tecnologia' ? ' selected' : '' ?>><?= e($rotulo) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ce-field">
+                    <span class="ce-radio-group-label">Seu evento é:</span>
+                    <div class="ce-radios">
+                        <label class="ce-radio-option">
+                            <input type="radio" name="formato" value="presencial" checked>
+                            <span class="ce-radio-dot"></span>
+                            <span>Presencial</span>
+                        </label>
+                        <label class="ce-radio-option">
+                            <input type="radio" name="formato" value="online">
+                            <span class="ce-radio-dot"></span>
+                            <span>Online</span>
+                        </label>
+                        <label class="ce-radio-option">
+                            <input type="radio" name="formato" value="hibrido">
+                            <span class="ce-radio-dot"></span>
+                            <span>Híbrido</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="ce-actions">
+                    <button type="button" class="ce-btn-submit" data-ce-next>Continuar</button>
+                </div>
             </div>
-        </div>
+
+            <!-- PASSO 2 DE 3: Perfeito, conte-nos sobre você (criar evento - 2.png) -->
+            <div class="ce-step" data-ce-step="2" hidden>
+                <h1 class="ce-step-title">Perfeito, conte-nos sobre você</h1>
+
+                <div class="ce-progress-wrap">
+                    <span class="ce-progress-label">Passo 2 de 3</span>
+                    <div class="ce-progress-bar"><span style="width: 68%;"></span></div>
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceNomeOrga">Seu nome</label>
+                    <input type="text" id="ceNomeOrga" name="nome_organizador" required placeholder="Marina Oliveira" value="<?= e($usuario['nome'] ?? 'Marina Oliveira') ?>">
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceEmailOrga">Seu e-mail</label>
+                    <input type="email" id="ceEmailOrga" name="email_organizador" required placeholder="marina@eventcop.com.br" value="<?= e($usuario['email'] ?? 'marina@eventcop.com.br') ?>">
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceTelefoneOrga">Telefone</label>
+                    <div class="ce-phone-box">
+                        <span class="ce-phone-prefix" aria-hidden="true">
+                            <span class="ce-flag-br"></span>
+                            +55
+                        </span>
+                        <input type="tel" id="ceTelefoneOrga" name="telefone_organizador" placeholder="(12) 99123-4567" value="(12) 99123-4567">
+                    </div>
+                </div>
+
+                <div class="ce-field">
+                    <label for="ceSenhaOrga">Crie uma senha de acesso</label>
+                    <input type="password" id="ceSenhaOrga" name="senha_organizador" placeholder="••••••••" value="eventcop2026">
+                </div>
+
+                <label class="ce-terms-check">
+                    <input type="checkbox" id="ceTermos" name="aceite_termos" checked required>
+                    <span class="ce-terms-box"></span>
+                    <span>
+                        Estou ciente dos <a href="<?= route('termos') ?>" target="_blank" rel="noopener">Termos de uso</a>
+                        e <a href="<?= route('politicas') ?>" target="_blank" rel="noopener">Políticas</a> da EventCop
+                    </span>
+                </label>
+
+                <div class="ce-actions">
+                    <button type="button" class="ce-btn-back" data-ce-prev>Voltar</button>
+                    <button type="button" class="ce-btn-submit" data-ce-next>Continuar</button>
+                </div>
+            </div>
+
+            <!-- PASSO 3 DE 3: Do que seu evento precisa? (criar evento - 3.png) -->
+            <div class="ce-step" data-ce-step="3" hidden>
+                <h1 class="ce-step-title">Do que seu evento precisa?</h1>
+
+                <div class="ce-progress-wrap">
+                    <span class="ce-progress-label">Passo 3 de 3</span>
+                    <div class="ce-progress-bar"><span style="width: 100%;"></span></div>
+                    <small class="ce-progress-hint">Você poderá alterar posteriormente!</small>
+                </div>
+
+                <div class="ce-needs-list">
+                    <label class="ce-need-card">
+                        <input type="checkbox" name="recursos[]" value="inscricoes" checked>
+                        <div class="ce-need-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="8" y="20" width="40" height="26" rx="4" transform="rotate(-12 28 33)" fill="#ee8f66"/>
+                                <rect x="12" y="22" width="40" height="26" rx="4" transform="rotate(-5 32 35)" fill="#fff8f2" stroke="#5a0505" stroke-width="2"/>
+                                <circle cx="30" cy="35" r="7" fill="#7d1a1a"/>
+                                <text x="30" y="39" text-anchor="middle" fill="#fff8f2" font-size="11" font-weight="800">e</text>
+                            </svg>
+                        </div>
+                        <div class="ce-need-body">
+                            <strong>Inscrições</strong>
+                            <p>Crie formulários de inscrição personalizados e permita que participantes se inscrevam de forma rápida e segura.</p>
+                        </div>
+                        <span class="ce-need-check" aria-hidden="true">✓</span>
+                    </label>
+
+                    <label class="ce-need-card">
+                        <input type="checkbox" name="recursos[]" value="programacao" checked>
+                        <div class="ce-need-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="10" y="12" width="36" height="38" rx="5" fill="#fff8f2" stroke="#5a0505" stroke-width="2"/>
+                                <rect x="10" y="12" width="36" height="10" rx="4" fill="#7d1a1a"/>
+                                <line x1="16" y1="30" x2="36" y2="30" stroke="#7d1a1a" stroke-width="2.5" stroke-linecap="round"/>
+                                <line x1="16" y1="37" x2="32" y2="37" stroke="#7d1a1a" stroke-width="2.5" stroke-linecap="round"/>
+                                <circle cx="44" cy="42" r="11" fill="#ee8f66" stroke="#5a0505" stroke-width="2"/>
+                                <path d="M44 36v6l4 3" fill="none" stroke="#fff8f2" stroke-width="2.2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="ce-need-body">
+                            <strong>Programação</strong>
+                            <p>Organize horários, palestras, workshops e atividades do seu evento em um só lugar.</p>
+                        </div>
+                        <span class="ce-need-check" aria-hidden="true">✓</span>
+                    </label>
+                </div>
+
+                <div class="ce-actions">
+                    <button type="button" class="ce-btn-back" data-ce-prev>Voltar</button>
+                    <button type="button" class="ce-btn-submit" data-ce-next>Continuar</button>
+                </div>
+            </div>
+
+            <!-- PASSO 4: Bem vindo a EventCop (criar evento - 4.png) -->
+            <div class="ce-step ce-step-welcome" data-ce-step="4" hidden>
+                <div class="ce-welcome-box">
+                    <div class="ce-welcome-art">
+                        <img src="<?= asset('img/imagem conectando pessoas e conhecimento.png') ?>" alt="Equipe de organizadores EventCop">
+                    </div>
+                    <h2 class="ce-welcome-title">Bem vindo a EventCop</h2>
+                    <p class="ce-welcome-text">
+                        O seu próximo passo é explorar os eventos disponíveis na nossa plataforma e gerenciar seu evento recém-criado no painel do organizador.
+                    </p>
+                    <div class="ce-welcome-actions">
+                        <button type="submit" class="ce-btn-welcome">Acessar agenda</button>
+                        <button type="button" class="ce-btn-welcome-back" data-ce-prev>← Revisar dados do evento</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
     </section>
-     
 </main>
 
-<footer class="footer">
-    <div class="footer-coluna footer-empresa">
-        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-footer">
-        <p class="descricao-footer">
-            A plataforma completa para planejar,
-            organizar e executar eventos
-            corporativos com eficiência.
-        </p>
-        <div class="traco"></div>
-        <div class="footer-info">
-            <img src="../imgs/imagem localizacao footer.png" alt="Localização">
-            <p>
-                Avenida das Nações, nº 850<br>
-                São José dos Campos - SP<br>
-                CEP: 12227-000
-            </p>
-        </div>
-        <div class="footer-info">
-            <img src="../imgs/imagem CNPJ footer.png" alt="Documento">
-            <p>CNPJ: 48.729.315/0001-62</p>
-        </div>
-        <div class="footer-info">
-            <img src="../imgs/imagem e-mail footer.png" alt="E-mail">
-            <p> contato@eventcop.com.br </p>
-        </div>
-        <div class="footer-info">
-            <img src="../imgs/imagem telefone footer.png" alt="Telefone">
-            <p> (12) 3456-7890</p>
-        </div>
-    </div>
-    <div class="footer-coluna">
-        <div class="footer-titulo">
-            <img src="../imgs/imagem calendario footer.png" alt="Calendário">
-            <div>
-                <h3>Tipos de Eventos</h3>
-                <div class="traco"></div>
-            </div>
-        </div>
-        <a href="../Paginas Leticia/cases.php">› Corporativos</a>
-        <a href="../Paginas Leticia/cases.php">› Workshops e Palestras</a>
-        <a href="../Paginas Leticia/cases.php">› Treinamentos</a>
-        <a href="../Paginas Leticia/cases.php">› Feiras e Exposições</a>
-    </div>
-    <div class="footer-coluna">
-        <div class="footer-titulo">
-            <img src="../imgs/imagem recursos plataforma footer.png" alt="Recursos">
-            <div>
-                <h3>Recursos da Plataforma</h3>
-                <div class="traco"></div>
-            </div>
-        </div>
-        <a href="criar_evento.php">› Gestão de Eventos</a>
-        <a href="inscricao.php">› Inscrições e Convites</a>
-        <a href="../Paginas Leticia/empresas.php">› Relatórios e Métricas</a>
-        <a href="../Paginas Leticia/agenda_consultores.php">› Agendamento com Consultores</a>
-    </div>
-    <div class="footer-coluna">
-        <div class="footer-titulo">
-            <img src="../imgs/imagem comece na plataforma footer.png" alt="Comece na plataforma">
-            <div>
-                <h3>Comece na Plataforma</h3>
-                <div class="traco"></div>
-            </div>
-        </div>
-        <a href="cadastro_normal.php">› Criar minha conta</a>
-        <a href="cadastro_organizador.php">› Quero organizar um evento</a>
-        <div class="ajuda">
-            <img src="../imgs/imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
-            <div>
-                <h3>Precisa de ajuda?</h3>
-                <p>Nossa equipe está pronta<br>para te atender!</p>
-                <a href="../Paginas Leticia/agenda_consultores.php" class="btn-fale"> Fale conosco <span>→</span> </a>
-            </div>
-        </div>
-    </div>
-    <div class="footer-baixo">
-        <div class="redes">
-            <strong>Siga-nos</strong>
-            <img src="../imgs/imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
-        </div>
-        <p> © 2026 EventCop. Todos os direitos reservados.</p>
-        <div class="footer-politicas">
-            <a href=""> Política de Privacidade</a>
-            <span>|</span>
-            <a href="">Termos de Uso</a>
-        </div>
-    </div>
-</footer>
-
-</body>
-</html>
+<?php require ROOT_PATH . '/includes/layout/footer.php'; ?>

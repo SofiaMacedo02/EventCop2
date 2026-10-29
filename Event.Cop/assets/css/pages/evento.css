@@ -1,0 +1,625 @@
+/* ==========================================================================
+   DETALHE DO EVENTO (evento.php) & TELA EVENTO CONFIRMADO (confirmacao.php)
+   Fiel aos wireframes "evento escolhido da galeria.png" e "envento confirmado.png"
+   ========================================================================== */
+
+.evw-page {
+    background: var(--color-primary);
+    padding: 34px 20px 64px;
+}
+
+.evw-sheet {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: #faf5ee;
+    border-radius: 22px;
+    padding: 28px 34px 38px;
+    box-shadow: 0 20px 55px rgba(35, 2, 2, 0.35);
+    color: var(--text-main);
+}
+
+/* ---------- Topbar / Breadcrumb ---------- */
+.evw-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+.evw-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+.evw-breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+.evw-breadcrumb a:hover { text-decoration: underline; }
+.evw-current { color: var(--text-main); font-weight: 600; }
+.evw-top-metricas {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+}
+.evw-top-metricas:hover { color: var(--color-primary); text-decoration: underline; }
+
+/* ---------- Hero ---------- */
+.evw-hero {
+    display: grid;
+    grid-template-columns: 1.32fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+    margin-bottom: 24px;
+}
+.evw-hero-media {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 360px;
+    background: #1a0909;
+    box-shadow: var(--shadow-card);
+}
+.evw-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.evw-hero-status {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+.evw-hero-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+.evw-cat-tag {
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #e6dcf8;
+    color: #5b34b0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+.evw-title {
+    font-size: clamp(1.75rem, 2.6vw, 2.35rem);
+    line-height: 1.15;
+    color: #1c1414;
+    font-weight: 800;
+}
+.evw-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-muted);
+}
+
+.evw-meta-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin: 4px 0 8px;
+}
+.evw-meta-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #3a2e2e;
+    font-weight: 600;
+}
+.evw-meta-list svg {
+    width: 17px;
+    height: 17px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.evw-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+.evw-btn-participar {
+    padding: 12px 26px;
+    background: var(--color-primary-dark);
+}
+.evw-btn-share {
+    padding: 12px 22px;
+}
+
+/* ---------- Tabs ---------- */
+.evw-tabs {
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+/* ---------- Cards base internos ---------- */
+.evw-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 26px;
+    border: 1px solid #efe6dc;
+    box-shadow: var(--shadow-soft);
+}
+.evw-block { margin-bottom: 26px; }
+
+.evw-subtitle {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 14px;
+}
+
+/* ---------- Seção Sobre + Informações ---------- */
+.evw-about-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 22px;
+    margin-bottom: 26px;
+}
+.evw-about-lead {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #4d4343;
+    margin-bottom: 20px;
+}
+.evw-learn-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.evw-learn-list li {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #2f2626;
+}
+.evw-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    display: inline-grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.evw-side-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.evw-info-dl {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+.evw-info-dl > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #f3ece3;
+}
+.evw-info-dl > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.evw-info-dl dt { color: var(--text-muted); font-weight: 600; }
+.evw-info-dl dd { color: #2b2222; font-weight: 700; text-align: right; }
+
+.evw-org-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.evw-org-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-primary-dark);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+.evw-org-avatar svg { width: 22px; height: 22px; }
+.evw-org-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    margin-right: auto;
+}
+.evw-org-text strong { font-size: 14px; color: #231919; }
+.evw-org-text span { color: var(--text-muted); }
+.evw-btn-perfil {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid #d9cbbd;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: background var(--transition-fast);
+}
+.evw-btn-perfil:hover { background: var(--bg-cream); }
+
+/* ---------- Cabeçalho de seção ---------- */
+.evw-section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.evw-section-head h2 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+}
+.evw-section-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #f6ebe0;
+    display: inline-grid;
+    place-items: center;
+    font-size: 15px;
+}
+
+/* ---------- Timeline da programação ---------- */
+.evw-timeline {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.evw-tl-row {
+    display: grid;
+    grid-template-columns: 148px 28px 1fr;
+    align-items: start;
+    gap: 12px;
+    padding: 11px 0;
+    position: relative;
+}
+.evw-tl-row:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 161px;
+    top: 26px;
+    bottom: -11px;
+    width: 2px;
+    background: #eadfd3;
+}
+.evw-tl-time {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: var(--color-primary);
+}
+.evw-tl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d7c5b4;
+    border: 2px solid #fff;
+    margin-top: 5px;
+    justify-self: center;
+    z-index: 1;
+}
+.evw-tl-row:first-child .evw-tl-dot,
+.evw-tl-row:hover .evw-tl-dot {
+    background: var(--color-primary);
+}
+.evw-tl-content strong {
+    display: block;
+    font-size: 13.5px;
+    color: #231919;
+}
+.evw-tl-content p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* ---------- Palestrantes ---------- */
+.evw-speakers-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+.evw-speakers-header .evw-section-head { margin-bottom: 0; }
+.evw-speakers-nav { display: flex; gap: 8px; }
+.evw-circle-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #decFC1;
+    background: #fff;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-weight: 700;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.evw-circle-btn:hover { background: var(--color-primary); color: #fff; transform: translateY(-1px); }
+
+.evw-speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(175px, 1fr));
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+.evw-speaker-card {
+    background: #fff;
+    border: 1px solid #efe6dc;
+    border-radius: 16px;
+    padding: 20px 14px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.evw-speaker-photo {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 4px;
+    border: 3px solid #f5ebe0;
+}
+.evw-speaker-card h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+}
+.evw-speaker-card p {
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--text-muted);
+    min-height: 32px;
+}
+.evw-linkedin-btn {
+    margin-top: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0;
+    background: #f4ebe1;
+    color: var(--color-primary);
+    font-weight: 800;
+    font-size: 12px;
+    cursor: pointer;
+}
+.evw-linkedin-btn:hover { background: var(--color-primary); color: #fff; }
+
+/* ---------- Local + FAQ ---------- */
+.evw-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 22px;
+    margin-bottom: 26px;
+}
+.evw-address strong {
+    display: block;
+    font-size: 13.5px;
+    color: #231919;
+    margin-bottom: 4px;
+}
+.evw-address p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+.evw-map-box {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e6dacb;
+    margin-bottom: 12px;
+}
+.evw-map-svg { width: 100%; height: 140px; display: block; }
+.evw-map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #e2d5c6;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    background: #fdfaf6;
+}
+.evw-map-btn:hover { background: #f3e8dc; }
+
+/* ---------- Banner CTA inferior ---------- */
+.evw-cta-banner {
+    background: var(--color-primary-dark);
+    color: var(--color-light);
+    border-radius: 16px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+.evw-cta-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.evw-cta-mail-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 248, 242, 0.12);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+.evw-cta-mail-icon svg { width: 26px; height: 26px; }
+.evw-cta-left h2 { font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+.evw-cta-left p { font-size: 13px; opacity: 0.85; }
+
+.evw-cta-form {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 4px;
+    min-width: min(410px, 100%);
+}
+.evw-cta-form input {
+    flex: 1;
+    border: 0;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    outline: none;
+    background: transparent;
+    color: var(--text-main);
+}
+.evw-cta-form button {
+    background: var(--color-primary);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.evw-cta-form button:hover { background: var(--color-primary-dark); }
+
+/* ==========================================================================
+   TELA CHEIA: EVENTO CONFIRMADO (confirmacao.php)
+   ========================================================================== */
+.evc-fullscreen {
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 28%, #6d0d0d 0%, #4b0404 72%);
+    color: var(--color-light);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 42px 48px;
+}
+.evc-top {
+    display: flex;
+    align-items: center;
+}
+.evc-logo {
+    height: 58px;
+    width: auto;
+    display: block;
+}
+.evc-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    gap: 16px;
+}
+.evc-art-wrap {
+    width: min(460px, 88vw);
+    margin-bottom: 6px;
+}
+.evc-art {
+    width: 100%;
+    height: auto;
+    max-height: 310px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.35));
+}
+.evc-title {
+    font-size: clamp(2.1rem, 4vw, 3.1rem);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+.evc-subtitle {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.45;
+    color: rgba(255, 248, 242, 0.92);
+    max-width: 600px;
+}
+.evc-meta-pill {
+    margin-top: 4px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(255, 248, 242, 0.12);
+    border: 1px solid rgba(255, 248, 242, 0.25);
+    font-size: 13.5px;
+}
+.evc-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+.evc-btn-primary {
+    display: inline-grid;
+    place-items: center;
+    min-width: 310px;
+    padding: 16px 38px;
+    border-radius: 999px;
+    background: #efe6dc;
+    color: var(--color-primary-dark);
+    font-size: 1.45rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+    transition: transform var(--transition-base), background var(--transition-base);
+}
+.evc-btn-primary:hover {
+    background: #ffffff;
+    transform: translateY(-3px);
+}
+.evc-btn-link {
+    color: #ffffff;
+    font-size: 1.15rem;
+    text-decoration: none;
+    opacity: 0.9;
+}
+.evc-btn-link:hover { opacity: 1; text-decoration: underline; }
+
+@media (max-width: 960px) {
+    .evw-sheet { padding: 20px 18px 28px; }
+    .evw-hero, .evw-about-grid, .evw-bottom-grid { grid-template-columns: 1fr; }
+    .evw-speakers-grid { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+    .evw-tl-row { grid-template-columns: 1fr; gap: 4px; }
+    .evw-tl-row::after, .evw-tl-dot { display: none; }
+}

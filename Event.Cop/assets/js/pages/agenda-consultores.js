@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmarHorario = document.getElementById("confirmarHorario");
     const mesAtualEl = document.getElementById("mesAtual");
 
-    if (!calendario) return; // Sai pacificamente se a página não for de agenda
+    if (!calendario) return;
 
     let consultorSelecionado = "juliana";
     let diaSelecionado = null;
@@ -137,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         horariosParaMostrar.forEach(horario => {
-            // CORRIGIDO: document.createElement em vez de ndocument
             const botao = document.createElement("button");
             botao.type = "button";
             botao.textContent = horario;
@@ -159,18 +158,21 @@ document.addEventListener("DOMContentLoaded", function () {
     if (confirmarHorario) {
         confirmarHorario.addEventListener("click", function () {
             if (diaSelecionado === null || horarioSelecionado === null) {
-                alert("Por favor, selecione uma data e um horário para continuar.");
+                if (window.EventCop && window.EventCop.toast) {
+                    window.EventCop.toast("Selecione uma data e um horário para continuar.");
+                }
                 return;
             }
 
             const dadosConsultor = consultores[consultorSelecionado] || consultores.juliana;
-            
-            // Salvar agendamento
+
             localStorage.setItem("consultor_agendado", dadosConsultor.nome);
             localStorage.setItem("dia_agendado", diaSelecionado);
             localStorage.setItem("horario_agendado", horarioSelecionado);
 
-            // Modal/Mensagem de confirmação elegante
+            if (window.EventCop && window.EventCop.toast) {
+                window.EventCop.toast(`Reunião com ${dadosConsultor.nome} agendada!`, "ok");
+            }
             mostrarModalConfirmacao(dadosConsultor.nome, diaSelecionado, horarioSelecionado);
         });
     }
@@ -194,16 +196,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         modal.innerHTML = `
-            <div style="background: #fff; padding: 30px; border-radius: 12px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <div style="background: #FFF8F2; padding: 32px; border-radius: 16px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 12px 32px rgba(90, 5, 5, 0.35); border: 2px solid #7D1A1A;">
                 <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
-                <h2 style="color: #6a1b29; margin-bottom: 10px;">Reunião Agendada com Sucesso!</h2>
-                <p style="color: #444; font-size: 15px; margin-bottom: 20px;">
+                <h2 style="color: #5A0505; margin-bottom: 10px;">Reunião Agendada com Sucesso!</h2>
+                <p style="color: #5A0505; font-size: 15px; margin-bottom: 20px; line-height: 1.5;">
                     Sua conversa com <strong>${consultor}</strong> foi agendada para o <strong>dia ${dia} de Outubro de 2026</strong> às <strong>${horario}</strong>.
                 </p>
-                <div style="background: #fdf6ec; border: 1px solid #faecd8; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; color: #e6a23c;">
+                <div style="background: #FFE9DD; border: 1px solid #F4B99B; padding: 12px; border-radius: 8px; margin-bottom: 22px; font-size: 13px; color: #7D1A1A;">
                     Enviamos o link da sala virtual e as orientações para o seu WhatsApp e e-mail.
                 </div>
-                <button id="btnFecharModalAgenda" style="background: #6a1b29; color: #fff; border: none; padding: 12px 28px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px;">
+                <button id="btnFecharModalAgenda" style="background: #7D1A1A; color: #FFF8F2; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 15px;">
                     Concluir e Voltar
                 </button>
             </div>
@@ -215,6 +217,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Inicialização segura
     criarCalendario();
 });
