@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - EventCop</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="../index.php">
+            <img src="logo bege.jpeg" alt="EventCop" class="logo-header">
+        </a>
+
+        <nav class="menu">
+            
+            <a href="">EventCop Empresas</a>
+            <a href="">Cases</a>
+            <a href="">Planos e Preços</a>
+            <a href="">Sou um organizador</a>
+            <a href="" class="btn-header">Criar Evento</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero-eventos">
+            <div class="hero-eventos-texto">
+                <h1>Encontre o próximo evento para você</h1>
+                <p>Explore Workshops, palestras e experiências corporativas em diferentes áreas</p>
+
+                <div class="caixa-busca">
+                    <span class="icone-busca"><img src="lupa.png"></span>
+                    <input type="text" placeholder="Buscar evento">
+                </div>
+            </div>
+
+            <div class="hero-eventos-imagem">
+                <img src="imagem banner.png" alt="Caderno EventCop e crachá">
+            </div>
+        </section>
+
+        <!-- CONTAINER DE EVENTOS -->
+        <div class="container-eventos">
+
+            <!-- FILTROS -->
+            <div class="filtros-categoria">
+                <button class="btn-filtro ativo">⠿ Todos</button>
+                <button class="btn-filtro">⚙ Tecnologia</button>
+                <button class="btn-filtro"><img src="grafico-de-negocios (1).png"> Negócios</button>
+                <button class="btn-filtro"><img src="megafone.png"> Marketing</button>
+                <button class="btn-filtro"><img src="grupo-de-usuarios.png"> Liderança</button>
+                <button class="btn-filtro"><img src="localizacao.png"> Inovação</button>
+
+                <select class="btn-filtro-select">
+                    <option><img src="calendario.png"> Data ⌄</option>
+                </select>
+
+                <select class="btn-filtro-select">
+                    <option><img src="localizacao.png"> Localização ⌄</option>
+                </select>
+            </div>
+
+            <!-- EVENTOS EM DESTAQUE -->
+            <div class="carrossel-destaques-container">
+                <div class="cabecalho-secao">
+                    <div class="titulo-secao-icone">
+                        <span><img src="fogueira.png" width="40px"></span>
+                        <h2>Eventos em destaque</h2>
+                    </div>
+                    <a href="" class="link-ver-todos">Ver todos →</a>
+                </div>
+
+                <button class="seta-carrossel esquerda">‹</button>
+                <button class="seta-carrossel direita">›</button>
+
+                <div class="grid-eventos-destaque">
+
+                    <!-- CARD 1 -->
+                    <div class="card-evento">
+                        <div class="capa-card">
+                            <img src="imagem evento 1.jpeg" alt="Workshop de Tecnologia 2026">
+                            <span class="badge-status badge-andamento">+Em andamento</span>
+                        </div>
+                        <div class="conteudo-card">
+                            <span class="categoria-tag">TECNOLOGIA</span>
+                            <h3>Workshop de Tecnologia 2026</h3>
+                            <div class="info-item"><img src="calendario.png"> 15 de setembro de 2026</div>
+                            <div class="info-item"><img src="localizacao.png"> São José dos Campos - SP</div>
+                            <div class="rodape-card">
+                                <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                                <a href="" class="btn-ver-evento">Ver evento →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2 -->
+                    <div class="card-evento">
+                        <div class="capa-card">
+                            <img src="imagem evento 2.jpeg" alt="Congresso de Inovação 2026">
+                            <span class="badge-status badge-breve">Em breve</span>
+                        </div>
+                        <div class="conteudo-card">
+                            <span class="categoria-tag">INOVAÇÃO</span>
+                            <h3>Congresso de Inovação 2026</h3>
+                            <div class="info-item"><img src="calendario.png"> 22 de setembro de 2026</div>
+                            <div class="info-item"><img src="localizacao.png"> São Paulo - SP</div>
+                            <div class="rodape-card">
+                                <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                                <a href="" class="btn-ver-evento">Ver evento →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3 -->
+                    <div class="card-evento">
+                        <div class="capa-card">
+                            <img src="imagem evento 3.jpeg" alt="Palestra de Marketing">
+                            <span class="badge-status badge-limitadas">Vagas limitadas</span>
+                        </div>
+                        <div class="conteudo-card">
+                            <span class="categoria-tag">MARKETING</span>
+                            <h3>Palestra de Marketing</h3>
+                            <div class="info-item"><img src="calendario.png"> 28 de setembro de 2026</div>
+                            <div class="info-item"><img src="localizacao.png"> Campinas - SP</div>
+                            <div class="rodape-card">
+                                <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                                <a href="" class="btn-ver-evento">Ver evento →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TODOS OS EVENTOS -->
+            <div class="cabecalho-secao">
+                <h2>Todos os eventos</h2>
+                <div class="acoes-todos-eventos">
+                    <select class="btn-filtro-select">
+                        <option>Mais recentes ⌄</option>
+                    </select>
+                    <div class="botoes-visualizacao">
+                        <button class="btn-vis ativo">田</button>
+                        <button class="btn-vis">☰</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-todos-eventos">
+
+                <!-- CARD 4 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 4.jpeg" alt="Encontro de Lideranças 2026">
+                        <span class="badge-status badge-finalizado">Finalizado</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">LIDERANÇA</span>
+                        <h3>Encontro de Lideranças 2026</h3>
+                        <div class="info-item"><img src="calendario.png"> 10 de agosto de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> São José dos Campos - SP</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 5 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 5.jpeg" alt="Fórum de Negócios e Estratégias">
+                        <span class="badge-status badge-breve">Em breve</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">NEGÓCIOS</span>
+                        <h3>Fórum de Negócios e Estratégias</h3>
+                        <div class="info-item"><img src="calendario.png"> 05 de outubro de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> São Paulo - SP</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 6 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 6.jpeg" alt="Imersão em Dados & IA">
+                        <span class="badge-status badge-limitadas">Vagas limitadas</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">TECNOLOGIA</span>
+                        <h3>Imersão em Dados & IA</h3>
+                        <div class="info-item"><img src="calendario.png"> 18 de outubro de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> Online</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-online"><img src="do-utilizador.png" width="20px"> Online</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 7 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 7.jpeg" alt="Liderança que Inspira">
+                        <span class="badge-status badge-breve">Em breve</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">LIDERANÇA</span>
+                        <h3>Liderança que Inspira</h3>
+                        <div class="info-item"><img src="calendario.png"> 25 de outubro de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> Belo Horizonte - MG</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 8 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 8.jpeg" alt="Comunicação que Conecta">
+                        <span class="badge-status badge-breve">Em breve</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">DESENVOLVIMENTO</span>
+                        <h3>Comunicação que Conecta</h3>
+                        <div class="info-item"><img src="calendario.png"> 02 de novembro de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> Rio de Janeiro - RJ</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 9 -->
+                <div class="card-evento">
+                    <div class="capa-card">
+                        <img src="imagem evento 9.jpeg" alt="Inovação Aberta 2026">
+                        <span class="badge-status badge-breve">Em breve</span>
+                    </div>
+                    <div class="conteudo-card">
+                        <span class="categoria-tag">INOVAÇÃO</span>
+                        <h3>Inovação Aberta 2026</h3>
+                        <div class="info-item"><img src="calendario.png"> 09 de novembro de 2026</div>
+                        <div class="info-item"><img src="localizacao.png"> Curitiba - PR</div>
+                        <div class="rodape-card">
+                            <span class="pill-modalidade modalidade-presencial"><img src="do-utilizador.png" width="20px"> Presencial</span>
+                            <a href="" class="btn-ver-evento">Ver evento →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        
+
+            <!-- NEWSLETTER -->
+            <div class="caixa-newsletter">
+                <div class="newsletter-info">
+                    <div class="icone-envelope"><img src="enviar.png"></div>
+                    <div class="newsletter-texto">
+                        <h3>Receba novidades sobre eventos</h3>
+                        <p>Cadastre-se e seja o primeiro a saber sobre lançamentos e oportunidades para impulsionar sua carreira e seu negócio.</p>
+                    </div>
+                </div>
+                <form class="form-newsletter" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Seu melhor e-mail" required>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+     <footer class="footer">
+        <div class="footer-coluna footer-empresa">
+            <img src="logo footer.jpg.jpeg" alt="EventCop" class="logo-footer">
+            <p class="descricao-footer">
+                A plataforma completa para planejar, organizar e executar eventos corporativos com eficiência.
+            </p>
+            <div class="traco"></div>
+
+            <div class="footer-info">
+                <img src="imagem localizacao footer.png" alt="Localização">
+                <p>
+                    Avenida das Nações, nº 850<br>
+                    São José dos Campos - SP<br>
+                    CEP: 12227-000
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imagem CNPJ footer.png" alt="Documento">
+                <p>CNPJ: 48.729.315/0001-62</p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imagem e-mail footer.png" alt="E-mail">
+                <p>contato@eventcop.com.br</p>
+            </div>
+
+            <div class="footer-info">
+                <img src="imagem telefone footer.png" alt="Telefone">
+                <p>(12) 3456-7890</p>
+            </div>
+        </div>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imagem calendario footer.png" alt="Calendário">
+                <div>
+                    <h3>Tipos de Eventos</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Corporativos</a>
+            <a href="">› Workshops e Palestras</a>
+            <a href="">› Treinamentos</a>
+            <a href="">› Feiras e Exposições</a>
+        </div>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imagem recursos plataforma footer.png" alt="Recursos">
+                <div>
+                    <h3>Recursos da<br>Plataforma</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Gestão de Eventos</a>
+            <a href="">› Inscrições e Convites</a>
+            <a href="">› Relatórios e Métricas</a>
+            <a href="">› Agendamento com Consultores</a>
+        </div>
+
+        <div class="footer-coluna">
+            <div class="footer-titulo">
+                <img src="imagem comece na plataforma footer.png" alt="Comece na plataforma">
+                <div>
+                    <h3>Comece na<br>Plataforma</h3>
+                    <div class="traco"></div>
+                </div>
+            </div>
+            <a href="">› Criar minha conta</a>
+            <a href="">› Quero organizar um evento</a>
+
+            <div class="ajuda">
+                <img src="imagem precisa de ajuda footer.png" alt="Atendimento" class="fone-ajuda">
+                <div>
+                    <h3>Precisa de ajuda?</h3>
+                    <p>Nossa equipe está pronta<br>para te atender!</p>
+                    <a href="" class="btn-fale">
+                        Fale conosco
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-baixo">
+            <div class="redes">
+                <strong>Siga-nos</strong>
+                <img src="imagem redes sociais footer.png" alt="Instagram, LinkedIn e YouTube">
+            </div>
+            <p>©️ 2026 EventCop. Todos os direitos reservados.</p>
+            <div class="footer-politicas">
+                <a href="">Política de Privacidade</a>
+                <span>|</span>
+                <a href="">Termos de Uso</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

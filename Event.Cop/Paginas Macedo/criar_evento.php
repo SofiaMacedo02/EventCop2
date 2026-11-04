@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $id_orga = $_SESSION["user_id"];
+    
     $nome_evento = trim($_POST["nome_evento"] ?? "");
     $descricao = trim($_POST["descricao"] ?? "");
     $categoria = $_POST["categoria"] ?? "1";

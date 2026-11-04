@@ -53,15 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
 <header class="header">
-    <a href="../Paginas Leticia/index.php">
-        <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header">
-    </a>
+    <a href="index.php"> <img src="../imgs/logonv.jpeg" alt="EventCop" class="logo-header"> </a>
     <nav class="menu">
         <ul>
-            <li><a href="../Paginas Leticia/index.php">Home</a></li>
-            <li><a href="../Paginas Leticia/empresas.php">EventCop Empresas</a></li>
-            <li><a href="login_organizadores.php">Sou adm</a></li>
-            <li><a href="criar_evento.php" class="btn-header">Divulgar o seu evento</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="empresas.php">EventCop Empresas</a></li>
+            <li><a href="../Paginas Macedo/login_organizadores.php">Sou adm</a></li>
+            <li><a href="../Paginas Macedo/login_normal.php" class="btn-header">Entrar</a></li>
         </ul>
     </nav>
 </header>
